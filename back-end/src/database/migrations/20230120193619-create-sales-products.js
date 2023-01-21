@@ -15,7 +15,7 @@ module.exports = {
           key: 'id',
         },
       },
-      categoryId: {
+      productId: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.DataTypes.INTEGER,
