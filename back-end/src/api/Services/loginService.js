@@ -1,5 +1,7 @@
 const { generateToken } = require('../Utils/jwt');
 const { User } = require('../../database/models');
+const emailValidate = require('../Utils/email.validate');
+const passwordValidate = require('../Utils/password.validate');
 
 const userValidate = async (email, password) => {
     const user = await User.findOne({
@@ -20,15 +22,15 @@ const userValidate = async (email, password) => {
 };
     
 const loginValidate = async ({ email, password }) => {
-    console.log('chegou no servise');
-    if (!email || !password || email.length <= 0 || password.length <= 0) {
-        const status = 400;
-        const message = 'Invalid fields';
-
-        return { status, message };
+    const resultEmail = emailValidate(email);
+    if (resultEmail !== null) {
+        return resultEmail;
+    }
+    const resultPassword = passwordValidate(password);
+    if (resultPassword !== null) {
+        return resultPassword;
     }
     const result = await userValidate(email, password);
-    console.log('buscou a info');
     return result;
 };
 
