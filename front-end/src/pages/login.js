@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css';
 import PropTypes from 'prop-types';
 import rockGlass from '../images/rockGlass.svg';
+import instance from '../helpers/instance';
 
 class Login extends React.Component {
   constructor() {
@@ -9,7 +10,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      invalid: true,
+      message: '',
     };
   }
 
@@ -23,30 +24,20 @@ class Login extends React.Component {
   handleInputChange = ({ target }) => {
     this.setState({
       [target.name]: target.value,
-    }, () => this.inputRolesValidation());
+    });
   };
 
-  inputRolesValidation = () => {
-    const { email, password } = this.state;
-    const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/g;
-    const minLetters = 5;
-    if (
-      email.length > 0
-      && regex.test(email)
-      && password.length > minLetters
-    ) {
+  insertLogin = async (body) => {
+    const token = await instance.post('login', body).catch((err) => {
       this.setState({
-        invalid: false,
+        message: err.request.statusText,
       });
-    } else {
-      this.setState({
-        invalid: true,
-      });
-    }
+    });
+    console.log(token);
   };
 
   render() {
-    const { email, password, invalid } = this.state;
+    const { email, password, message } = this.state;
     return (
       <div className="App">
         <span className="logo">TRYBE</span>
@@ -79,8 +70,8 @@ class Login extends React.Component {
           <button
             type="button"
             data-testid="common_login__button-login"
-            disabled={ invalid }
             className="btn-login"
+            onClick={ () => this.insertLogin({ email, password }) }
           >
             LOGIN
           </button>
@@ -92,11 +83,14 @@ class Login extends React.Component {
             Ainda não tenho conta
           </button>
         </forms>
-        <p data-testid="common_login__element-invalid-email">
-          {
-            (invalid) ? 'Email ou senha invalidos' : ''
-          }
-        </p>
+        {
+          (message === '') ? <> </>
+            : (
+              <p data-testid="common_login__element-invalid-email">
+                { message }
+              </p>
+            )
+        }
       </div>
     );
   }
