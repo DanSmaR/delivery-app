@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 class Button extends React.Component {
   render() {
-    const { children } = this.props;
+    const { children, submit } = this.props;
     return (
       <button
-        type="button"
+        type={ submit ? 'submit' : 'button' }
       >
         { children }
       </button>
@@ -16,6 +16,7 @@ class Button extends React.Component {
 
 Button.propTypes = {
   children: PropTypes.string.isRequired,
+  submit: PropTypes.bool.isRequired,
 };
 
 export default Button;

@@ -63,7 +63,7 @@ class ProductTableLine extends React.Component {
           </span>
         </td>
         {
-          checkout && <td><Button>Remover</Button></td>
+          checkout && <td><Button submit>Remover</Button></td>
         }
       </tr>
     );
