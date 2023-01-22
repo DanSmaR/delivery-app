@@ -4,7 +4,7 @@ import ProductTableLine from './ProductTableLine';
 
 class ProductsTable extends React.Component {
   render() {
-    const { productList, checkout } = this.props;
+    const { selectedProductsList, checkout } = this.props;
     return (
       <div className="table-wrap">
         <table className="table">
@@ -23,7 +23,7 @@ class ProductsTable extends React.Component {
           </thead>
           <tbody className="table-body">
             {
-              productList.map((product, index) => (
+              selectedProductsList.map((product, index) => (
                 <ProductTableLine
                   key={ product.id }
                   item={ product }
@@ -40,7 +40,7 @@ class ProductsTable extends React.Component {
 }
 
 ProductsTable.propTypes = {
-  productList: PropTypes.arrayOf(PropTypes.shape({
+  selectedProductsList: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     description: PropTypes.string,
     quantity: PropTypes.number,
