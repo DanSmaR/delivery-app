@@ -2,7 +2,9 @@ import React from 'react';
 import '../App.css';
 import PropTypes from 'prop-types';
 import rockGlass from '../images/rockGlass.svg';
-import instance from '../helpers/instance';
+// import instance from '../helpers/instance';
+import emailValidate from '../utils/email.validate';
+import passwordValidate from '../utils/password.validate';
 
 class Login extends React.Component {
   constructor() {
@@ -10,6 +12,7 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
+      disabled: true,
       message: '',
     };
   }
@@ -24,20 +27,35 @@ class Login extends React.Component {
   handleInputChange = ({ target }) => {
     this.setState({
       [target.name]: target.value,
-    });
+    }, () => this.inputRules());
   };
 
-  insertLogin = async (body) => {
-    const token = await instance.post('login', body).catch((err) => {
+  inputRules = async () => {
+    const { email, password } = this.state;
+    const emailV = emailValidate(email);
+    const passwordV = passwordValidate(password);
+    if (emailV && passwordV) {
+      this.setState({
+        disabled: false,
+      });
+    } else {
+      this.setState({
+        disabled: true,
+      });
+    }
+  };
+
+  insertLogin = async (/* body */) => {
+    /* const token = await instance.post('login', body).catch((err) => {
       this.setState({
         message: err.request.statusText,
       });
     });
-    console.log(token);
+    console.log(token); */
   };
 
   render() {
-    const { email, password, message } = this.state;
+    const { email, password, message, disabled } = this.state;
     const { history } = this.props;
     return (
       <div className="App">
@@ -72,6 +90,7 @@ class Login extends React.Component {
             type="button"
             data-testid="common_login__button-login"
             className="btn-login"
+            disabled={ disabled }
             onClick={ () => this.insertLogin({ email, password }) }
           >
             LOGIN

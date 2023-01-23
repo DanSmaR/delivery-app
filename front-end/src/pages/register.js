@@ -1,7 +1,9 @@
 import React from 'react';
 import '../App.css';
 import PropTypes from 'prop-types';
-import instance from '../helpers/instance';
+// import instance from '../helpers/instance';
+import emailValidate from '../utils/email.validate';
+import passwordValidate from '../utils/password.validate';
 
 class Register extends React.Component {
   constructor() {
@@ -11,26 +13,42 @@ class Register extends React.Component {
       email: '',
       password: '',
       message: '',
+      disabled: true,
     };
   }
 
   handleInputChange = ({ target }) => {
     this.setState({
       [target.name]: target.value,
-    });
+    }, () => this.inputRules());
   };
 
-  insertregister = async (body) => {
-    const token = await instance.post('register', body).catch((err) => {
+  inputRules = async () => {
+    const { email, password, name } = this.state;
+    const emailV = emailValidate(email);
+    const passwordV = passwordValidate(password);
+    const minNameLength = 12;
+    if (emailV && passwordV && name.length >= minNameLength) {
+      this.setState({
+        disabled: false,
+      });
+    } else {
+      this.setState({
+        disabled: true,
+      });
+    }
+  };
+
+  insertregister = async (/* body */) => {
+    /* const token = await instance.post('register', body).catch((err) => {
       this.setState({
         message: err.request.statusText,
       });
-    });
-    console.log('token: ', token);
+    }); */
   };
 
   render() {
-    const { name, email, password, message } = this.state;
+    const { name, email, password, message, disabled } = this.state;
     return (
       <div className="App">
         <span className="logo">Cadastro</span>
@@ -72,6 +90,7 @@ class Register extends React.Component {
             type="button"
             data-testid="common_register__button-register"
             className="btn-register"
+            disabled={ disabled }
             onClick={ () => this.insertregister({ name, email, password }) }
           >
             CADASTRAR
