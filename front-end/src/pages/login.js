@@ -43,6 +43,7 @@ class Login extends React.Component {
         disabled: true,
       });
     }
+    });
   };
 
   insertLogin = async (/* body */) => {
