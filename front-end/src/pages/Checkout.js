@@ -3,7 +3,17 @@ import DeliveryForm from '../components/DeliveryForm';
 import ProductsTable from '../components/ProductsTable';
 
 class Checkout extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      error: null,
+      isLoaded: false,
+      selectedProductsList: [],
+    };
+  }
+
   render() {
+    const { error, isLoaded, selectedProductsList } = this.state;
     return (
       <main>
         <section>
