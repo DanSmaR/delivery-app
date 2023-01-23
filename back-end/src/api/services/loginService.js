@@ -1,7 +1,7 @@
 const { generateToken } = require('../Utils/jwt');
 const { User } = require('../../database/models');
 
-const userValidate = async ({email, password}) => {
+const userValidate = async ({ email, password }) => {
     const user = await User.findOne({
         attributes: ['id', 'email', 'name', 'role'],
         where: { email, password },

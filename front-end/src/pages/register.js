@@ -48,7 +48,7 @@ class Register extends React.Component {
   };
 
   render() {
-    const { name, email, password, message } = this.state;
+    const { name, email, password, message, disabled } = this.state;
     return (
       <div className="App">
         <span className="logo">Cadastro</span>

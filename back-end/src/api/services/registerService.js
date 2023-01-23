@@ -23,7 +23,7 @@ const registerValidate = async ({ name, email, password }) => {
         await User.create({ name, email, password });
         return { status: 201, message: 'Created' };
     }
-    return { status: 409, message: 'Conflict'};
+    return { status: 409, message: 'Conflict' };
 };
 
 module.exports = registerValidate;
