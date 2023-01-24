@@ -6,14 +6,14 @@ class Checkout extends React.Component {
   constructor() {
     super();
     this.state = {
-      error: null,
-      isLoaded: false,
+      // error: null,
+      // isLoaded: false,
       selectedProductsList: [],
     };
   }
 
   render() {
-    const { error, isLoaded, selectedProductsList } = this.state;
+    const { selectedProductsList } = this.state;
     return (
       <main>
         <section>
