@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import PropTypes from 'prop-types';
 import rockGlass from '../images/rockGlass.svg';
-// import instance from '../helpers/instance';
+import instance from '../helpers/instance';
 import emailValidate from '../utils/email.validate';
 import passwordValidate from '../utils/password.validate';
 
@@ -45,13 +45,18 @@ class Login extends React.Component {
     }
   };
 
-  insertLogin = async (/* body */) => {
-    /* const token = await instance.post('login', body).catch((err) => {
+  insertLogin = async (body) => {
+    const result = await instance.post('login', body).catch((err) => {
       this.setState({
         message: err.request.statusText,
       });
     });
-    console.log(token); */
+
+    if (result) {
+      const { history } = this.props;
+      localStorage.setItem('user', JSON.stringify(result.data));
+      history.push('/customer/products');
+    }
   };
 
   render() {

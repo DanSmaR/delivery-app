@@ -1,7 +1,8 @@
 // const { generateToken } = require('../Utils/jwt');
+const md5 = require('md5');
 const { User } = require('../../database/models');
 
-const userValidate = async (email, name) => {
+const userValidate = async (name, email) => {
     const userEmail = await User.findOne({
         where: { email },
     });
@@ -20,8 +21,9 @@ const userValidate = async (email, name) => {
 const registerValidate = async ({ name, email, password }) => {
     const userIsValid = await userValidate(name, email);
     if (userIsValid) {
-        await User.create({ name, email, password });
-        return { status: 201, message: 'Created' };
+        const created = await User
+          .create({ name, email, password: md5(password), role: 'customer' });
+        return { status: 201, message: 'Created', user: created.dataValues };
     }
     return { status: 409, message: 'Conflict' };
 };
