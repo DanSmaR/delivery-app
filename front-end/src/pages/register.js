@@ -48,7 +48,7 @@ class Register extends React.Component {
 
     if (result) {
       const { history } = this.props;
-      localStorage.setItem('user', JSON.stringify(result.data.message));
+      localStorage.setItem('user', JSON.stringify(result.data.user));
       history.push('/customer/products');
     }
   };

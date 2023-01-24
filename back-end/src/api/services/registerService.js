@@ -23,8 +23,7 @@ const registerValidate = async ({ name, email, password }) => {
     if (userIsValid) {
         const created = await User
           .create({ name, email, password: md5(password), role: 'customer' });
-        console.log(created);
-        return { status: 201, message: 'Created' };
+        return { status: 201, message: 'Created', user: created.dataValues };
     }
     return { status: 409, message: 'Conflict' };
 };
