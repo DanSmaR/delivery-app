@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 import PropTypes from 'prop-types';
-// import instance from '../helpers/instance';
+import instance from '../helpers/instance';
 import emailValidate from '../utils/email.validate';
 import passwordValidate from '../utils/password.validate';
 
@@ -39,12 +39,18 @@ class Register extends React.Component {
     }
   };
 
-  insertregister = async (/* body */) => {
-    /* const token = await instance.post('register', body).catch((err) => {
+  insertRegister = async (body) => {
+    const result = await instance.post('register', body).catch((err) => {
       this.setState({
         message: err.request.statusText,
       });
-    }); */
+    });
+
+    if (result) {
+      const { history } = this.props;
+      localStorage.setItem('user', JSON.stringify(result.data.message));
+      history.push('/customer/products');
+    }
   };
 
   render() {
@@ -91,7 +97,7 @@ class Register extends React.Component {
             data-testid="common_register__button-register"
             className="btn-register"
             disabled={ disabled }
-            onClick={ () => this.insertregister({ name, email, password }) }
+            onClick={ () => this.insertRegister({ name, email, password }) }
           >
             CADASTRAR
           </button>

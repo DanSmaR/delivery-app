@@ -1,10 +1,11 @@
+const md5 = require('md5');
 const { generateToken } = require('../Utils/jwt');
 const { User } = require('../../database/models');
 
-const userValidate = async ({ email, password }) => {
+const loginService = async ({ email, password }) => {
     const user = await User.findOne({
         attributes: ['id', 'email', 'name', 'role'],
-        where: { email, password },
+        where: { email, password: md5(password) },
     });
 
     if (!user) {
@@ -16,7 +17,7 @@ const userValidate = async ({ email, password }) => {
 
     const token = generateToken(user.dataValues);
     
-    return { token };
+    return { token, user: user.dataValues };
 };
 
-module.exports = userValidate;
+module.exports = loginService;
