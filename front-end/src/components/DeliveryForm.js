@@ -27,6 +27,7 @@ class DeliveryForm extends React.Component {
               id="seller-options"
               onChange={ this.handleInputChange }
               data-testid="customer_checkout__select-seller"
+              required
             >
               {
                 sellersList.length !== 0 && sellersList.map((seller) => (
@@ -51,6 +52,7 @@ class DeliveryForm extends React.Component {
               type="text"
               data-testid="customer_checkout__input-address"
               onChange={ this.handleInputChange }
+              required
             />
           </label>
         </p>
@@ -65,6 +67,8 @@ class DeliveryForm extends React.Component {
               type="number"
               data-testid="customer_checkout__input-address"
               onChange={ this.handleInputChange }
+              required
+              min="1"
             />
           </label>
         </p>
