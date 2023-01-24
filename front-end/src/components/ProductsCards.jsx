@@ -22,27 +22,50 @@ class ProductsCards extends React.Component {
   render() {
     const { products } = this.state;
     return (
-      <div>
-        { products.map((product, index) => {
+      <>
+        { products.map((product) => {
           const { id, name, price, urlImage } = product;
+          const priceReplaced = price.replace('.', ',');
+
           return (
-            <div key={ id }>
-              <p data-testid={ `customer_products__element-card-price-${index + 1}` }>
-                { Number(price).toFixed(2) }
+            <div key={ id } className="individual-cards">
+              <p data-testid={ `customer_products__element-card-price-${id}` }>
+                { priceReplaced }
               </p>
               <img
                 src={ urlImage }
                 alt={ name }
-                data-testid={ `customer_products__img-card-bg-image-${index + 1}` }
+                data-testid={ `customer_products__img-card-bg-image-${id}` }
                 width="50px"
               />
-              <p data-testid={ `customer_products__element-card-title-${index + 1}` }>
+              <p data-testid={ `customer_products__element-card-title-${id}` }>
                 { name }
               </p>
+              <div>
+                <button
+                  type="button"
+                  data-testid={ `customer_products__button-card-add-item-${id}` }
+                >
+                  +
+                </button>
+                <input
+                  type="text"
+                  name="qtd"
+                  id="qtd"
+                  defaultValue={ 0 }
+                  data-testid={ `customer_products__input-card-quantity-${id}` }
+                />
+                <button
+                  type="button"
+                  data-testid={ `customer_products__button-card-rm-item-${id}` }
+                >
+                  -
+                </button>
+              </div>
             </div>
           );
         }) }
-      </div>
+      </>
     );
   }
 }

@@ -52,3 +52,43 @@
     transform: rotate(-10deg);
   }
 }
+
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-content: center;
+  flex-wrap: wrap;
+  width: 95%;
+}
+
+.individual-cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+  padding: 1em;
+  width: 15em;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 03em;
+  background-color: #036B52;
+  color: #fff;
+  
+}
+
+.nav :nth-child(2), .nav :nth-child(4) {
+  text-decoration: none;
+  color: #fff;
+}
+
+#qtd {
+  width: 24px;
+}

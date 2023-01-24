@@ -1,3 +1,4 @@
+// import PropTypes from 'prop-types';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
@@ -15,6 +16,7 @@ class DeliveryForm extends React.Component {
 
   render() {
     const { sellersList, sellerId, deliveryAddress, deliveryNumber } = this.props;
+    // const { sellersList } = this.props;
     return (
       <form onSubmit={ this.handleOrderSubmit }>
         <p>
@@ -86,7 +88,7 @@ class DeliveryForm extends React.Component {
   }
 }
 
-DeliveryForm.propTypes = {
+/* DeliveryForm.propTypes = {
   sellersList: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
   })).isRequired,
@@ -96,5 +98,6 @@ DeliveryForm.propTypes = {
   deliveryAddress: PropTypes.string.isRequired,
   deliveryNumber: PropTypes.string.isRequired,
 };
+}; */
 
 export default DeliveryForm;
