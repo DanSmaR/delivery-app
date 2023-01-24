@@ -8,7 +8,12 @@ export default class Products extends React.Component {
     return (
       <div>
         <Navbar history={ this.props } />
-        <ProductsCards />
+
+        <div className="cards">
+
+          <ProductsCards />
+        </div>
+
       </div>
     );
   }

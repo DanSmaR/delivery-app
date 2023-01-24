@@ -1,5 +1,8 @@
 'use strict';
 
+const { ENUM } = require("sequelize");
+
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.createTable('users', { 
@@ -23,8 +26,8 @@ module.exports = {
         allowNull: false,
       },
       role: {
-        type: Sequelize.ENUM,
-        values: ['admin', 'customer', 'seller'],
+        type: ENUM,
+        values: ['administrator', 'customer', 'seller'],
         defaultValue: 'customer',
         allowNull: false,
       },
