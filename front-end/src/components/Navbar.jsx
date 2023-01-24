@@ -22,7 +22,7 @@ class Navbar extends React.Component {
   };
 
   customerProducts = () => (
-    <nav>
+    <>
       <span data-testid="customer_products__element-navbar-link-products">Produtos</span>
       <Link
         to="/customer/orders"
@@ -41,11 +41,11 @@ class Navbar extends React.Component {
       >
         Sair
       </Link>
-    </nav>
+    </>
   );
 
   customerOrders = () => (
-    <nav>
+    <>
       <Link
         to="customer/products"
         data-testid="customer_products__element-navbar-link-products"
@@ -68,16 +68,16 @@ class Navbar extends React.Component {
       >
         Sair
       </Link>
-    </nav>
+    </>
   );
 
   render() {
     const { pathName } = this.state;
     return (
-      <div>
+      <nav className="nav">
         { pathName === '/customer/products' && this.customerProducts()}
         { pathName === '/customer/orders' && this.customerOrders()}
-      </div>
+      </nav>
     );
   }
 }
