@@ -25,10 +25,12 @@ class ProductsCards extends React.Component {
       <>
         { products.map((product) => {
           const { id, name, price, urlImage } = product;
+          const priceReplaced = price.replace('.', ',');
+
           return (
             <div key={ id } className="individual-cards">
               <p data-testid={ `customer_products__element-card-price-${id}` }>
-                { Number(price).toFixed(2) }
+                { priceReplaced }
               </p>
               <img
                 src={ urlImage }
@@ -51,7 +53,7 @@ class ProductsCards extends React.Component {
                   name="qtd"
                   id="qtd"
                   defaultValue={ 0 }
-                  data-testid={ `customer_products__input-card-qtd-${id}` }
+                  data-testid={ `customer_products__input-card-quantity-${id}` }
                 />
                 <button
                   type="button"
