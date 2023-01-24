@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import DeliveryForm from '../components/DeliveryForm';
 import ProductsTable from '../components/ProductsTable';
 import TotalPriceInfo from '../components/TotalPriceInfo';
