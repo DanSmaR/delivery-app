@@ -33,7 +33,7 @@ const authenticateToken = async (token) => {
 
   try {
     const validateToken = jwt.verify(token, TOKEN_SECRET_KEY);
-    console.log(validateToken);
+    // console.log(validateToken);
     return validateToken;
   } catch (error) {
     const status = 401;
@@ -43,7 +43,7 @@ const authenticateToken = async (token) => {
 };
 
 const decodeToken = async (token) => {
-  const { payload } = jwt.jwtDecrypt(token, TOKEN_SECRET_KEY);
+  const { payload } = jwt.verify(token, TOKEN_SECRET_KEY);
   return payload;
 };
 

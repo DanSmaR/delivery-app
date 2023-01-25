@@ -1,5 +1,3 @@
-const User = require('./User.model');
-
 module.exports = (sequelize, DataTypes) => {
   const Sale = sequelize.define('Sale', {
     id: {
@@ -39,14 +37,21 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {
     timestamps: false,
-    tableName: 'users',
+    tableName: 'sales',
     underscored: true,
   });
 
-  User.hasMany(Sale, { foreignKey: 'sellerId', as: 'sellerSales', onDelete: 'CASCADE' });
-  User.hasMany(Sale, { foreignKey: 'userId', as: 'userSales', onDelete: 'CASCADE' });
-  Sale.belongsTo(User, { foreignKey: 'sellerId', as: 'saleSeller', onDelete: 'CASCADE' });
-  Sale.belongsTo(User, { foreignKey: 'userId', as: 'saleUser', onDelete: 'CASCADE' });
+  Sale.associate = (models) => {
+    Sale.belongsTo(models.User, {
+      as: 'seller',
+      foreignKey: 'sellerId',
+    });
+
+    Sale.belongsTo(models.User, {
+      as: 'user',
+      foreignKey: 'userId',
+    });
+  };
 
   return Sale;
 };

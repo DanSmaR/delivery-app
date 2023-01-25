@@ -1,8 +1,9 @@
-const { SalesModel } = require('../../database/models');
+const { Sale } = require('../../database/models');
     
-const allOrdersByUser = async (id, personType) => {
-    console.log(personType);
-    const result = await SalesModel.findAll({}, {where: { personType: id }});
+const allOrdersByUser = async (id, role) => {
+    const person = (role === 'seller') ? 'sellerId' : 'userId';
+    const result = await Sale
+      .findAll({ where: { [person]: id } });
     return { status: 200, message: result };
 };
 
