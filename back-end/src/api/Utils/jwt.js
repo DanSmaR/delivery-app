@@ -21,7 +21,7 @@ const generateToken = ({ id, name, email, role }) => {
 
   const token = jwt.sign(payload, TOKEN_SECRET_KEY, jwtConfig);
 
-    return token;
+  return token;
 };
 
 const authenticateToken = async (token) => {
