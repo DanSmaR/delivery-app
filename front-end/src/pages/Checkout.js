@@ -11,12 +11,17 @@ class Checkout extends React.Component {
   constructor() {
     super();
     this.state = {
-      selectedProductsList: JSON.parse(localStorage.getItem('cart')) || [],
+      selectedProductsList: JSON.parse(localStorage.getItem('cart')) || [{
+        id: '1',
+        description: 'produto',
+        quantity: 20,
+        price: 3,
+      }],
       user: JSON.parse(localStorage.getItem('user')) || '',
-      sellers: [],
-      sellerId: '',
-      deliveryAddress: '',
-      deliveryNumber: '',
+      sellers: [{ id: '1', name: 'Veia' }],
+      sellerId: '1',
+      deliveryAddress: '1',
+      deliveryNumber: '1',
     };
   }
 
@@ -24,9 +29,9 @@ class Checkout extends React.Component {
     this.fetchSellers('users/sellers');
   }
 
-  componentDidUpdate() {
-    const { cartItems } = this.state;
-    localStorage.setItem('cart', JSON.stringify(cartItems));
+  handleUpdateSelectedProducts() {
+    const { selectedProductsList } = this.state;
+    localStorage.setItem('cart', JSON.stringify(selectedProductsList));
   }
 
   fetchSellers = async (endpoint) => requestData(endpoint)
@@ -43,8 +48,10 @@ class Checkout extends React.Component {
   handleDeleteCartItem = (itemId, cartList) => {
     this.setState({
       selectedProductsList: cartList.filter((item) => item.id !== itemId),
-    });
+    }, this.handleUpdateSelectedProducts);
   };
+
+  handleCheckButtonIsDisabled = () => !validateOrder(this.state);
 
   handleOrderSubmit = (e) => {
     e.preventDefault();
@@ -53,21 +60,16 @@ class Checkout extends React.Component {
       user, sellerId, deliveryAddress, deliveryNumber, selectedProductsList,
     } = this.state;
 
-    const roundedTotalPrice = getTotalPrice(selectedProductsList);
-
-    if (!roundedTotalPrice) return;
-
     const order = {
       userId: user.id,
       sellerId,
       deliveryAddress,
       deliveryNumber,
-      totalPrice: roundedTotalPrice,
+      totalPrice: getTotalPrice(selectedProductsList),
       products: selectedProductsList.map((product) => ({
         productId: product.id, quantity: product.quantity })),
     };
 
-    if (!validateOrder(order)) return;
     return this.postOrder(order);
   };
 
@@ -109,6 +111,7 @@ class Checkout extends React.Component {
             deliveryNumber={ deliveryNumber }
             onInputChange={ this.handleInputChange }
             onOrderSubmit={ this.handleOrderSubmit }
+            onCheckButtonIsDisabled={ this.handleCheckButtonIsDisabled }
           />
         </section>
       </main>

@@ -14,7 +14,9 @@ class DeliveryForm extends React.Component {
   };
 
   render() {
-    const { sellersList, sellerId, deliveryAddress, deliveryNumber } = this.props;
+    const {
+      sellersList, sellerId, deliveryAddress, deliveryNumber, onCheckButtonIsDisabled,
+    } = this.props;
     return (
       <form onSubmit={ this.handleOrderSubmit }>
         <p>
@@ -47,7 +49,7 @@ class DeliveryForm extends React.Component {
             Endereço
             <input
               value={ deliveryAddress }
-              name="orderAdress"
+              name="deliveryAddress"
               id="address"
               type="text"
               data-testid="customer_checkout__input-address"
@@ -62,7 +64,7 @@ class DeliveryForm extends React.Component {
             {' '}
             <input
               value={ deliveryNumber }
-              name="orderAddressNumber"
+              name="deliveryNumber"
               id="address-number"
               type="number"
               data-testid="customer_checkout__input-address"
@@ -75,8 +77,9 @@ class DeliveryForm extends React.Component {
         <p>
           <Button
             submit
-            dataTestid="customer_checkout__input-address-number"
+            dataTestId="customer_checkout__input-address-number"
             onAction={ () => {} }
+            onCheckIsDisabled={ onCheckButtonIsDisabled }
           >
             Finalizar Pedido
           </Button>
@@ -93,6 +96,7 @@ DeliveryForm.propTypes = {
   sellerId: PropTypes.string.isRequired,
   onOrderSubmit: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
+  onCheckButtonIsDisabled: PropTypes.func.isRequired,
   deliveryAddress: PropTypes.string.isRequired,
   deliveryNumber: PropTypes.string.isRequired,
 };

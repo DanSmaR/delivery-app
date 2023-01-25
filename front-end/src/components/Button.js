@@ -8,13 +8,19 @@ class Button extends React.Component {
     onAction();
   };
 
+  handleIsDisabled = () => {
+    const { onCheckIsDisabled } = this.props;
+    return onCheckIsDisabled();
+  };
+
   render() {
-    const { children, submit, dataTestid } = this.props;
+    const { children, submit, dataTestId } = this.props;
     return (
       <button
         type={ submit ? 'submit' : 'button' }
-        data-testid={ dataTestid }
-        onClick={ this.handleClick }
+        data-testid={ dataTestId }
+        onClick={ !submit ? this.handleClick : () => {} }
+        disabled={ this.handleIsDisabled() }
       >
         { children }
       </button>
@@ -25,8 +31,9 @@ class Button extends React.Component {
 Button.propTypes = {
   children: PropTypes.string.isRequired,
   submit: PropTypes.bool.isRequired,
-  dataTestid: PropTypes.string.isRequired,
+  dataTestId: PropTypes.string.isRequired,
   onAction: PropTypes.func.isRequired,
+  onCheckIsDisabled: PropTypes.func.isRequired,
 };
 
 export default Button;

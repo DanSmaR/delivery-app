@@ -14,14 +14,14 @@ class ProductTableLine extends React.Component {
       <tr
         className="table-item"
       >
-        <th
+        <td
           className="product-counter"
           data-testid={
             `customer_checkout__element-order-table-item-number-${index}`
           }
         >
-          { index }
-        </th>
+          { index + 1 }
+        </td>
         <td
           className="product-description"
           data-testid={
@@ -45,35 +45,36 @@ class ProductTableLine extends React.Component {
           }
         >
           R$
-          { }
+          {' '}
           <span
             data-testid={
               `customer_checkout__element-order-table-unit-price-${index}`
             }
           >
-            { item.price }
+            { Number(item.price).toFixed(2) }
           </span>
         </td>
         <td
           className="product-price-total"
         >
           R$
-          { }
+          {' '}
           <span
             data-testid={
               `customer_checkout__element-order-table-sub-total-${index}`
             }
           >
-            { Math.round(item.price * item.quantity * 100) / 100 }
+            { (Math.round(item.price * item.quantity * 100) / 100).toFixed(2) }
           </span>
         </td>
         {
           checkout && (
             <td>
               <Button
-                submit
+                submit={ false }
                 dataTestId={ `customer_checkout__element-order-table-remove-${index}` }
                 onAction={ () => this.handleDeleteItem(item.id, listItems) }
+                onCheckIsDisabled={ () => false }
               >
                 Remover
               </Button>
