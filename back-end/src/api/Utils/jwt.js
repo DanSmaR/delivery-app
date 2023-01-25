@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv/config');
 const path = require('path');
 const JWT_EVALUATION_KEY = require('fs')
-.readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'), 'utf8');
+.readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'), { encoding: "utf-8" });
 
 const TOKEN_SECRET_KEY = process.env.JWT_SECRET || JWT_EVALUATION_KEY;
 
@@ -21,7 +21,7 @@ const generateToken = ({ id, name, email, role }) => {
 
   const token = jwt.sign(payload, TOKEN_SECRET_KEY, jwtConfig);
 
-  return token;
+    return token;
 };
 
 const authenticateToken = async (token) => {
