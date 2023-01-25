@@ -67,7 +67,7 @@ export default class Order extends React.Component {
 }
 
 Order.propTypes = {
-  order: Proptypes.shape({
+  order: PropTypes.shape({
     id: PropTypes.number,
     status: PropTypes.string,
     date: PropTypes.string,
