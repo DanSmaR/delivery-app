@@ -55,6 +55,10 @@ class Navbar extends React.Component {
         <Link
           to="/login"
           data-testid="customer_products__element-navbar-link-logout"
+          onClick={ () => {
+            console.log('Deu certo');
+            localStorage.clear();
+          } }
         >
           Sair
         </Link>
@@ -86,6 +90,10 @@ class Navbar extends React.Component {
         <Link
           to="/login"
           data-testid="customer_products__element-navbar-link-logout"
+          onClick={ () => {
+            console.log('Deu certo');
+            localStorage.clear();
+          } }
         >
           Sair
         </Link>
