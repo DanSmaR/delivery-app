@@ -92,7 +92,7 @@ ProductTableLine.propTypes = {
     quantity: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
-  checkout: PropTypes.bool.isRequired,
+  checkout: PropTypes.bool,
   onDeleteItem: PropTypes.func.isRequired,
   listItems: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
@@ -100,6 +100,10 @@ ProductTableLine.propTypes = {
     quantity: PropTypes.number,
     price: PropTypes.number,
   })).isRequired,
+};
+
+ProductTableLine.defaultProps = {
+  checkout: false,
 };
 
 export default ProductTableLine;

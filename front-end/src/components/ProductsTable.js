@@ -47,8 +47,12 @@ ProductsTable.propTypes = {
     quantity: PropTypes.number,
     price: PropTypes.number,
   })).isRequired,
-  checkout: PropTypes.bool.isRequired,
+  checkout: PropTypes.bool,
   onDeleteItem: PropTypes.func.isRequired,
+};
+
+ProductsTable.defaultProps = {
+  checkout: false,
 };
 
 export default ProductsTable;

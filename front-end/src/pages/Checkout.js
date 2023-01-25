@@ -6,6 +6,7 @@ import TotalPriceInfo from '../components/TotalPriceInfo';
 import instance, { requestData } from '../helpers/instance';
 import getTotalPrice from '../utils/getTotalPrice';
 import validateOrder from '../utils/validateOrder';
+import Navbar from '../components/Navbar';
 
 class Checkout extends React.Component {
   constructor() {
@@ -90,31 +91,36 @@ class Checkout extends React.Component {
       selectedProductsList,
       sellers, sellerId, deliveryAddress, deliveryNumber } = this.state;
     return (
-      <main>
-        <section>
-          <h1>Finalizar Pedido</h1>
-          <ProductsTable
-            selectedProductsList={ selectedProductsList }
-            checkout
-            onDeleteItem={ this.handleDeleteCartItem }
-          />
-          <TotalPriceInfo>
-            { getTotalPrice(selectedProductsList) }
-          </TotalPriceInfo>
-        </section>
-        <section>
-          <h2>Detalhes e Endereço para Entrega</h2>
-          <DeliveryForm
-            sellersList={ sellers }
-            sellerId={ sellerId }
-            deliveryAddress={ deliveryAddress }
-            deliveryNumber={ deliveryNumber }
-            onInputChange={ this.handleInputChange }
-            onOrderSubmit={ this.handleOrderSubmit }
-            onCheckButtonIsDisabled={ this.handleCheckButtonIsDisabled }
-          />
-        </section>
-      </main>
+      <>
+        <header>
+          <Navbar history={ this.props } />
+        </header>
+        <main>
+          <section>
+            <h1>Finalizar Pedido</h1>
+            <ProductsTable
+              selectedProductsList={ selectedProductsList }
+              checkout
+              onDeleteItem={ this.handleDeleteCartItem }
+            />
+            <TotalPriceInfo>
+              { getTotalPrice(selectedProductsList) }
+            </TotalPriceInfo>
+          </section>
+          <section>
+            <h2>Detalhes e Endereço para Entrega</h2>
+            <DeliveryForm
+              sellersList={ sellers }
+              sellerId={ sellerId }
+              deliveryAddress={ deliveryAddress }
+              deliveryNumber={ deliveryNumber }
+              onInputChange={ this.handleInputChange }
+              onOrderSubmit={ this.handleOrderSubmit }
+              onCheckButtonIsDisabled={ this.handleCheckButtonIsDisabled }
+            />
+          </section>
+        </main>
+      </>
     );
   }
 }
