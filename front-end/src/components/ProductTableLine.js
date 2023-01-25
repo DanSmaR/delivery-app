@@ -71,10 +71,8 @@ class ProductTableLine extends React.Component {
           checkout && (
             <td>
               <Button
-                submit={ false }
                 dataTestId={ `customer_checkout__element-order-table-remove-${index}` }
                 onAction={ () => this.handleDeleteItem(item.id, listItems) }
-                onCheckIsDisabled={ () => false }
               >
                 Remover
               </Button>

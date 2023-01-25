@@ -30,10 +30,15 @@ class Button extends React.Component {
 
 Button.propTypes = {
   children: PropTypes.string.isRequired,
-  submit: PropTypes.bool.isRequired,
+  submit: PropTypes.bool,
   dataTestId: PropTypes.string.isRequired,
   onAction: PropTypes.func.isRequired,
-  onCheckIsDisabled: PropTypes.func.isRequired,
+  onCheckIsDisabled: PropTypes.func,
+};
+
+Button.defaultProps = {
+  submit: false,
+  onCheckIsDisabled: () => false,
 };
 
 export default Button;
