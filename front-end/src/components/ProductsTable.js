@@ -8,7 +8,6 @@ class ProductsTable extends React.Component {
     return (
       <div className="table-wrap">
         <table className="table">
-          <caption>Checkout Products</caption>
           <thead className="table-head">
             <tr>
               <th>Item</th>
