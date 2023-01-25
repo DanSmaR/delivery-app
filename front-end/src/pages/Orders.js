@@ -18,11 +18,22 @@ export default class Orders extends React.Component {
   }
 
   getOrders = async () => {
-    const { history } = this.props;
-    const body = (history.location.pathname.includes('seller')) ? 'seller' : 'customer';
-    const result = await instance.get('customer/orders', body);
-    console.log(result);
-    // { a fazer } order a ser atribuido aqui e organizado de acordo com o esperado do componente
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const userSales = await instance
+      .get('customer/orders', { headers: { Authorization: token } });
+    const result = userSales
+      .map((sale) => (
+        {
+          id: sale.id,
+          totalPrice: sale.totalPrice,
+          address: `${sale.deliveryAddress}, ${sale.deliveryNumber}`,
+          saleDate: sale.saleDate,
+          status: sale.status,
+        }
+      ));
+    this.setState({
+      orders: result,
+    });
   };
 
   render() {

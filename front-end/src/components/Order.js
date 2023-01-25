@@ -30,7 +30,7 @@ export default class Order extends React.Component {
   render() {
     const { order } = this.props;
     const { seller } = this.state;
-    const { id, status, date, price, address } = order;
+    const { id, status, saleDate, totalPrice, address } = order;
     const person = (seller) ? 'seller' : 'customer';
 
     return (
@@ -47,10 +47,10 @@ export default class Order extends React.Component {
           </section>
           <section>
             <div data-testid={ `${person}_orders__element-order-date-${id}` }>
-              { date }
+              { saleDate }
             </div>
             <div data-testid={ `${person}_orders__element-card-price-${id}` }>
-              { price }
+              { totalPrice }
             </div>
           </section>
         </div>
@@ -70,8 +70,8 @@ Order.propTypes = {
   order: PropTypes.shape({
     id: PropTypes.number,
     status: PropTypes.string,
-    date: PropTypes.string,
-    price: PropTypes.number,
+    saleDate: PropTypes.string,
+    totalPrice: PropTypes.number,
     address: PropTypes.string,
   }).isRequired,
   history: PropTypes.shape({
