@@ -8,11 +8,16 @@ class Navbar extends React.Component {
     super();
     this.state = {
       pathName: '',
+      user: JSON.parse(localStorage.getItem('user')) || '',
     };
   }
 
   componentDidMount() {
     this.definePathName();
+  }
+
+  componentWillUnmount() {
+    localStorage.removeItem('user');
   }
 
   definePathName = () => {
@@ -21,7 +26,7 @@ class Navbar extends React.Component {
     this.setState({ pathName: pathname });
   };
 
-  customerProducts = () => (
+  customerProducts = (name) => (
     <>
       <span data-testid="customer_products__element-navbar-link-products">Produtos</span>
       <Link
@@ -33,7 +38,7 @@ class Navbar extends React.Component {
       <span
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        Ciclano da Silva
+        { name }
       </span>
       <Link
         to="/login"
@@ -44,10 +49,10 @@ class Navbar extends React.Component {
     </>
   );
 
-  customerOrders = () => (
+  customerOrders = (name) => (
     <>
       <Link
-        to="customer/products"
+        to="/customer/products"
         data-testid="customer_products__element-navbar-link-products"
       >
         Produtos
@@ -60,7 +65,7 @@ class Navbar extends React.Component {
       <span
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        Ciclano da Silva
+        { name }
       </span>
       <Link
         to="/login"
@@ -71,19 +76,62 @@ class Navbar extends React.Component {
     </>
   );
 
+  defaultNav = (name) => (
+    <>
+      <Link
+        to="/customer/products"
+        data-testid="customer_products__element-navbar-link-products"
+      >
+        Produtos
+      </Link>
+      <Link
+        to="/customer/orders"
+        data-testid="customer_products__element-navbar-link-orders"
+      >
+        Meus Pedidos
+      </Link>
+      <span
+        data-testid="customer_products__element-navbar-user-full-name"
+      >
+        { name }
+      </span>
+      <Link
+        to="/login"
+        data-testid="customer_products__element-navbar-link-logout"
+      >
+        Sair
+      </Link>
+    </>
+  );
+
+  renderNav = (pathName, userName) => {
+    let navbar;
+    switch (pathName) {
+    case '/customer/products':
+      navbar = this.customerProducts(userName);
+      break;
+    case '/customer/orders':
+      navbar = this.customerOrders(userName);
+      break;
+    default:
+      navbar = this.defaultNav(userName);
+      break;
+    }
+    return navbar;
+  };
+
   render() {
-    const { pathName } = this.state;
+    const { pathName, user: { name } } = this.state;
     return (
       <nav className="nav">
-        { pathName === '/customer/products' && this.customerProducts()}
-        { pathName === '/customer/orders' && this.customerOrders()}
+        { this.renderNav(pathName, name) }
       </nav>
     );
   }
 }
 
+export default Navbar;
+
 Navbar.propTypes = {
   history: PropTypes.shape(object.PropTypes).isRequired,
 };
-
-export default Navbar;
