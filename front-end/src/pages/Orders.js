@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css';
+import PropTypes from 'prop-types';
 import Navbar from '../components/Navbar';
 import instance from '../helpers/instance';
 import Order from '../components/Order';
@@ -17,9 +18,22 @@ export default class Orders extends React.Component {
   }
 
   getOrders = async () => {
-    const result = await instance.get('customer/orders');
-    console.log(result);
-    // { a fazer } order a ser atribuido aqui e organizado de acordo com o esperado do componente
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    const userSales = await instance
+      .get('customer/orders', { headers: { Authorization: token } });
+    const result = userSales
+      .map((sale) => (
+        {
+          id: sale.id,
+          totalPrice: sale.totalPrice,
+          address: `${sale.deliveryAddress}, ${sale.deliveryNumber}`,
+          saleDate: sale.saleDate,
+          status: sale.status,
+        }
+      ));
+    this.setState({
+      orders: result,
+    });
   };
 
   render() {
@@ -44,3 +58,11 @@ export default class Orders extends React.Component {
     );
   }
 }
+
+Orders.propTypes = {
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+  }).isRequired,
+};

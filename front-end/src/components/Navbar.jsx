@@ -16,10 +16,6 @@ class Navbar extends React.Component {
     this.definePathName();
   }
 
-  componentWillUnmount() {
-    localStorage.removeItem('user');
-  }
-
   definePathName = () => {
     const { history: { location: { pathname } } } = this.props;
 
@@ -69,6 +65,7 @@ class Navbar extends React.Component {
       </span>
       <Link
         to="/login"
+        onClick={ () => localStorage.removeItem('user') }
         data-testid="customer_products__element-navbar-link-logout"
       >
         Sair

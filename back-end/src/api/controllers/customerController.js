@@ -1,7 +1,8 @@
-const { allOrders, registerOrder } = require('../services/customerService');
+const { allOrdersByUser, registerOrder } = require('../services/customerService');
 
-const getAll = async (_req, res) => {
-  const result = await allOrders();
+const getByUser = async (req, res) => {
+  const { id, role } = req.data
+  const result = await allOrdersByUser(id, role);
 
   const { status, message } = result;
   return res.status(status).json({ message });
@@ -16,4 +17,4 @@ const registerOrder = async (req, res) => {
   return res.status(status).json({ message });
 };
 
-module.exports = { getAll };
+module.exports = { getByUser, registerOrder };

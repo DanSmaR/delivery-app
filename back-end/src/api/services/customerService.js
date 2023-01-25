@@ -1,17 +1,19 @@
-const { SalesModel } = require('../../database/models');
+const { Sale } = require('../../database/models');
     
-const allOrders = async () => {
-    const result = await SalesModel.findAll();
+const allOrdersByUser = async (id, role) => {
+    const person = (role === 'seller') ? 'sellerId' : 'userId';
+    const result = await Sale
+      .findAll({ where: { [person]: id } });
     return { status: 200, message: result };
 };
 
 const registerOrder = async (data, userId) => {
   const {
     userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, products } = data;
-  const result = await SalesModel.create({
+  const result = await Sale.create({
     userId, sellerId, totalPrice, deliveryAddress, deliveryNumber,
   });
   return { status: 200, message: result };
 };
 
-module.exports = { allOrders, registerOrder };
+module.exports = { allOrdersByUser, registerOrder };
