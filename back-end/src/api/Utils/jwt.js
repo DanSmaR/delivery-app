@@ -42,7 +42,13 @@ const authenticateToken = async (token) => {
   }
 };
 
+const decodeToken = async (token) => {
+  const { payload } = jwt.jwtDecrypt(token, TOKEN_SECRET_KEY);
+  return payload;
+};
+
 module.exports = {
   generateToken,
   authenticateToken,
+  decodeToken,
 };

@@ -1,10 +1,13 @@
-const { allOrders } = require('../services/customerService');
+const { allOrdersByUser } = require('../services/customerService');
+const { decodeToken } = require('../Utils/jwt');
 
-const getAll = async (_req, res) => {
-  const result = await allOrders();
+const getByUser = async (req, res) => {
+  const { Authorization } = req.headers;
+  const { id } = await decodeToken(Authorization);
+  const result = await allOrdersByUser(id, req.body);
 
   const { status, message } = result;
   return res.status(status).json({ message });
 };
 
-module.exports = { getAll };
+module.exports = { getByUser };

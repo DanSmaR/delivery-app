@@ -1,8 +1,9 @@
 const { SalesModel } = require('../../database/models');
     
-const allOrders = async () => {
-    const result = await SalesModel.findAll();
+const allOrdersByUser = async (id, personType) => {
+    console.log(personType);
+    const result = await SalesModel.findAll({}, {where: { personType: id }});
     return { status: 200, message: result };
 };
 
-module.exports = { allOrders };
+module.exports = { allOrdersByUser };

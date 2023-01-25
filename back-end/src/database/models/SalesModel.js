@@ -1,4 +1,4 @@
-import User from './User.model';
+const User = require('./User.model');
 
 module.exports = (sequelize, DataTypes) => {
   const Sale = sequelize.define('Sale', {
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     deliveryNumber: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     saleDate: {
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.NOW,
     },
     status: {
-      type: Sequelize.STRING,
+      type: DataTypes.STRING,
       allowNull: false,
       defaultValue: 'Pendente',
     },

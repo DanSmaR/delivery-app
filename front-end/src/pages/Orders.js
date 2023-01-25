@@ -1,5 +1,6 @@
 import React from 'react';
 import '../App.css';
+import PropTypes from 'prop-types';
 import Navbar from '../components/Navbar';
 import instance from '../helpers/instance';
 import Order from '../components/Order';
@@ -17,7 +18,9 @@ export default class Orders extends React.Component {
   }
 
   getOrders = async () => {
-    const result = await instance.get('customer/orders');
+    const { history } = this.props;
+    const body = (history.location.pathname.includes('seller')) ? 'seller' : 'customer';
+    const result = await instance.get('customer/orders', body);
     console.log(result);
     // { a fazer } order a ser atribuido aqui e organizado de acordo com o esperado do componente
   };
@@ -44,3 +47,11 @@ export default class Orders extends React.Component {
     );
   }
 }
+
+Orders.propTypes = {
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+  }).isRequired,
+};
