@@ -1,5 +1,5 @@
-const { generateToken } = require('../Utils/jwt');
 const md5 = require('md5');
+const { generateToken } = require('../Utils/jwt');
 const { User } = require('../../database/models');
 
 const userValidate = async (name, email) => {
@@ -28,11 +28,11 @@ const registerValidate = async ({ name, email, password }) => {
             id,
             role,
             name,
-            email
+            email,
           };
-         const token = generateToken(user)
+         const token = generateToken(user);
 
-        return { status: 201, message: 'Created', user: {...user, token} };
+        return { status: 201, message: 'Created', user: { ...user, token } };
     }
     return { status: 409, message: 'Conflict' };
 };
