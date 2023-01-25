@@ -5,4 +5,13 @@ const allOrders = async () => {
     return { status: 200, message: result };
 };
 
-module.exports = { allOrders };
+const registerOrder = async (data, userId) => {
+  const {
+    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber, products } = data;
+  const result = await SalesModel.create({
+    userId, sellerId, totalPrice, deliveryAddress, deliveryNumber,
+  });
+  return { status: 200, message: result };
+};
+
+module.exports = { allOrders, registerOrder };

@@ -18,7 +18,6 @@ class Checkout extends React.Component {
         quantity: 20,
         price: 3,
       }],
-      user: JSON.parse(localStorage.getItem('user')) || '',
       sellers: [{ id: '1', name: 'Veia' }],
       sellerId: '1',
       deliveryAddress: '1',
@@ -58,11 +57,10 @@ class Checkout extends React.Component {
     e.preventDefault();
 
     const {
-      user, sellerId, deliveryAddress, deliveryNumber, selectedProductsList,
+      sellerId, deliveryAddress, deliveryNumber, selectedProductsList,
     } = this.state;
 
     const order = {
-      userId: user.id,
       sellerId,
       deliveryAddress,
       deliveryNumber,
@@ -75,10 +73,13 @@ class Checkout extends React.Component {
   };
 
   postOrder = async (order) => {
-    const result = await instance.post('customer/orders', order).catch((err) => {
-      console.error(err);
-      alert('Erro ao cadastrar venda');
-    });
+    const { token } = JSON.parse(localStorage.getItem('user')) || '';
+    const result = await instance
+      .post('customer/orders', order, { headers: { Authorization: token } })
+      .catch((err) => {
+        console.error(err);
+        alert('Erro ao cadastrar venda');
+      });
 
     if (result) {
       const { history } = this.props;

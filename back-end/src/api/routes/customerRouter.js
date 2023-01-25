@@ -1,8 +1,9 @@
 const express = require('express');
-const { getAll } = require('../controllers/customerController');
+const { getAll, registerOrder } = require('../controllers/customerController');
 
 const customerRouter = express.Router();
 
 customerRouter.get('/orders', getAll);
+customerRouter.post('/orders', registerOrder);
 
 module.exports = customerRouter;
