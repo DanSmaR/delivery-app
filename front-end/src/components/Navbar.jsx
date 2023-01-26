@@ -39,6 +39,7 @@ class Navbar extends React.Component {
       <Link
         to="/login"
         data-testid="customer_products__element-navbar-link-logout"
+        onClick={ () => localStorage.removeItem('user') }
       >
         Sair
       </Link>
@@ -95,6 +96,7 @@ class Navbar extends React.Component {
       <Link
         to="/login"
         data-testid="customer_products__element-navbar-link-logout"
+        onClick={ () => localStorage.removeItem('user') }
       >
         Sair
       </Link>
