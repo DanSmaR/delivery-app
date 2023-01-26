@@ -18,10 +18,10 @@ class Checkout extends React.Component {
         quantity: 20,
         price: 2.20,
       }],
-      sellers: [{ id: 2, name: 'Fulana Pereira' }],
-      sellerId: 2,
-      deliveryAddress: 'Rua 1',
-      deliveryNumber: 100,
+      sellers: [],
+      sellerId: 0,
+      deliveryAddress: '',
+      deliveryNumber: '',
     };
   }
 
@@ -37,6 +37,7 @@ class Checkout extends React.Component {
   fetchSellers = async (endpoint) => requestData(endpoint)
     .then((response) => this.setState({
       sellers: response,
+      sellerId: response[0].id,
     }), (error) => console.log(error));
 
   handleInputChange = ({ target }) => {
