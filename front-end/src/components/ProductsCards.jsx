@@ -6,6 +6,7 @@ class ProductsCards extends React.Component {
     super();
     this.state = {
       products: [],
+      qtd: {},
     };
   }
 
@@ -19,8 +20,39 @@ class ProductsCards extends React.Component {
 
   setProducts = (products) => this.setState({ products });
 
+  addQuantity = (id) => {
+    const { qtd } = this.state;
+    if (!qtd[id]) {
+      this.setState((previousState) => (
+        { qtd: { ...previousState.qtd, [id]: { quantity: 1 } } }
+      ));
+    } else {
+      this.setState((previousState) => (
+        { qtd:
+           { ...previousState.qtd,
+             [id]: { quantity: previousState.qtd[id].quantity + 1 },
+           },
+        }
+      ));
+    }
+  };
+
+  subQuantity = (id) => {
+    const { qtd } = this.state;
+    if (qtd[id] && qtd[id].quantity > 0) {
+      this.setState((previousState) => (
+        { qtd:
+           { ...previousState.qtd,
+             [id]: { quantity: previousState.qtd[id].quantity - 1 },
+           },
+        }
+      ));
+    }
+  };
+
   render() {
-    const { products } = this.state;
+    const { products, qtd } = this.state;
+
     return (
       <>
         { products.map((product) => {
@@ -44,20 +76,23 @@ class ProductsCards extends React.Component {
               <div>
                 <button
                   type="button"
-                  data-testid={ `customer_products__button-card-add-item-${id}` }
+                  id={ `add-${id}` }
+                  onClick={ () => this.addQuantity(id) }
                 >
                   +
                 </button>
                 <input
                   type="text"
                   name="qtd"
-                  id="qtd"
-                  defaultValue={ 0 }
+                  id={ `input-${id}` }
+                  value={ qtd[id] ? qtd[id].quantity : 0 }
                   data-testid={ `customer_products__input-card-quantity-${id}` }
                 />
                 <button
                   type="button"
+                  id={ `rm-${id}` }
                   data-testid={ `customer_products__button-card-rm-item-${id}` }
+                  onClick={ () => this.subQuantity(id) }
                 >
                   -
                 </button>
