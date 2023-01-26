@@ -24,6 +24,8 @@ export default class Order extends React.Component {
     const { seller } = this.state;
     const { history } = this.props;
     const url = (seller) ? `/seller/orders/${id}` : `/customer/orders/${id}`;
+    console.log(typeof history.push);
+    console.log(history);
     history.push(url);
   };
 
@@ -71,7 +73,7 @@ Order.propTypes = {
     id: PropTypes.number,
     status: PropTypes.string,
     saleDate: PropTypes.string,
-    totalPrice: PropTypes.number,
+    totalPrice: PropTypes.string,
     address: PropTypes.string,
   }).isRequired,
   history: PropTypes.shape({

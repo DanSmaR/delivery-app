@@ -76,10 +76,9 @@ class Checkout extends React.Component {
     try {
       const result = await instance
         .post('customer/orders', order, { headers: { Authorization: token } });
-      console.log(result);
       if (result) {
         const { history } = this.props;
-        history.push(`/customer/orders/${result.id}`);
+        history.push(`/customer/orders/${result.data.id}`);
       }
     } catch (err) {
       console.error(`error: ${err}`);

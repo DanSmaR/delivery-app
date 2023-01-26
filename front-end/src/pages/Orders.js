@@ -21,7 +21,7 @@ export default class Orders extends React.Component {
     const { token } = JSON.parse(localStorage.getItem('user'));
     const userSales = await instance
       .get('customer/orders', { headers: { Authorization: token } });
-    const result = userSales
+    const result = userSales.data
       .map((sale) => (
         {
           id: sale.id,
