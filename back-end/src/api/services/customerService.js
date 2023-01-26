@@ -19,7 +19,7 @@ const registerOrder = async (data, userId) => {
         .create({ saleId: newSale.id, productId: id, quantity }, { transaction: t })));
       return newSale;
     });
-    return { status: 200, message: result };
+    return { status: 201, message: result };
   } catch (error) {
     console.error(error.stack);
   }
