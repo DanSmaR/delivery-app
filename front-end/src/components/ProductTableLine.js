@@ -87,7 +87,7 @@ class ProductTableLine extends React.Component {
 ProductTableLine.propTypes = {
   index: PropTypes.number.isRequired,
   item: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
@@ -95,7 +95,7 @@ ProductTableLine.propTypes = {
   checkout: PropTypes.bool,
   onDeleteItem: PropTypes.func.isRequired,
   listItems: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     description: PropTypes.string,
     quantity: PropTypes.number,
     price: PropTypes.number,

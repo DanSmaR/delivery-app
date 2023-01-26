@@ -93,7 +93,7 @@ DeliveryForm.propTypes = {
   sellersList: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string,
   })).isRequired,
-  sellerId: PropTypes.string.isRequired,
+  sellerId: PropTypes.number.isRequired,
   onOrderSubmit: PropTypes.func.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onCheckButtonIsDisabled: PropTypes.func.isRequired,

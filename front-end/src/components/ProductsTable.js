@@ -42,7 +42,7 @@ class ProductsTable extends React.Component {
 
 ProductsTable.propTypes = {
   selectedProductsList: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     description: PropTypes.string,
     quantity: PropTypes.number,
     price: PropTypes.number,
