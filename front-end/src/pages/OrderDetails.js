@@ -38,10 +38,10 @@ class OrderDetails extends React.Component {
       match: { params: { id } },
       history: { location: { pathname } },
     } = this.props;
-    console.log(pathname);
+    const helperPathname = (pathname.includes('seller')) ? 'seller' : 'customer';
     this.setState({
-      pathname,
-      isSeller: pathname === '/seller',
+      pathname: helperPathname,
+      isSeller: helperPathname === 'seller',
     });
     this.fetchOrderById(`customer/orders/${id}`);
   }
@@ -75,6 +75,8 @@ class OrderDetails extends React.Component {
               <OrderActions
                 isSeller={ isSeller }
                 pathname={ pathname }
+                status={ status }
+                id={ id }
               />
             </p>
             <ProductsTable
