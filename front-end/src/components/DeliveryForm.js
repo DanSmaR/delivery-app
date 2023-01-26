@@ -98,7 +98,7 @@ DeliveryForm.propTypes = {
   onInputChange: PropTypes.func.isRequired,
   onCheckButtonIsDisabled: PropTypes.func.isRequired,
   deliveryAddress: PropTypes.string.isRequired,
-  deliveryNumber: PropTypes.string.isRequired,
+  deliveryNumber: PropTypes.number.isRequired,
 };
 
 export default DeliveryForm;

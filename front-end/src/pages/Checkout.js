@@ -26,7 +26,7 @@ class Checkout extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchSellers('users/sellers');
+    this.fetchSellers('user/seller');
   }
 
   handleUpdateSelectedProducts() {
@@ -53,7 +53,7 @@ class Checkout extends React.Component {
 
   handleCheckButtonIsDisabled = () => !validateOrder(this.state);
 
-  handleOrderSubmit = (e) => {
+  handleOrderSubmit = async (e) => {
     e.preventDefault();
 
     const {
@@ -64,26 +64,26 @@ class Checkout extends React.Component {
       sellerId,
       deliveryAddress,
       deliveryNumber,
-      totalPrice: getTotalPrice(selectedProductsList),
+      totalPrice: Number(getTotalPrice(selectedProductsList)),
       products: selectedProductsList.map((product) => ({
-        productId: product.id, quantity: product.quantity })),
+        id: product.id, quantity: product.quantity })),
     };
-
-    return this.postOrder(order);
+    await this.postOrder(order);
   };
 
   postOrder = async (order) => {
     const { token } = JSON.parse(localStorage.getItem('user')) || { token: '' };
-    const result = await instance
-      .post('customer/orders', order, { headers: { Authorization: token } })
-      .catch((err) => {
-        console.error(err);
-        alert('Erro ao cadastrar venda');
-      });
-    console.log(result);
-    if (result) {
-      const { history } = this.props;
-      history.push(`/customer/orders/${result.id}`);
+    try {
+      const result = await instance
+        .post('customer/orders', order, { headers: { Authorization: token } });
+      console.log(result);
+      if (result) {
+        const { history } = this.props;
+        history.push(`/customer/orders/${result.id}`);
+      }
+    } catch (err) {
+      console.error(`error: ${err}`);
+      alert('Erro ao cadastrar venda');
     }
   };
 
