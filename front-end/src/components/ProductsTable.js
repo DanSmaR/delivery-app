@@ -7,34 +7,38 @@ class ProductsTable extends React.Component {
     const { selectedProductsList, checkout, onDeleteItem } = this.props;
     return (
       <div className="table-wrap">
-        <table className="table">
-          <thead className="table-head">
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Sub-total</th>
-              {
-                checkout && <th>Remover Item</th>
-              }
-            </tr>
-          </thead>
-          <tbody className="table-body">
-            {
-              selectedProductsList.map((product, index, array) => (
-                <ProductTableLine
-                  key={ product.id }
-                  item={ product }
-                  index={ index }
-                  checkout
-                  onDeleteItem={ onDeleteItem }
-                  listItems={ array }
-                />
-              ))
-            }
-          </tbody>
-        </table>
+        {
+          selectedProductsList.length > 0 ? (
+            <table className="table">
+              <thead className="table-head">
+                <tr>
+                  <th>Item</th>
+                  <th>Descrição</th>
+                  <th>Quantidade</th>
+                  <th>Valor Unitário</th>
+                  <th>Sub-total</th>
+                  {
+                    checkout && <th>Remover Item</th>
+                  }
+                </tr>
+              </thead>
+              <tbody className="table-body">
+                {
+                  selectedProductsList.map((product, index, array) => (
+                    <ProductTableLine
+                      key={ product.id }
+                      item={ product }
+                      index={ index }
+                      checkout
+                      onDeleteItem={ onDeleteItem }
+                      listItems={ array }
+                    />
+                  ))
+                }
+              </tbody>
+            </table>
+          ) : (<h3>Carrinho Vazio</h3>)
+        }
       </div>
     );
   }
