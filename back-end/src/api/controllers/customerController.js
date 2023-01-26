@@ -1,7 +1,7 @@
 const { allOrdersByUser, registerOrder } = require('../services/customerService');
 
 const getByUser = async (req, res) => {
-  const { id, role } = req.data
+  const { id, role } = req.data;
   const result = await allOrdersByUser(id, role);
 
   const { status, message } = result;

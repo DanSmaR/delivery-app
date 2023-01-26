@@ -1,6 +1,6 @@
 const express = require('express');
 const { getByUser, registerOrderHandler } = require('../controllers/customerController');
-const getUser = require('../middleware/getUserByToken')
+const getUser = require('../middleware/getUserByToken');
 
 const customerRouter = express.Router();
 
