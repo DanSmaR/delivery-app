@@ -78,6 +78,7 @@ class ProductsCards extends React.Component {
                   type="button"
                   id={ `add-${id}` }
                   onClick={ () => this.addQuantity(id) }
+                  data-testid={ `customer_products__button-card-add-item-${id}` }
                 >
                   +
                 </button>
