@@ -14,13 +14,14 @@ class Button extends React.Component {
   };
 
   render() {
-    const { children, submit, dataTestId } = this.props;
+    const { children, submit, dataTestId, className } = this.props;
     return (
       <button
         type={ submit ? 'submit' : 'button' }
         data-testid={ dataTestId }
         onClick={ !submit ? this.handleClick : () => {} }
         disabled={ this.handleIsDisabled() }
+        className={ className }
       >
         { children }
       </button>
@@ -34,11 +35,13 @@ Button.propTypes = {
   dataTestId: PropTypes.string.isRequired,
   onAction: PropTypes.func.isRequired,
   onCheckIsDisabled: PropTypes.func,
+  className: PropTypes.string,
 };
 
 Button.defaultProps = {
   submit: false,
   onCheckIsDisabled: () => false,
+  className: '',
 };
 
 export default Button;
