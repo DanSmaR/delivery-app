@@ -33,7 +33,7 @@ Button.propTypes = {
   children: PropTypes.string.isRequired,
   submit: PropTypes.bool,
   dataTestId: PropTypes.string.isRequired,
-  onAction: PropTypes.func.isRequired,
+  onAction: PropTypes.func,
   onCheckIsDisabled: PropTypes.func,
   className: PropTypes.string,
 };
@@ -42,6 +42,7 @@ Button.defaultProps = {
   submit: false,
   onCheckIsDisabled: () => false,
   className: '',
+  onAction: () => {},
 };
 
 export default Button;

@@ -17,7 +17,7 @@ class TotalPriceInfo extends React.Component {
 }
 
 TotalPriceInfo.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.number.isRequired,
 };
 
 export default TotalPriceInfo;
