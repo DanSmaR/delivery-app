@@ -13,15 +13,15 @@ class Checkout extends React.Component {
     super();
     this.state = {
       selectedProductsList: JSON.parse(localStorage.getItem('cart')) || [{
-        id: '1',
-        description: 'produto',
+        id: 1,
+        description: 'Skol Lata 250ml',
         quantity: 20,
-        price: 3,
+        price: 2.20,
       }],
-      sellers: [{ id: '1', name: 'Veia' }],
-      sellerId: '1',
-      deliveryAddress: '1',
-      deliveryNumber: '1',
+      sellers: [{ id: 2, name: 'Fulana Pereira' }],
+      sellerId: 2,
+      deliveryAddress: 'Rua 1',
+      deliveryNumber: 100,
     };
   }
 
@@ -73,14 +73,14 @@ class Checkout extends React.Component {
   };
 
   postOrder = async (order) => {
-    const { token } = JSON.parse(localStorage.getItem('user')) || '';
+    const { token } = JSON.parse(localStorage.getItem('user')) || { token: '' };
     const result = await instance
       .post('customer/orders', order, { headers: { Authorization: token } })
       .catch((err) => {
         console.error(err);
         alert('Erro ao cadastrar venda');
       });
-
+    console.log(result);
     if (result) {
       const { history } = this.props;
       history.push(`/customer/orders/${result.id}`);
