@@ -7,6 +7,7 @@ class ProductsCards extends React.Component {
     this.state = {
       products: [],
       qtd: {},
+      // cart: [],
     };
   }
 
@@ -38,7 +39,7 @@ class ProductsCards extends React.Component {
   };
 
   subQuantity = (id) => {
-    const { qtd } = this.state;
+    const { qtd, products } = this.state;
     if (qtd[id] && qtd[id].quantity > 0) {
       this.setState((previousState) => (
         { qtd:
@@ -48,6 +49,25 @@ class ProductsCards extends React.Component {
         }
       ));
     }
+    console.log(products);
+  };
+
+  /*  cart: [
+    {
+      id,
+      name,
+      quantity
+      price,
+      imageUrl,
+    }
+  ] */
+
+  onInputChange = (id) => {
+    const { qtd } = this.state;
+    const newCard = {
+      quantity: qtd[id].quantity,
+    };
+    console.log(newCard);
   };
 
   render() {
@@ -85,8 +105,10 @@ class ProductsCards extends React.Component {
                 <input
                   type="text"
                   name="qtd"
+                  className="inputQtd"
                   id={ `input-${id}` }
                   value={ qtd[id] ? qtd[id].quantity : 0 }
+                  onChange={ () => this.onInputChange(id) }
                   data-testid={ `customer_products__input-card-quantity-${id}` }
                 />
                 <button
