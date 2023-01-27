@@ -1,3 +1,4 @@
+import PropTypes, { object } from 'prop-types';
 import React from 'react';
 import { requestData } from '../helpers/instance';
 import Button from './Button';
