@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 class Button extends React.Component {
   handleClick = (e) => {
@@ -10,6 +10,7 @@ class Button extends React.Component {
 
   handleIsDisabled = () => {
     const { onCheckIsDisabled } = this.props;
+    console.log(onCheckIsDisabled());
     return onCheckIsDisabled();
   };
 

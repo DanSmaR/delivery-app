@@ -89,9 +89,12 @@ class ProductsCards extends React.Component {
 
   totalPriceCart = () => {
     const { cart } = this.state;
-    const total = cart.map(({ totalPrice }) => Number(totalPrice))
-      .reduce((acc, curr) => acc + curr).toFixed(2);
-    return total;
+    if (!cart.length === 0) {
+      const total = cart.map(({ totalPrice }) => Number(totalPrice))
+        .reduce((acc, curr) => acc + curr).toFixed(2);
+      const totalReplaced = total.replace('.', ',');
+      return totalReplaced;
+    }
   };
 
   cartToLocalStorage = () => {
@@ -109,22 +112,25 @@ class ProductsCards extends React.Component {
   };
 
   handleButtonDisable = () => {
-    const { cart } = this.status;
+    const { cart } = this.state;
 
     return cart.length === 0;
   };
 
   displayCart = () => {
     const total = this.total();
-    const totalReplaced = total.replace('.', ',');
     return (
       <Button
-        dataTestId="data-testid='customer_products__button-cart"
+        dataTestId="customer_products__button-cart"
         onAction={ this.handleRedirectToCheckout }
-        onCheckIsDisable={ this.handleButtonDisable }
+        onCheckIsDisabled={ this.handleButtonDisable }
         // className="display-cart-button"
       >
-        {totalReplaced}
+        R$
+        {' '}
+        <span data-testid="customer_products__checkout-bottom-value">
+          {total}
+        </span>
       </Button>
     );
   };
