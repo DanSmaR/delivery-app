@@ -90,7 +90,7 @@ ProductTableLine.propTypes = {
     id: PropTypes.number.isRequired,
     description: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
   }).isRequired,
   checkout: PropTypes.bool,
   onDeleteItem: PropTypes.func.isRequired,
@@ -98,7 +98,7 @@ ProductTableLine.propTypes = {
     id: PropTypes.number,
     description: PropTypes.string,
     quantity: PropTypes.number,
-    price: PropTypes.number,
+    price: PropTypes.string,
   })).isRequired,
 };
 

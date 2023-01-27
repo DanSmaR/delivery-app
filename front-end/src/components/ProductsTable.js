@@ -49,7 +49,7 @@ ProductsTable.propTypes = {
     id: PropTypes.number,
     description: PropTypes.string,
     quantity: PropTypes.number,
-    price: PropTypes.number,
+    price: PropTypes.string,
   })).isRequired,
   checkout: PropTypes.bool,
   onDeleteItem: PropTypes.func,
