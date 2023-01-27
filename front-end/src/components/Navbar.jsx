@@ -14,7 +14,6 @@ class Navbar extends React.Component {
 
   componentDidMount() {
     this.definePathName();
-    this.getUser();
   }
 
   definePathName = () => {

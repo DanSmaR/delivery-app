@@ -136,6 +136,7 @@ class ProductsCards extends React.Component {
                     +
                   </button>
                   <input
+                    readOnly
                     type="text"
                     name="qtd"
                     className="inputQtd"
