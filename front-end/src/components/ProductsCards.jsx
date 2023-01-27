@@ -1,5 +1,6 @@
 import React from 'react';
 import { requestData } from '../helpers/instance';
+import Button from './Button';
 
 class ProductsCards extends React.Component {
   constructor() {
@@ -51,16 +52,6 @@ class ProductsCards extends React.Component {
     }
   };
 
-  /*  cart: [
-    {
-      id,
-      name,
-      quantity
-      price,
-      imageUrl,
-    }
-  ] */
-
   onInputChange = (id) => {
     const { qtd: { [id]: { quantity } }, products } = this.state;
     const [product] = products.filter(({ id: pId }) => pId === id);
@@ -73,13 +64,23 @@ class ProductsCards extends React.Component {
     this.cartSetState(id, newCart);
   };
 
+  handleManualInputChange = (id, e) => {
+    this.setState((previousState) => (
+      { qtd:
+         { ...previousState.qtd,
+           [id]: { quantity: +e.target.value },
+         },
+      }
+    ), () => this.onInputChange(id));
+  };
+
   cartSetState = (id, newCart) => this.setState((previousState) => {
     const prev = previousState.cart.filter(({ id: pId }) => pId !== id);
 
     return newCart.quantity === 0
       ? this.rmCartState(prev)
       : this.addCartState(prev, newCart);
-  });
+  }, () => this.cartToLocalStorage());
 
   addCartState = (prev, curr) => ({ cart: [...prev, curr] });
 
@@ -92,19 +93,43 @@ class ProductsCards extends React.Component {
     return total;
   };
 
+  cartToLocalStorage = () => {
+    const { cart } = this.state;
+    return cart.length > 0
+      ? localStorage.setItem('cart', JSON.stringify(cart))
+      : localStorage.removeItem('cart');
+  };
+
   total = () => this.totalPriceCart();
+
+  handleRedirectToCheckout = () => {
+    const { history } = this.props;
+    history.push('/customers/checkout');
+  };
+
+  handleButtonDisable = () => {
+    const { cart } = this.status;
+
+    return cart.length === 0;
+  };
 
   displayCart = () => {
     const total = this.total();
+    const totalReplaced = total.replace('.', ',');
     return (
-      <button type="button" className="display-cart-button">
-        {`Ver carrinho ${total}`}
-      </button>
+      <Button
+        dataTestId="data-testid='customer_products__button-cart"
+        onAction={ this.handleRedirectToCheckout }
+        onCheckIsDisable={ this.handleButtonDisable }
+        // className="display-cart-button"
+      >
+        {totalReplaced}
+      </Button>
     );
   };
 
   render() {
-    const { products, qtd, cart } = this.state;
+    const { products, qtd } = this.state;
 
     return (
       <>
@@ -136,12 +161,14 @@ class ProductsCards extends React.Component {
                     +
                   </button>
                   <input
-                    type="text"
+                    type="number"
                     name="qtd"
                     className="inputQtd"
+                    defaultValue={ 0 }
                     id={ `input-${id}` }
-                    value={ qtd[id] ? qtd[id].quantity : 0 }
+                    value={ qtd[id] && qtd[id].quantity }
                     data-testid={ `customer_products__input-card-quantity-${id}` }
+                    onChange={ (e) => this.handleManualInputChange(id, e) }
                   />
                   <button
                     type="button"
@@ -157,11 +184,15 @@ class ProductsCards extends React.Component {
           }) }
         </div>
         <div className="display-cart">
-          { cart.length > 0 && this.displayCart() }
+          { this.displayCart() }
         </div>
       </>
     );
   }
 }
+
+ProductsCards.propTypes = {
+  history: PropTypes.shape(object.PropTypes).isRequired,
+};
 
 export default ProductsCards;
