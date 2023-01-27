@@ -27,7 +27,6 @@ class Navbar extends React.Component {
     const getUsers = localStorage.getItem('user');
     const userJSON = JSON.parse(getUsers);
     this.setState({ user: userJSON });
-    console.log(userJSON);
   };
 
   customerProducts = () => {

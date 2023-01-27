@@ -91,3 +91,10 @@
 .inputQtd {
   width: 24px;
 }
+
+.display-cart {
+  bottom: 10px;
+  position: fixed;
+  right: 10px;
+  z-index: 100;
+}
