@@ -1,10 +1,34 @@
-const { Sale, SaleProduct, sequelize } = require('../../database/models');
-    
+const { User, Sale, SaleProduct, sequelize, Product } = require('../../database/models');
+
+const getOrdersOptions = {
+  include: [
+    {
+      model: Product,
+      as: 'products',
+    },
+    {
+      model: User,
+      as: 'seller',
+    }
+  ]
+};
+
 const allOrdersByUser = async (id, role) => {
     const person = (role === 'seller') ? 'sellerId' : 'userId';
     const result = await Sale
       .findAll({ where: { [person]: id } });
     return { status: 200, message: result };
+};
+
+const getOrderById = async (id, userId, role) => {
+  const person = (role === 'seller') ? 'sellerId' : 'userId';
+  const result = await Sale.findByPk(id, {
+    where: {
+      [person]: userId,
+    },
+    ...getOrdersOptions,
+  });
+  return { status: 200, message: result };
 };
 
 const registerOrder = async (data, userId) => {
@@ -25,4 +49,4 @@ const registerOrder = async (data, userId) => {
   }
 };
 
-module.exports = { allOrdersByUser, registerOrder };
+module.exports = { allOrdersByUser, registerOrder, getOrderById };

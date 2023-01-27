@@ -5,28 +5,19 @@ import TotalPriceInfo from '../components/TotalPriceInfo';
 import Navbar from '../components/Navbar';
 import OrderDetailsHeader from '../components/OrderDetailsHeader';
 import OrderActions from '../components/OrderActions';
+import { requestData } from '../helpers/instance';
 
 class OrderDetails extends React.Component {
   constructor() {
     super();
     this.state = {
       order: {
-        saleDate: '2023-01-26T14:04:16.287Z',
-        status: 'Pendente',
-        id: 9,
-        sellerName: 'Fulana Pereira',
-        totalPrice: 44,
-        products: [{
-          id: 1,
-          description: 'Skol Lata 250ml',
-          price: 2.20,
-          quantity: 2,
-        }, {
-          id: 2,
-          description: 'Heineken 600ml',
-          price: 7.50,
-          quantity: 3,
-        }],
+        id: 0,
+        saleDate: '',
+        status: '',
+        sellerName: '',
+        totalPrice: '0.00',
+        products: [],
       },
       pathname: '',
       isSeller: false,
@@ -48,7 +39,19 @@ class OrderDetails extends React.Component {
 
   fetchOrderById = async (endpoint) => requestData(endpoint)
     .then((response) => this.setState({
-      order: response,
+      order: {
+        id: response.id,
+        saleDate: response.saleDate,
+        status: response.status,
+        sellerName: response.seller.name,
+        totalPrice: response.totalPrice,
+        products: response.products.map((product) => ({
+          id: product.id,
+          description: product.name,
+          price: product.price,
+          quantity: product.SaleProduct.quantity,
+        })),
+      },
     }), (error) => console.log(error));
 
   render() {
