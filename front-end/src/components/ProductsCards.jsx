@@ -89,12 +89,14 @@ class ProductsCards extends React.Component {
 
   totalPriceCart = () => {
     const { cart } = this.state;
-    if (!cart.length === 0) {
+
+    if (cart.length !== 0) {
       const total = cart.map(({ totalPrice }) => Number(totalPrice))
         .reduce((acc, curr) => acc + curr).toFixed(2);
       const totalReplaced = total.replace('.', ',');
       return totalReplaced;
     }
+    return 0;
   };
 
   cartToLocalStorage = () => {
@@ -104,11 +106,9 @@ class ProductsCards extends React.Component {
       : localStorage.removeItem('cart');
   };
 
-  total = () => this.totalPriceCart();
-
   handleRedirectToCheckout = () => {
     const { history } = this.props;
-    history.push('/customers/checkout');
+    history.push('/customer/checkout');
   };
 
   handleButtonDisable = () => {
@@ -118,7 +118,7 @@ class ProductsCards extends React.Component {
   };
 
   displayCart = () => {
-    const total = this.total();
+    const total = this.totalPriceCart();
     return (
       <Button
         dataTestId="customer_products__button-cart"

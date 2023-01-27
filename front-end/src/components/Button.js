@@ -10,7 +10,6 @@ class Button extends React.Component {
 
   handleIsDisabled = () => {
     const { onCheckIsDisabled } = this.props;
-    console.log(onCheckIsDisabled());
     return onCheckIsDisabled();
   };
 
