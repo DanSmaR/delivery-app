@@ -78,7 +78,6 @@ class DeliveryForm extends React.Component {
           <Button
             submit
             dataTestId="customer_checkout__input-address-number"
-            onAction={ () => {} }
             onCheckIsDisabled={ onCheckButtonIsDisabled }
           >
             Finalizar Pedido

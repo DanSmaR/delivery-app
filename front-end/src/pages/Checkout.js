@@ -16,7 +16,7 @@ class Checkout extends React.Component {
         id: 1,
         description: 'Skol Lata 250ml',
         quantity: 20,
-        price: 2.20,
+        price: '2.20',
       }],
       sellers: [],
       sellerId: 0,
@@ -26,7 +26,7 @@ class Checkout extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchSellers('user/seller');
+    this.fetchSellers('user?role=seller');
   }
 
   handleUpdateSelectedProducts() {
@@ -65,7 +65,7 @@ class Checkout extends React.Component {
       sellerId,
       deliveryAddress,
       deliveryNumber,
-      totalPrice: Number(getTotalPrice(selectedProductsList)),
+      totalPrice: getTotalPrice(selectedProductsList),
       products: selectedProductsList.map((product) => ({
         id: product.id, quantity: product.quantity })),
     };

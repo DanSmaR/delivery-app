@@ -38,6 +38,7 @@ export default class Orders extends React.Component {
 
   render() {
     const { orders } = this.state;
+    const { history } = this.props;
     return (
       <div>
         <Navbar history={ this.props } />
@@ -48,7 +49,7 @@ export default class Orders extends React.Component {
                 orders.map((order, i) => (<Order
                   key={ i }
                   order={ order }
-                  history={ this.props }
+                  history={ history }
                 />))
               }
             </main>

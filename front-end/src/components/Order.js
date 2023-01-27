@@ -24,8 +24,6 @@ export default class Order extends React.Component {
     const { seller } = this.state;
     const { history } = this.props;
     const url = (seller) ? `/seller/orders/${id}` : `/customer/orders/${id}`;
-    console.log(typeof history.push);
-    console.log(history);
     history.push(url);
   };
 

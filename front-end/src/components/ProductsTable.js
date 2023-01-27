@@ -29,7 +29,7 @@ class ProductsTable extends React.Component {
                       key={ product.id }
                       item={ product }
                       index={ index }
-                      checkout
+                      checkout={ checkout }
                       onDeleteItem={ onDeleteItem }
                       listItems={ array }
                     />
@@ -49,14 +49,15 @@ ProductsTable.propTypes = {
     id: PropTypes.number,
     description: PropTypes.string,
     quantity: PropTypes.number,
-    price: PropTypes.number,
+    price: PropTypes.string,
   })).isRequired,
   checkout: PropTypes.bool,
-  onDeleteItem: PropTypes.func.isRequired,
+  onDeleteItem: PropTypes.func,
 };
 
 ProductsTable.defaultProps = {
   checkout: false,
+  onDeleteItem: () => {},
 };
 
 export default ProductsTable;

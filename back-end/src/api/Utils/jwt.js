@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 require('dotenv/config');
 const path = require('path');
+
 const JWT_EVALUATION_KEY = require('fs')
 .readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'), { encoding: 'utf-8' });
 
