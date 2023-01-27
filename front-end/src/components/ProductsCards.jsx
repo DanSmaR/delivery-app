@@ -97,7 +97,7 @@ class ProductsCards extends React.Component {
   displayCart = () => {
     const total = this.total();
     return (
-      <button type="button">
+      <button type="button" className="display-cart-button">
         {`Ver carrinho ${total}`}
       </button>
     );
