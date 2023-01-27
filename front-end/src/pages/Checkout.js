@@ -26,7 +26,7 @@ class Checkout extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchSellers('user/seller');
+    this.fetchSellers('user?role=seller');
   }
 
   handleUpdateSelectedProducts() {
