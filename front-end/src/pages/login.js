@@ -68,7 +68,7 @@ class Login extends React.Component {
         <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
           Glass
         </object>
-        <forms className="login-forms">
+        <form className="login-forms">
           <label htmlFor="email">
             Login
             <input
@@ -108,7 +108,7 @@ class Login extends React.Component {
           >
             Ainda não tenho conta
           </button>
-        </forms>
+        </form>
         {
           (message === '') ? <> </>
             : (

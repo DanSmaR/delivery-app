@@ -3,27 +3,32 @@ import PropTypes from 'prop-types';
 import Button from './Button';
 
 class ProductTableLine extends React.Component {
+  handleDeleteItem = (id, list) => {
+    const { onDeleteItem } = this.props;
+    onDeleteItem(id, list);
+  };
+
   render() {
-    const { index, description, quantity, price, checkout } = this.props;
+    const { index, checkout, item, listItems } = this.props;
     return (
       <tr
         className="table-item"
       >
-        <th
+        <td
           className="product-counter"
           data-testid={
             `customer_checkout__element-order-table-item-number-${index}`
           }
         >
-          { index }
-        </th>
+          { index + 1 }
+        </td>
         <td
           className="product-description"
           data-testid={
             `customer_checkout__element-order-table-name-${index}`
           }
         >
-          { description }
+          { item.description }
         </td>
         <td
           className="product-quantity"
@@ -31,7 +36,7 @@ class ProductTableLine extends React.Component {
             `customer_checkout__element-order-table-quantity-${index}`
           }
         >
-          { quantity }
+          { item.quantity }
         </td>
         <td
           className="product-price"
@@ -40,30 +45,39 @@ class ProductTableLine extends React.Component {
           }
         >
           R$
-          { }
+          {' '}
           <span
             data-testid={
               `customer_checkout__element-order-table-unit-price-${index}`
             }
           >
-            { price }
+            { Number(item.price).toFixed(2) }
           </span>
         </td>
         <td
           className="product-price-total"
         >
           R$
-          { }
+          {' '}
           <span
             data-testid={
               `customer_checkout__element-order-table-sub-total-${index}`
             }
           >
-            { Math.round(price * quantity * 100) / 100 }
+            { (Math.round(item.price * item.quantity * 100) / 100).toFixed(2) }
           </span>
         </td>
         {
-          checkout && <td><Button submit>Remover</Button></td>
+          checkout && (
+            <td>
+              <Button
+                dataTestId={ `customer_checkout__element-order-table-remove-${index}` }
+                onAction={ () => this.handleDeleteItem(item.id, listItems) }
+              >
+                Remover
+              </Button>
+            </td>
+          )
         }
       </tr>
     );
@@ -72,10 +86,24 @@ class ProductTableLine extends React.Component {
 
 ProductTableLine.propTypes = {
   index: PropTypes.number.isRequired,
-  description: PropTypes.string.isRequired,
-  quantity: PropTypes.number.isRequired,
-  price: PropTypes.number.isRequired,
-  checkout: PropTypes.bool.isRequired,
+  item: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    quantity: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+  checkout: PropTypes.bool,
+  onDeleteItem: PropTypes.func.isRequired,
+  listItems: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    description: PropTypes.string,
+    quantity: PropTypes.number,
+    price: PropTypes.number,
+  })).isRequired,
+};
+
+ProductTableLine.defaultProps = {
+  checkout: false,
 };
 
 export default ProductTableLine;
