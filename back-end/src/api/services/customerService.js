@@ -9,8 +9,8 @@ const getOrdersOptions = {
     {
       model: User,
       as: 'seller',
-    }
-  ]
+    },
+  ],
 };
 
 const allOrdersByUser = async (id, role) => {

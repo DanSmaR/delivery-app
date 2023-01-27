@@ -1,5 +1,7 @@
 const express = require('express');
-const { getByUser, registerOrderHandler, getOrderByIdHandler } = require('../controllers/customerController');
+const {
+  getByUser, registerOrderHandler, getOrderByIdHandler,
+} = require('../controllers/customerController');
 const getUser = require('../middleware/getUserByToken');
 
 const customerRouter = express.Router();
