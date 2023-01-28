@@ -64,7 +64,9 @@ class ProductTableLine extends React.Component {
               `customer_checkout__element-order-table-sub-total-${index}`
             }
           >
-            { item.totalPrice.replace('.', ',') }
+            { (
+              Math.round(item.price * item.quantity * 100) / 100)
+              .toFixed(2).replace('.', ',') }
           </span>
         </td>
         {

@@ -60,7 +60,7 @@ class Checkout extends React.Component {
       sellerId,
       deliveryAddress,
       deliveryNumber,
-      totalPrice: getTotalPrice(selectedProductsList),
+      totalPrice: getTotalPrice(selectedProductsList).replace(',', '.'),
       products: selectedProductsList.map((product) => ({
         id: product.id, quantity: product.quantity })),
     };
@@ -71,7 +71,7 @@ class Checkout extends React.Component {
     const { token } = JSON.parse(localStorage.getItem('user')) || { token: '' };
     try {
       const result = await instance
-        .post('customer/orders', order, { headers: { Authorization: token } });
+        .post('/customer/orders', order, { headers: { Authorization: token } });
       if (result) {
         const { history } = this.props;
         history.push(`/customer/orders/${result.data.id}`);

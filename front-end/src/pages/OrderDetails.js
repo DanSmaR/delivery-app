@@ -105,7 +105,7 @@ class OrderDetails extends React.Component {
               selectedProductsList={ products }
             />
             <TotalPriceInfo>
-              { totalPrice }
+              { totalPrice.replace('.', ',') }
             </TotalPriceInfo>
           </section>
         </main>
