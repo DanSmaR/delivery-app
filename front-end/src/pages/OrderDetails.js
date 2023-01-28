@@ -5,7 +5,7 @@ import TotalPriceInfo from '../components/TotalPriceInfo';
 import Navbar from '../components/Navbar';
 import OrderDetailsHeader from '../components/OrderDetailsHeader';
 import OrderActions from '../components/OrderActions';
-import { requestData } from '../helpers/instance';
+import instance, { requestData } from '../helpers/instance';
 
 class OrderDetails extends React.Component {
   constructor() {
@@ -54,6 +54,24 @@ class OrderDetails extends React.Component {
       },
     }), (error) => console.log(error));
 
+  handleChangeStatusById = async (status, id) => {
+    const { token } = JSON.parse(localStorage.getItem('user')) || { token: '' };
+    try {
+      const result = await instance
+        .put(`/orders/${id}`, { status }, { headers: { Authorization: token } });
+
+      this.setState((prevState) => ({
+        ...prevState,
+        order: {
+          ...prevState.order,
+          status: result.status,
+        },
+      }));
+    } catch (error) {
+      console.error(`error: ${err}`);
+    }
+  };
+
   render() {
     const { order: {
       id, saleDate, status, sellerName, totalPrice, products,
@@ -80,6 +98,7 @@ class OrderDetails extends React.Component {
                 pathname={ pathname }
                 status={ status }
                 id={ id }
+                onChangeStatusById={ this.handleChangeStatusById }
               />
             </p>
             <ProductsTable

@@ -19,21 +19,25 @@ export default class Orders extends React.Component {
 
   getOrders = async () => {
     const { token } = JSON.parse(localStorage.getItem('user'));
-    const userSales = await instance
-      .get('customer/orders', { headers: { Authorization: token } });
-    const result = userSales.data
-      .map((sale) => (
-        {
-          id: sale.id,
-          totalPrice: sale.totalPrice,
-          address: `${sale.deliveryAddress}, ${sale.deliveryNumber}`,
-          saleDate: sale.saleDate,
-          status: sale.status,
-        }
-      ));
-    this.setState({
-      orders: result,
-    });
+    try {
+      const userSales = await instance
+        .get('customer/orders', { headers: { Authorization: token } });
+      const result = userSales.data
+        .map((sale) => (
+          {
+            id: sale.id,
+            totalPrice: sale.totalPrice,
+            address: `${sale.deliveryAddress}, ${sale.deliveryNumber}`,
+            saleDate: sale.saleDate,
+            status: sale.status,
+          }
+        ));
+      this.setState({
+        orders: result,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   render() {

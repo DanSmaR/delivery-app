@@ -2,6 +2,7 @@ const { allOrdersByUser, registerOrder, getOrderById } = require('../services/cu
 
 const getByUser = async (req, res) => {
   const { id, role } = req.data;
+  console.log(id);
   const result = await allOrdersByUser(id, role);
 
   const { status, message } = result;

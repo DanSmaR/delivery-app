@@ -1,33 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from './Button';
-import instance from '../helpers/instance';
 
 class OrderActions extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      status: '',
-    };
-  }
-
-  componentDidMount() {
-    const { status } = this.props;
-    this.setState({
-      status,
-    });
-  }
-
-  changeStatusById = async (status) => {
-    const { id } = this.props;
-    await instance.put(`/orders/${id}`, { status });
-    this.setState({
-      status,
-    });
+  handleChangeStatusById = async (status) => {
+    const { onChangeStatusById, id } = this.props;
+    onChangeStatusById(status, id);
   };
 
   renderSellerActions = () => {
-    const { status } = this.state;
+    const { status } = this.props;
     const prepared = (status !== 'Pendente');
     const sent = (status !== 'Preparando');
     return (
@@ -35,7 +17,7 @@ class OrderActions extends React.Component {
         <span>
           <Button
             dataTestId="seller_order_details__button-preparing-check"
-            onAction={ () => this.changeStatusById('Preparando') }
+            onAction={ () => this.handleChangeStatusById('Preparando') }
             onCheckIsDisabled={ () => prepared }
           >
             Preparar Pedido
@@ -44,7 +26,7 @@ class OrderActions extends React.Component {
         <span>
           <Button
             dataTestId="seller_order_details__button-dispatch-check"
-            onAction={ () => this.changeStatusById('Em Trânsito') }
+            onAction={ () => this.handleChangeStatusById('Em Trânsito') }
             onCheckIsDisabled={ () => sent }
           >
             Saiu para Entrega
@@ -55,13 +37,13 @@ class OrderActions extends React.Component {
   };
 
   renderCustomerAction = () => {
-    const { status } = this.state;
+    const { status } = this.props;
     const hasArrived = (status !== 'Em Trânsito');
     return (
       <span>
         <Button
           dataTestId="customer_order_details__button-delivery-check"
-          onAction={ () => this.changeStatusById('Entregue') }
+          onAction={ () => this.handleChangeStatusById('Entregue') }
           onCheckIsDisabled={ () => hasArrived }
         >
           Marcar como Entregue
@@ -81,6 +63,7 @@ class OrderActions extends React.Component {
 OrderActions.propTypes = {
   isSeller: PropTypes.bool.isRequired,
   id: PropTypes.number.isRequired,
+  onChangeStatusById: PropTypes.func.isRequired,
   status: PropTypes.string.isRequired,
 };
 

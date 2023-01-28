@@ -83,7 +83,6 @@ class Checkout extends React.Component {
       }
     } catch (err) {
       console.error(`error: ${err}`);
-      alert('Erro ao cadastrar venda');
     }
   };
 
