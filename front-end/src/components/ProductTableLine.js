@@ -51,7 +51,7 @@ class ProductTableLine extends React.Component {
               `customer_checkout__element-order-table-unit-price-${index}`
             }
           >
-            { item.price }
+            { item.price.replace('.', ',') }
           </span>
         </td>
         <td
@@ -64,7 +64,7 @@ class ProductTableLine extends React.Component {
               `customer_checkout__element-order-table-sub-total-${index}`
             }
           >
-            { item.totalPrice }
+            { item.totalPrice.replace('.', ',') }
           </span>
         </td>
         {
