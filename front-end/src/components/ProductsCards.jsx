@@ -174,6 +174,7 @@ class ProductsCards extends React.Component {
                     name="qtd"
                     className="inputQtd"
                     defaultValue={ 0 }
+                    min={ 0 }
                     id={ `input-${id}` }
                     value={ qtd[id] && qtd[id].quantity }
                     data-testid={ `customer_products__input-card-quantity-${id}` }
