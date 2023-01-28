@@ -19,7 +19,10 @@ class Login extends React.Component {
 
   componentDidMount() {
     const { history } = this.props;
-    if (history.location.pathname !== '/login') {
+    const { role } = JSON.parse(localStorage.getItem('user')) || { role: '' };
+    if (role === 'customer') {
+      history.push('/customer/products');
+    } else if (history.location.pathname !== '/login') {
       history.push('/login');
     }
   }
