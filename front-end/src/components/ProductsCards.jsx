@@ -32,9 +32,9 @@ class ProductsCards extends React.Component {
     } else {
       this.setState((previousState) => (
         { qtd:
-           { ...previousState.qtd,
-             [id]: { quantity: previousState.qtd[id].quantity + 1 },
-           },
+          { ...previousState.qtd,
+            [id]: { quantity: previousState.qtd[id].quantity + 1 },
+          },
         }
       ), () => this.onInputChange(id));
     }
@@ -45,9 +45,9 @@ class ProductsCards extends React.Component {
     if (qtd[id] && qtd[id].quantity > 0) {
       this.setState((previousState) => (
         { qtd:
-           { ...previousState.qtd,
-             [id]: { quantity: previousState.qtd[id].quantity - 1 },
-           },
+          { ...previousState.qtd,
+            [id]: { quantity: previousState.qtd[id].quantity - 1 },
+          },
         }
       ), () => this.onInputChange(id));
     }
@@ -68,9 +68,9 @@ class ProductsCards extends React.Component {
   handleManualInputChange = (id, e) => {
     this.setState((previousState) => (
       { qtd:
-         { ...previousState.qtd,
-           [id]: { quantity: +e.target.value },
-         },
+        { ...previousState.qtd,
+          [id]: { quantity: +e.target.value },
+        },
       }
     ), () => this.onInputChange(id));
   };
