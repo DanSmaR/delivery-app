@@ -32,6 +32,7 @@ export default class Order extends React.Component {
     const { seller } = this.state;
     const { id, status, saleDate, totalPrice, address } = order;
     const person = (seller) ? 'seller' : 'customer';
+    const formattedSaleDate = new Date(saleDate).toLocaleDateString('pt-BR');
 
     return (
       <button type="button" onClick={ () => this.nextPage(id) } className="order">
@@ -47,7 +48,7 @@ export default class Order extends React.Component {
           </section>
           <section>
             <div data-testid={ `${person}_orders__element-order-date-${id}` }>
-              { saleDate }
+              { formattedSaleDate }
             </div>
             <div data-testid={ `${person}_orders__element-card-price-${id}` }>
               { totalPrice }

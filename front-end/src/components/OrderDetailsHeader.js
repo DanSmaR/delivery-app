@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 class OrderDetailsHeader extends React.Component {
   render() {
     const { status, saleDate, sellerName, id, isSeller, pathname } = this.props;
+    const formattedSaleDate = new Date(saleDate).toLocaleDateString('pt-BR');
+
     return (
       <>
         <span>
@@ -38,7 +40,7 @@ class OrderDetailsHeader extends React.Component {
             `${pathname}_order_details__element-order-details-label-order-date`
           }
         >
-          { saleDate }
+          { formattedSaleDate }
         </span>
         <span
           data-testid={
