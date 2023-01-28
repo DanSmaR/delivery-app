@@ -51,7 +51,7 @@ export default class Order extends React.Component {
               { formattedSaleDate }
             </div>
             <div data-testid={ `${person}_orders__element-card-price-${id}` }>
-              { totalPrice }
+              { totalPrice.replace('.', ',') }
             </div>
           </section>
         </div>
