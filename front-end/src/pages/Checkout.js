@@ -12,12 +12,7 @@ class Checkout extends React.Component {
   constructor() {
     super();
     this.state = {
-      selectedProductsList: JSON.parse(localStorage.getItem('cart')) || [{
-        id: 1,
-        description: 'Skol Lata 250ml',
-        quantity: 20,
-        price: '2.20',
-      }],
+      selectedProductsList: JSON.parse(localStorage.getItem('cart')) || [],
       sellers: [],
       sellerId: 0,
       deliveryAddress: '',

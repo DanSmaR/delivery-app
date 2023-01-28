@@ -57,9 +57,11 @@ class ProductsCards extends React.Component {
     const { qtd: { [id]: { quantity } }, products } = this.state;
     const [product] = products.filter(({ id: pId }) => pId === id);
     const newCart = {
-      ...product,
+      id: product.id,
+      description: product.name,
+      price: Number(product.price).toFixed(2),
       quantity,
-      totalPrice: (Number(product.price) * quantity).toFixed(2),
+      totalPrice: (Math.round(product.price * quantity * 100) / 100).toFixed(2),
     };
 
     this.cartSetState(id, newCart);

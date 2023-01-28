@@ -51,7 +51,7 @@ class ProductTableLine extends React.Component {
               `customer_checkout__element-order-table-unit-price-${index}`
             }
           >
-            { Number(item.price).toFixed(2) }
+            { item.price }
           </span>
         </td>
         <td
@@ -64,7 +64,7 @@ class ProductTableLine extends React.Component {
               `customer_checkout__element-order-table-sub-total-${index}`
             }
           >
-            { (Math.round(item.price * item.quantity * 100) / 100).toFixed(2) }
+            { item.totalPrice }
           </span>
         </td>
         {
@@ -91,6 +91,7 @@ ProductTableLine.propTypes = {
     description: PropTypes.string.isRequired,
     quantity: PropTypes.number.isRequired,
     price: PropTypes.string.isRequired,
+    totalPrice: PropTypes.string,
   }).isRequired,
   checkout: PropTypes.bool,
   onDeleteItem: PropTypes.func.isRequired,
@@ -99,6 +100,7 @@ ProductTableLine.propTypes = {
     description: PropTypes.string,
     quantity: PropTypes.number,
     price: PropTypes.string,
+    totalPrice: PropTypes.string,
   })).isRequired,
 };
 
