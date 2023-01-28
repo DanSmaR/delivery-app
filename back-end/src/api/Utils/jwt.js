@@ -21,7 +21,6 @@ const generateToken = ({ id, name, email, role }) => {
   };
 
   const token = jwt.sign(payload, TOKEN_SECRET_KEY, jwtConfig);
-
   return token;
 };
 
@@ -34,7 +33,6 @@ const authenticateToken = async (token) => {
 
   try {
     const validateToken = jwt.verify(token, TOKEN_SECRET_KEY);
-    // console.log(validateToken);
     return validateToken;
   } catch (error) {
     const status = 401;
