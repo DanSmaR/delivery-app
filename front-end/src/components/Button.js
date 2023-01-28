@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 class Button extends React.Component {
   handleClick = (e) => {
@@ -30,7 +30,7 @@ class Button extends React.Component {
 }
 
 Button.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   submit: PropTypes.bool,
   dataTestId: PropTypes.string.isRequired,
   onAction: PropTypes.func,
