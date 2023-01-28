@@ -9,7 +9,11 @@ class TotalPriceInfo extends React.Component {
         <p>
           R$
           {' '}
-          { children }
+          <span
+            data-testid="customer_checkout__element-order-total-price"
+          >
+            { children }
+          </span>
         </p>
       </article>
     );
@@ -17,7 +21,7 @@ class TotalPriceInfo extends React.Component {
 }
 
 TotalPriceInfo.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default TotalPriceInfo;

@@ -67,7 +67,7 @@ class DeliveryForm extends React.Component {
               name="deliveryNumber"
               id="address-number"
               type="number"
-              data-testid="customer_checkout__input-address"
+              data-testid="customer_checkout__input-address-number"
               onChange={ this.handleInputChange }
               required
               min="1"
@@ -77,7 +77,7 @@ class DeliveryForm extends React.Component {
         <p>
           <Button
             submit
-            dataTestId="customer_checkout__input-address-number"
+            dataTestId="customer_checkout__button-submit-order"
             onCheckIsDisabled={ onCheckButtonIsDisabled }
           >
             Finalizar Pedido
