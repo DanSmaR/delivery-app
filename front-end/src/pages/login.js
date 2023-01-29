@@ -19,7 +19,10 @@ class Login extends React.Component {
 
   componentDidMount() {
     const { history } = this.props;
-    if (history.location.pathname !== '/login') {
+    const { role } = JSON.parse(localStorage.getItem('user')) || { role: '' };
+    if (role === 'customer') {
+      history.push('/customer/products');
+    } else if (history.location.pathname !== '/login') {
       history.push('/login');
     }
   }
@@ -68,7 +71,7 @@ class Login extends React.Component {
         <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
           Glass
         </object>
-        <forms className="login-forms">
+        <form className="login-forms">
           <label htmlFor="email">
             Login
             <input
@@ -108,7 +111,7 @@ class Login extends React.Component {
           >
             Ainda não tenho conta
           </button>
-        </forms>
+        </form>
         {
           (message === '') ? <> </>
             : (

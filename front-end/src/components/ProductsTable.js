@@ -4,36 +4,41 @@ import ProductTableLine from './ProductTableLine';
 
 class ProductsTable extends React.Component {
   render() {
-    const { selectedProductsList, checkout } = this.props;
+    const { selectedProductsList, checkout, onDeleteItem } = this.props;
     return (
       <div className="table-wrap">
-        <table className="table">
-          <caption>Checkout Products</caption>
-          <thead className="table-head">
-            <tr>
-              <th>Item</th>
-              <th>Descrição</th>
-              <th>Quantidade</th>
-              <th>Valor Unitário</th>
-              <th>Sub-total</th>
-              {
-                checkout && <th>Remover Item</th>
-              }
-            </tr>
-          </thead>
-          <tbody className="table-body">
-            {
-              selectedProductsList.map((product, index) => (
-                <ProductTableLine
-                  key={ product.id }
-                  item={ product }
-                  index={ index }
-                  checkout
-                />
-              ))
-            }
-          </tbody>
-        </table>
+        {
+          selectedProductsList.length > 0 ? (
+            <table className="table">
+              <thead className="table-head">
+                <tr>
+                  <th>Item</th>
+                  <th>Descrição</th>
+                  <th>Quantidade</th>
+                  <th>Valor Unitário</th>
+                  <th>Sub-total</th>
+                  {
+                    checkout && <th>Remover Item</th>
+                  }
+                </tr>
+              </thead>
+              <tbody className="table-body">
+                {
+                  selectedProductsList.map((product, index, array) => (
+                    <ProductTableLine
+                      key={ product.id }
+                      item={ product }
+                      index={ index }
+                      checkout={ checkout }
+                      onDeleteItem={ onDeleteItem }
+                      listItems={ array }
+                    />
+                  ))
+                }
+              </tbody>
+            </table>
+          ) : (<h3>Carrinho Vazio</h3>)
+        }
       </div>
     );
   }
@@ -41,12 +46,18 @@ class ProductsTable extends React.Component {
 
 ProductsTable.propTypes = {
   selectedProductsList: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     description: PropTypes.string,
     quantity: PropTypes.number,
-    price: PropTypes.number,
+    price: PropTypes.string,
   })).isRequired,
-  checkout: PropTypes.bool.isRequired,
+  checkout: PropTypes.bool,
+  onDeleteItem: PropTypes.func,
+};
+
+ProductsTable.defaultProps = {
+  checkout: false,
+  onDeleteItem: () => {},
 };
 
 export default ProductsTable;

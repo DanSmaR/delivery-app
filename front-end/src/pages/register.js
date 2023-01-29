@@ -58,7 +58,7 @@ class Register extends React.Component {
     return (
       <div className="App">
         <span className="logo">Cadastro</span>
-        <forms className="register-forms">
+        <form className="register-forms">
           <label htmlFor="name">
             Nome
             <input
@@ -101,7 +101,7 @@ class Register extends React.Component {
           >
             CADASTRAR
           </button>
-        </forms>
+        </form>
         {
           (message === '') ? <> </>
             : (
