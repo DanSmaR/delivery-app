@@ -58,7 +58,8 @@ class Login extends React.Component {
     if (result) {
       const { history } = this.props;
       localStorage.setItem('user', JSON.stringify(result.data));
-      history.push('/customer/products');
+      if (result.data.role === 'customer') history.push('/customer/products');
+      else if (result.data.role === 'seller') history.push('/seller/orders');
     }
   };
 
