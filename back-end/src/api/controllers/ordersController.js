@@ -1,4 +1,8 @@
-const { allOrdersByUser, registerOrder, getOrderById, updateStatus } = require('../services/ordersServices');
+const {
+  allOrdersByUser,
+  registerOrder,
+  getOrderById,
+  updateStatus } = require('../services/ordersServices');
 
 const getByUser = async (req, res) => {
   const { id, role } = req.data;
