@@ -1,8 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import '../App.css';
-import PropTypes from 'prop-types';
-import rockGlass from '../images/rockGlass.svg';
 import instance from '../helpers/instance';
+import rockGlass from '../images/rockGlass.svg';
 import emailValidate from '../utils/email.validate';
 import passwordValidate from '../utils/password.validate';
 
@@ -57,8 +57,19 @@ class Login extends React.Component {
 
     if (result) {
       const { history } = this.props;
-      localStorage.setItem('user', JSON.stringify(result.data));
-      history.push('/customer/products');
+      const { data, data: { role } } = result;
+      localStorage.setItem('user', JSON.stringify(data));
+      switch (role) {
+      case 'seller':
+        history.push('/seller/orders');
+        break;
+        /* case 'administrator':
+          history.push('/admin/manage');
+          break; */
+      default:
+        history.push('/customer/products');
+        break;
+      }
     }
   };
 
