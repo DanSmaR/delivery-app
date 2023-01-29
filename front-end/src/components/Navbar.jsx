@@ -29,7 +29,7 @@ class Navbar extends React.Component {
     this.setState({ user: userJSON });
   };
 
-  customerProducts = () => {
+  productsNavbar = () => {
     const { user } = this.state;
 
     return (
@@ -41,7 +41,7 @@ class Navbar extends React.Component {
 
         </span>
         <Link
-          to="/customer/orders"
+          to={ `/${user.role}/orders` }
           data-testid="customer_products__element-navbar-link-orders"
         >
           Meus Pedidos
@@ -64,7 +64,7 @@ class Navbar extends React.Component {
     );
   };
 
-  customerOrders = () => {
+  ordersNavbar = () => {
     const { user } = this.state;
 
     return (
@@ -111,7 +111,7 @@ class Navbar extends React.Component {
           Produtos
         </Link>
         <Link
-          to="/customer/orders"
+          to={ `/${user.role}/orders` }
           data-testid="customer_products__element-navbar-link-orders"
         >
           Meus Pedidos
@@ -136,10 +136,11 @@ class Navbar extends React.Component {
     let navbar;
     switch (pathName) {
     case '/customer/products':
-      navbar = this.customerProducts();
+      navbar = this.productsNavbar();
       break;
     case '/customer/orders':
-      navbar = this.customerOrders();
+    case '/seller/orders':
+      navbar = this.ordersNavbar();
       break;
     default:
       navbar = this.defaultNav();
