@@ -59,12 +59,11 @@ class OrderDetails extends React.Component {
     try {
       const result = await instance
         .put(`/orders/${id}`, { status }, { headers: { Authorization: token } });
-
       this.setState((prevState) => ({
         ...prevState,
         order: {
           ...prevState.order,
-          status: result.status,
+          status: result.data.status,
         },
       }));
     } catch (error) {
@@ -105,7 +104,7 @@ class OrderDetails extends React.Component {
               selectedProductsList={ products }
             />
             <TotalPriceInfo
-              dataTestId="customer_order_details__element-order-total-price"
+              dataTestId={ `${pathname}_order_details__element-order-total-price` }
             >
               { totalPrice.replace('.', ',') }
             </TotalPriceInfo>
