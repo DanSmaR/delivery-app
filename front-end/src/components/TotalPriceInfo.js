@@ -1,16 +1,16 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 class TotalPriceInfo extends React.Component {
   render() {
-    const { children } = this.props;
+    const { children, dataTestId } = this.props;
     return (
       <article className="total-price-info">
         <p>
           R$
           {' '}
           <span
-            data-testid="customer_checkout__element-order-total-price"
+            data-testid={ dataTestId }
           >
             { children }
           </span>
@@ -22,6 +22,7 @@ class TotalPriceInfo extends React.Component {
 
 TotalPriceInfo.propTypes = {
   children: PropTypes.node.isRequired,
+  dataTestId: PropTypes.string.isRequired,
 };
 
 export default TotalPriceInfo;

@@ -1,10 +1,10 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import Navbar from '../components/Navbar';
+import OrderActions from '../components/OrderActions';
+import OrderDetailsHeader from '../components/OrderDetailsHeader';
 import ProductsTable from '../components/ProductsTable';
 import TotalPriceInfo from '../components/TotalPriceInfo';
-import Navbar from '../components/Navbar';
-import OrderDetailsHeader from '../components/OrderDetailsHeader';
-import OrderActions from '../components/OrderActions';
 import instance, { requestData } from '../helpers/instance';
 
 class OrderDetails extends React.Component {
@@ -104,7 +104,9 @@ class OrderDetails extends React.Component {
             <ProductsTable
               selectedProductsList={ products }
             />
-            <TotalPriceInfo>
+            <TotalPriceInfo
+              dataTestId="customer_order_details__element-order-total-price"
+            >
               { totalPrice.replace('.', ',') }
             </TotalPriceInfo>
           </section>

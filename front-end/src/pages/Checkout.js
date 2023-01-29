@@ -1,12 +1,12 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import DeliveryForm from '../components/DeliveryForm';
+import Navbar from '../components/Navbar';
 import ProductsTable from '../components/ProductsTable';
 import TotalPriceInfo from '../components/TotalPriceInfo';
 import instance, { requestData } from '../helpers/instance';
 import getTotalPrice from '../utils/getTotalPrice';
 import validateOrder from '../utils/validateOrder';
-import Navbar from '../components/Navbar';
 
 class Checkout extends React.Component {
   constructor() {
@@ -98,7 +98,9 @@ class Checkout extends React.Component {
               checkout
               onDeleteItem={ this.handleDeleteCartItem }
             />
-            <TotalPriceInfo>
+            <TotalPriceInfo
+              dataTestId="customer_checkout__element-order-total-price"
+            >
               { getTotalPrice(selectedProductsList) }
             </TotalPriceInfo>
           </section>
