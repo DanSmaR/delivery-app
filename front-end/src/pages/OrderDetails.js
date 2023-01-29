@@ -59,12 +59,11 @@ class OrderDetails extends React.Component {
     try {
       const result = await instance
         .put(`/orders/${id}`, { status }, { headers: { Authorization: token } });
-
       this.setState((prevState) => ({
         ...prevState,
         order: {
           ...prevState.order,
-          status: result.status,
+          status: result.data.status,
         },
       }));
     } catch (error) {

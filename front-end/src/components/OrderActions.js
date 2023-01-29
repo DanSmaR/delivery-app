@@ -10,15 +10,13 @@ class OrderActions extends React.Component {
 
   renderSellerActions = () => {
     const { status } = this.props;
-    const prepared = (status !== 'Pendente');
-    const sent = (status !== 'Preparando');
     return (
       <>
         <span>
           <Button
             dataTestId="seller_order_details__button-preparing-check"
             onAction={ () => this.handleChangeStatusById('Preparando') }
-            onCheckIsDisabled={ () => prepared }
+            onCheckIsDisabled={ () => status !== 'Pendente' }
           >
             Preparar Pedido
           </Button>
@@ -27,7 +25,7 @@ class OrderActions extends React.Component {
           <Button
             dataTestId="seller_order_details__button-dispatch-check"
             onAction={ () => this.handleChangeStatusById('Em Trânsito') }
-            onCheckIsDisabled={ () => sent }
+            onCheckIsDisabled={ () => status !== 'Preparando' }
           >
             Saiu para Entrega
           </Button>
@@ -38,13 +36,12 @@ class OrderActions extends React.Component {
 
   renderCustomerAction = () => {
     const { status } = this.props;
-    const hasArrived = (status !== 'Em Trânsito');
     return (
       <span>
         <Button
           dataTestId="customer_order_details__button-delivery-check"
           onAction={ () => this.handleChangeStatusById('Entregue') }
-          onCheckIsDisabled={ () => hasArrived }
+          onCheckIsDisabled={ () => status !== 'Em Trânsito' }
         >
           Marcar como Entregue
         </Button>
