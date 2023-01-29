@@ -105,7 +105,7 @@ class OrderDetails extends React.Component {
               selectedProductsList={ products }
             />
             <TotalPriceInfo
-              dataTestId="customer_order_details__element-order-total-price"
+              dataTestId={ `${pathname}_order_details__element-order-total-price` }
             >
               { totalPrice.replace('.', ',') }
             </TotalPriceInfo>
