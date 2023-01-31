@@ -9,3 +9,8 @@ export const validToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.'
   + 'bTg2QG91dGxvb2suY29tIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNjc1M'
   + 'Tg2NDQxLCJleHAiOjE2NzUxOTI0NDF9.wz580Ku8jTiw4VXsEM97jMoZVXRWWf30VOL_X5wXB1c';
 export const invalidToken = 'abc';
+export const role = {
+  customer: 'customer',
+  seller: 'seller',
+  admin: 'admin',
+};
