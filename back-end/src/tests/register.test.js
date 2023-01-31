@@ -33,7 +33,7 @@ describe('Testa a rota /register', () => {
     })     
 })
 
-describe.only('Testa a rota /register', () => {
+describe('Testa a rota /register', () => {
     afterEach(() => { sinon.restore() });
 
         it('Verificando se um usuário já existe', async () => {
