@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Navbar from '../components/Navbar';
-import RegisterForm from '../components/RegisterForm';
+import RegistrationForm from '../components/RegistrationForm';
 
 class Admin extends React.Component {
   render() {
+    const { history } = this.props;
     return (
       <>
         <header>
@@ -12,12 +14,21 @@ class Admin extends React.Component {
         <main>
           <section>
             <h3>Cadastrar novo usuário</h3>
-            <RegisterForm history={ this.props } />
+            <RegistrationForm history={ history } />
           </section>
         </main>
       </>
     );
   }
 }
+
+Admin.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
 export default Admin;

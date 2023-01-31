@@ -5,7 +5,7 @@ import instance from '../helpers/instance';
 import emailValidate from '../utils/email.validate';
 import passwordValidate from '../utils/password.validate';
 
-class RegisterForm extends React.Component {
+class RegistrationForm extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -58,13 +58,12 @@ class RegisterForm extends React.Component {
       });
     });
 
-    if (result) {
-      const { pathName } = this.state;
-      if (pathName.includes('register')) {
-        const { history } = this.props;
-        localStorage.setItem('user', JSON.stringify(result.data.user));
-        history.push('/customer/products');
-      }
+    const { pathName } = this.state;
+
+    if (result && pathName.includes('register')) {
+      const { history } = this.props;
+      localStorage.setItem('user', JSON.stringify(result.data.user));
+      history.push('/customer/products');
     }
 
     this.setState({
@@ -132,6 +131,7 @@ class RegisterForm extends React.Component {
                   Tipo
                   <select
                     name="role"
+                    data-testid="admin_manage__select-role"
                     onChange={ (e) => {
                       this.setState({
                         role: e.target.value,
@@ -163,8 +163,13 @@ class RegisterForm extends React.Component {
   }
 }
 
-RegisterForm.propTypes = {
-  history: PropTypes.shape(object.PropTypes).isRequired,
+RegistrationForm.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
-export default RegisterForm;
+export default RegistrationForm;
