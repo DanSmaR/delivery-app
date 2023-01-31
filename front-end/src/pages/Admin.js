@@ -2,10 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Navbar from '../components/Navbar';
 import RegistrationForm from '../components/RegistrationForm';
+import instance from '../helpers/instance';
+import UserTableLine from '../components/UserTableLine';
 
 class Admin extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      users: [],
+    };
+  }
+
+  componentDidMount() {
+    this.getUsers();
+  }
+
+  getUsers = async () => {
+    const result = await instance.post('user/admin');
+    this.setState({
+      users: result.data.message,
+    });
+  };
+
   render() {
     const { history } = this.props;
+    const { users } = this.state;
     return (
       <>
         <header>
@@ -15,6 +36,35 @@ class Admin extends React.Component {
           <section>
             <h3>Cadastrar novo usuário</h3>
             <RegistrationForm history={ history } />
+          </section>
+          <section>
+            {
+              users.length > 0 ? (
+                <table className="table">
+                  <thead className="table-head">
+                    <tr>
+                      <th>Item</th>
+                      <th>Nome</th>
+                      <th>E-mail</th>
+                      <th>Senha</th>
+                      <th>tipo</th>
+                      <th>Excluir</th>
+                    </tr>
+                  </thead>
+                  <tbody className="table-body">
+                    {
+                      users.map((user, i) => (
+                        <UserTableLine
+                          key={ i }
+                          index={ i }
+                          user={ user }
+                        />
+                      ))
+                    }
+                  </tbody>
+                </table>
+              ) : (<h3>Não existem usuários cadastrados</h3>)
+            }
           </section>
         </main>
       </>

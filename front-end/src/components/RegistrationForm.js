@@ -132,6 +132,7 @@ class RegistrationForm extends React.Component {
                   <select
                     name="role"
                     data-testid="admin_manage__select-role"
+                    defaultValue="customer"
                     onChange={ (e) => {
                       this.setState({
                         role: e.target.value,
@@ -139,7 +140,7 @@ class RegistrationForm extends React.Component {
                     } }
                   >
                     <optgroup label="Tipo de usuário">
-                      <option value="customer" selected>Cliente</option>
+                      <option value="customer">Cliente</option>
                       <option value="seller">Vendedor</option>
                       <option value="administrator">Administrador</option>
                     </optgroup>
