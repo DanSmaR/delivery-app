@@ -5,10 +5,9 @@ const path = require('path');
 const JWT_EVALUATION_KEY = require('fs')
 .readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'), { encoding: 'utf-8' });
 
-const TOKEN_SECRET_KEY = process.env.JWT_SECRET || JWT_EVALUATION_KEY || "secret_key";
+const TOKEN_SECRET_KEY = process.env.JWT_SECRET || JWT_EVALUATION_KEY || 'secret_key';
 
 const generateToken = ({ id, name, email, role }) => {
-
   const payload = {
     id,
     name,
