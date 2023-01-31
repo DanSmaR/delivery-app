@@ -29,7 +29,6 @@ const registerValidate = async ({ name, email, password }) => {
         name,
         email,
       };
-      console.log(user);
       const token = generateToken(user);
 
     return { status: 201, message: 'Created', user: { ...user, token } };
