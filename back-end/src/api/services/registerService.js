@@ -6,7 +6,6 @@ const userValidate = async (name, email) => {
   const userEmail = await User.findOne({
     where: { email },
   });
-
   if (!userEmail) {
     const userName = await User.findOne({
       where: { name },
@@ -30,6 +29,7 @@ const registerValidate = async ({ name, email, password }) => {
         name,
         email,
       };
+      console.log(user);
       const token = generateToken(user);
 
     return { status: 201, message: 'Created', user: { ...user, token } };
