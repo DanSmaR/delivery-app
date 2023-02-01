@@ -14,3 +14,9 @@ export const role = {
   seller: 'seller',
   admin: 'admin',
 };
+
+export const sellerData = {
+  id: 2,
+  name: 'Fulana Pereira',
+  role: role.seller,
+};
