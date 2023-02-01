@@ -1,5 +1,5 @@
-const registerService = require('../services/registerService');
 const express = require('express');
+const registerService = require('../services/registerService');
 
 const app = express();
 
