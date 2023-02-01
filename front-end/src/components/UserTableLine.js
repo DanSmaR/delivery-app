@@ -5,7 +5,10 @@ import instance from '../helpers/instance';
 
 class UserTableLine extends React.Component {
   handleDeleteItem = async (id) => {
-    await instance.delete(`user/admin/${id}`, body);
+    const { token } = JSON.parse(localStorage.getItem('user'));
+    await instance.delete(`user/admin/${id}`, {}, { Authorization: token });
+    const { getUsers } = this.props;
+    getUsers();
   };
 
   render() {
@@ -25,7 +28,7 @@ class UserTableLine extends React.Component {
         <td
           className="product-description"
           data-testid={
-            `admin_manage__element-order-table-name-${index}`
+            `admin_manage__element-user-table-name-${index}`
           }
         >
           { user.name }
@@ -33,7 +36,7 @@ class UserTableLine extends React.Component {
         <td
           className="product-quantity"
           data-testid={
-            `admin_manage__element-order-table-email-${index}`
+            `admin_manage__element-user-table-email-${index}`
           }
         >
           { user.email }
@@ -41,14 +44,14 @@ class UserTableLine extends React.Component {
         <td
           className="product-quantity"
           data-testid={
-            `admin_manage__element-order-table-role-${index}`
+            `admin_manage__element-user-table-role-${index}`
           }
         >
           { user.role }
         </td>
         <td>
           <Button
-            dataTestId={ `admin_manage__element-order-table-remove-${index}` }
+            dataTestId={ `admin_manage__element-user-table-remove-${index}` }
             onAction={ () => this.handleDeleteItem(user.id) }
           >
             Excluir
@@ -67,6 +70,7 @@ UserTableLine.propTypes = {
     email: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
   }).isRequired,
+  getUsers: PropTypes.func.isRequired,
 };
 
 export default UserTableLine;

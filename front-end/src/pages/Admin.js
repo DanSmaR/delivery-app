@@ -18,9 +18,9 @@ class Admin extends React.Component {
   }
 
   getUsers = async () => {
-    const result = await instance.post('user/admin');
+    const result = await instance.get('user/admin');
     this.setState({
-      users: result.data.message,
+      users: result.data,
     });
   };
 
@@ -35,7 +35,7 @@ class Admin extends React.Component {
         <main>
           <section>
             <h3>Cadastrar novo usuário</h3>
-            <RegistrationForm history={ history } />
+            <RegistrationForm history={ history } getUsers={ this.getUsers } />
           </section>
           <section>
             {
@@ -55,6 +55,7 @@ class Admin extends React.Component {
                     {
                       users.map((user, i) => (
                         <UserTableLine
+                          getUsers={ this.getUsers }
                           key={ i }
                           index={ i }
                           user={ user }

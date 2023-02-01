@@ -52,13 +52,22 @@ class RegistrationForm extends React.Component {
   };
 
   insertRegister = async (body) => {
-    const result = await instance.post('register', body).catch((err) => {
-      this.setState({
-        message: err.request.statusText,
-      });
-    });
-
     const { pathName } = this.state;
+    const { getUsers } = this.props;
+    let token = '';
+
+    if (pathName.includes('admin')) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      token = user.token;
+    }
+    const result = await instance
+      .post('register', body, { Authorization: token }).catch((err) => {
+        this.setState({
+          message: err.request.statusText,
+        });
+      });
+
+    getUsers();
 
     if (result && pathName.includes('register')) {
       const { history } = this.props;
@@ -171,6 +180,11 @@ RegistrationForm.propTypes = {
       pathname: PropTypes.string,
     }),
   }).isRequired,
+  getUsers: PropTypes.func,
+};
+
+RegistrationForm.defaultProps = {
+  getUsers: () => {},
 };
 
 export default RegistrationForm;

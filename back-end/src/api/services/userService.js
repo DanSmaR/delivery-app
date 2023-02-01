@@ -9,13 +9,14 @@ const getUsers = async (role = {}) => {
 const getAllUsers = async () => {
   const result = await User
     .findAll({ attributes: { exclude: ['password'] } });
-  return { status: 200, message: result };
+  
+  const users = result.map((user) => user.dataValues)
+  return { status: 200, message: users };
 };
 
 const deleteUser = async (id) => {
-  const result = await User
-    .deleteAll({ where: id });
-  return { status: 202, message: result };
+  await User.destroy({ where: { id } });
+  return { status: 202 };
 };
 
 module.exports = { getUsers, getAllUsers, deleteUser };
