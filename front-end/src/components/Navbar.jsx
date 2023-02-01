@@ -132,6 +132,31 @@ class Navbar extends React.Component {
     );
   };
 
+  adminNavbar = () => {
+    const { user } = this.state;
+    return (
+      <>
+        <span
+          data-testid="customer_products__element-navbar-link-orders"
+        >
+          Gerenciar Usuários
+        </span>
+        <span
+          data-testid="customer_products__element-navbar-user-full-name"
+        >
+          { user.name }
+        </span>
+        <Link
+          to="/login"
+          data-testid="customer_products__element-navbar-link-logout"
+          onClick={ () => localStorage.removeItem('user') }
+        >
+          Sair
+        </Link>
+      </>
+    );
+  };
+
   renderNav = (pathName) => {
     let navbar;
     switch (pathName) {
@@ -141,6 +166,9 @@ class Navbar extends React.Component {
     case '/customer/orders':
     case '/seller/orders':
       navbar = this.ordersNavbar();
+      break;
+    case '/admin/manage':
+      navbar = this.adminNavbar();
       break;
     default:
       navbar = this.defaultNav();

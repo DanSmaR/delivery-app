@@ -6,4 +6,17 @@ const getUsers = async (role = {}) => {
     return { status: 200, message: result };
 };
 
-module.exports = { getUsers };
+const getAllUsers = async () => {
+  const result = await User
+    .findAll({ attributes: { exclude: ['password'] } });
+  
+  const users = result.map((user) => user.dataValues);
+  return { status: 200, message: users };
+};
+
+const deleteUser = async (id) => {
+  await User.destroy({ where: { id } });
+  return { status: 202 };
+};
+
+module.exports = { getUsers, getAllUsers, deleteUser };
