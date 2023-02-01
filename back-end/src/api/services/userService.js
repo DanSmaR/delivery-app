@@ -10,7 +10,7 @@ const getAllUsers = async () => {
   const result = await User
     .findAll({ attributes: { exclude: ['password'] } });
   
-  const users = result.map((user) => user.dataValues)
+  const users = result.map((user) => user.dataValues);
   return { status: 200, message: users };
 };
 

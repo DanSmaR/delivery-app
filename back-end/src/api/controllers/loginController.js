@@ -1,6 +1,3 @@
-const express = require('express');
-
-const app = express();
 const loginService = require('../services/loginService');
 
 const login = async (req, res) => {
