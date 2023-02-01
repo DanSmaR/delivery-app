@@ -20,3 +20,34 @@ export const sellerData = {
   name: 'Fulana Pereira',
   role: role.seller,
 };
+
+export const cart = [{
+  id: 1,
+  description: 'Skol Lata 250ml',
+  price: '2.20',
+  quantity: 1,
+  totalPrice: '2.20',
+}, {
+  id: 2,
+  description: 'Heineken 600ml',
+  price: '7.50',
+  quantity: 1,
+  totalPrice: '7.50',
+}];
+
+export const userDataResponse = {
+  data: {
+    token: validToken,
+    id: 4,
+    email: validUseName,
+    name: emailValid,
+    role: role.customer,
+  },
+};
+
+export const sellerResponseData = {
+  data: [sellerData],
+};
+
+export const userStringfied = JSON.stringify(userDataResponse.data);
+export const cartStringfied = JSON.stringify(cart);
