@@ -37,7 +37,8 @@ describe('Testando a página de Login', () => {
       renderWithRouter(<App />);
     });
 
-    it('Deve existir um formulário de Login com input de test e email', () => {
+    it('Deve existir um formulário de Login com input de email e password,'
+      + 'um botão de login desabilitado e um de cadastrar', () => {
       expect(getEmailInput()).toBeInTheDocument();
       expect(getPasswordInput()).toBeInTheDocument();
       expect(getLoginBtn()).toBeInTheDocument();
