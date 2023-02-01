@@ -67,7 +67,12 @@ describe('Testando a pagina de registro de novos clientes', () => {
       await waitFor(() => {
         expect(instance.post)
           .toHaveBeenCalledWith('register', {
-            name: validUseName, email: emailValid, password: passwordValid });
+            name: validUseName,
+            email: emailValid,
+            password: passwordValid,
+            role: role.customer }, {
+            headers: { Authorization: '' },
+          });
         expect(instance.post).toHaveBeenCalledTimes(1);
         const navProductsLink = screen
           .getByTestId('customer_products__element-navbar-link-products');
