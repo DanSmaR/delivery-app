@@ -61,7 +61,7 @@ class RegistrationForm extends React.Component {
       token = user.token;
     }
     const result = await instance
-      .post('register', body, { Authorization: token }).catch((err) => {
+      .post('register', body, { headers: { Authorization: token } }).catch((err) => {
         this.setState({
           message: err.request.statusText,
         });

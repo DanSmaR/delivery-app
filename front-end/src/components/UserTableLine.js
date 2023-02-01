@@ -6,7 +6,7 @@ import instance from '../helpers/instance';
 class UserTableLine extends React.Component {
   handleDeleteItem = async (id) => {
     const { token } = JSON.parse(localStorage.getItem('user'));
-    await instance.delete(`user/admin/${id}`, {}, { Authorization: token });
+    await instance.delete(`user/admin/${id}`, {}, { headers: { Authorization: token } });
     const { getUsers } = this.props;
     getUsers();
   };
