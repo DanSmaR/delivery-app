@@ -10,7 +10,7 @@ chai.use(chaiHttp)
 const { expect } = chai
 
 describe('Teste da rota de User', () => {
-  it('Deve retornar um array de usuários', async () => {
+  it('Deve retornar um array de usuários quando escolhido um role administrator', async () => {
    sinon.stub(User, 'findAll').resolves(mockUserArray)
 
     const response = await chai.request(app).get('/user').send(role = 'administrator')
@@ -26,4 +26,15 @@ describe('Teste da rota de User', () => {
 
     User.findAll.restore()
   })
+  it('Deve retornar um array de usuários', async () => {
+    sinon.stub(User, 'findAll').resolves(mockUserArray)
+ 
+     const response = await chai.request(app).get('/user')
+ 
+     expect(response.status).to.be.equal(200)
+     expect(response.body).to.be.an('array')
+     expect(response.body).to.be.deep.equal(mockUserArray)
+
+     User.findAll.restore()
+   })
 })

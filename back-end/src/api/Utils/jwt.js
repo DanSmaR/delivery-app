@@ -29,7 +29,6 @@ const authenticateToken = async (token) => {
     const message = 'Token not found';
     return { status, message };
   }
-
   try {
     const validateToken = jwt.verify(token, TOKEN_SECRET_KEY);
     return validateToken;
