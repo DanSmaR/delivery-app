@@ -2,7 +2,7 @@ const express = require('express');
 const {
     getUsersHandler,
     getUsersByAdmin,
-    deleteUserById
+    deleteUserById,
 } = require('../controllers/userController');
 
 const userRouter = express.Router();
