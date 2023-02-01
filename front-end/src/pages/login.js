@@ -49,27 +49,28 @@ class Login extends React.Component {
   };
 
   insertLogin = async (body) => {
-    const result = await instance.post('login', body).catch((err) => {
-      this.setState({
-        message: err.request.statusText,
-      });
-    });
-
-    if (result) {
-      const { history } = this.props;
-      const { data, data: { role } } = result;
-      localStorage.setItem('user', JSON.stringify(data));
-      switch (role) {
-      case 'seller':
-        history.push('/seller/orders');
-        break;
-        /* case 'administrator':
-          history.push('/admin/manage');
-          break; */
-      default:
-        history.push('/customer/products');
-        break;
+    try {
+      const result = await instance.post('login', body);
+      if (result) {
+        const { history } = this.props;
+        const { data, data: { role } } = result;
+        localStorage.setItem('user', JSON.stringify(data));
+        switch (role) {
+        case 'seller':
+          history.push('/seller/orders');
+          break;
+          /* case 'administrator':
+            history.push('/admin/manage');
+            break; */
+        default:
+          history.push('/customer/products');
+          break;
+        }
       }
+    } catch (error) {
+      this.setState({
+        message: error.request.statusText,
+      });
     }
   };
 
