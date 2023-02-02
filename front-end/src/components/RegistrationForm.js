@@ -8,6 +8,7 @@ import passwordValidate from '../utils/password.validate';
 class RegistrationForm extends React.Component {
   constructor() {
     super();
+    this.isComponentMounted = false;
     this.state = {
       name: '',
       email: '',
@@ -20,7 +21,20 @@ class RegistrationForm extends React.Component {
   }
 
   componentDidMount() {
+    this.isMounted = true;
     this.definePathName();
+  }
+
+  componentWillUnmount() {
+    this.isMounted = false;
+  }
+
+  get isMounted() {
+    return this.isComponentMounted;
+  }
+
+  set isMounted(bool) {
+    this.isComponentMounted = bool;
   }
 
   definePathName = () => {
@@ -75,13 +89,15 @@ class RegistrationForm extends React.Component {
       history.push('/customer/products');
     }
 
-    this.setState({
-      name: '',
-      email: '',
-      password: '',
-      role: 'customer',
-      disabled: true,
-    });
+    if (this.isMounted) {
+      this.setState({
+        name: '',
+        email: '',
+        password: '',
+        role: 'customer',
+        disabled: true,
+      });
+    }
   };
 
   render() {
