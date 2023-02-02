@@ -46,7 +46,6 @@ class Admin extends React.Component {
                       <th>Item</th>
                       <th>Nome</th>
                       <th>E-mail</th>
-                      <th>Senha</th>
                       <th>tipo</th>
                       <th>Excluir</th>
                     </tr>
