@@ -18,6 +18,9 @@ describe('Testando a página de Checkout', () => {
   const getAddressInput = () => screen.getByRole('textbox', { name: /Endereço/i });
   const getNumberInput = () => screen.getByRole('spinbutton', { name: /Número/i });
   const getSelectInput = () => screen.getByRole('combobox', { name: /P. Vendedora Responsável:/i });
+  const getSelectOption = (name) => screen.getByRole('option', { name });
+  const getTableCell = (name) => screen.getByRole('cell', { name });
+  const getTableColumnHeader = (name) => screen.getByRole('columnheader', { name });
   const getRemoveBtns = () => screen.getAllByRole('button', { name: /remover/i });
   const getOrderBtn = () => screen.getByRole('button', { name: /Finalizar Pedido/i });
   const getTotalPriceInfo = () => screen
@@ -40,7 +43,7 @@ describe('Testando a página de Checkout', () => {
       expect(getNumberInput()).toBeInTheDocument();
       expect(getSelectInput()).toBeInTheDocument();
       sellerResponseData.data.forEach(({ name }) => {
-        expect(screen.getByRole('option', { name }));
+        expect(getSelectOption(name)).toBeInTheDocument();
       });
       expect(getOrderBtn()).toBeInTheDocument();
       expect(getOrderBtn()).toBeDisabled();
@@ -61,17 +64,16 @@ describe('Testando a página de Checkout', () => {
       expect(getSelectInput()).toBeInTheDocument();
       expect(screen.getByRole('table')).toBeInTheDocument();
       checkoutTableHeadersTitle.forEach((title) => {
-        expect(screen.getByRole('columnheader', { name: title })).toBeInTheDocument();
+        expect(getTableColumnHeader(title)).toBeInTheDocument();
       });
       cart.forEach((product) => {
-        expect(screen.getByRole('cell', { name: product.id })).toBeInTheDocument();
-        expect(screen.getByRole('cell', { name: product.description }))
+        expect(getTableCell(product.id)).toBeInTheDocument();
+        expect(getTableCell(product.description)).toBeInTheDocument();
+        expect(getTableCell(product.description)).toBeInTheDocument();
+        expect(getTableCell(product.quantity)).toBeInTheDocument();
+        expect(getTableCell(`R$ ${product.price.replace('.', ',')}`)).toBeInTheDocument();
+        expect(getTableCell(`R$ ${product.totalPrice.replace('.', ',')}`))
           .toBeInTheDocument();
-        expect(screen.getByRole('cell', { name: product.quantity })).toBeInTheDocument();
-        expect(screen.getByRole('cell', {
-          name: `R$ ${product.price.replace('.', ',')}` })).toBeInTheDocument();
-        expect(screen.getByRole('cell', {
-          name: `R$ ${product.totalPrice.replace('.', ',')}` })).toBeInTheDocument();
       });
     });
   });
