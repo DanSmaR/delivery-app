@@ -25,13 +25,13 @@ export const cart = [{
   id: 1,
   description: 'Skol Lata 250ml',
   price: '2.20',
-  quantity: 1,
+  quantity: 3,
   totalPrice: '2.20',
 }, {
   id: 2,
   description: 'Heineken 600ml',
   price: '7.50',
-  quantity: 1,
+  quantity: 4,
   totalPrice: '7.50',
 }];
 
@@ -51,3 +51,7 @@ export const sellerResponseData = {
 
 export const userStringfied = JSON.stringify(userDataResponse.data);
 export const cartStringfied = JSON.stringify(cart);
+
+export const checkoutTableHeadersTitle = [
+  'Item', 'Descrição', 'Quantidade', 'Valor Unitário', 'Sub-total', 'Remover Item',
+];
