@@ -23,7 +23,7 @@ const deleteUserById = async (req, res) => {
   const result = await deleteUser(id);
 
   const { status } = result;
-  return res.status(status).json({});
+  return res.status(status).json({ message: 'user deleted' });
 };
 
 module.exports = { getUsersHandler, getUsersByAdmin, deleteUserById };
