@@ -33,13 +33,6 @@ describe('Testando a página de Checkout', () => {
 
   describe('Testando a existência do formulário de entrega e tabela de'
     + ' produtos que foram adicionados ao carrinho na página de produtos', () => {
-    // beforeEach(() => {
-    //   instance.get.mockImplementationOnce(() => Promise.resolve(sellerResponseData));
-    //   localStorage.getItem.mockRestore();
-    //   localStorage.getItem.mockReturnValueOnce(cartStringfied);
-    //   localStorage.getItem.mockReturnValueOnce(userStringfied);
-    //   renderWithRouter(<App />, { initialEntries: ['/customer/checkout'] });
-    // });
     it('Deve existir um formulário de Entrega com input de texto para'
       + ' Endereço, um input de number para Número do Endereço e'
       + ' um botão de Finalizar Pedido desabilitado', async () => {
@@ -83,14 +76,6 @@ describe('Testando a página de Checkout', () => {
   });
 
   describe('Testando a remoção de itens do carrinho', () => {
-    // beforeEach(() => {
-    //   instance.get.mockImplementationOnce(() => Promise.resolve(sellerResponseData));
-    //   localStorage.getItem.mockRestore();
-    //   localStorage.getItem.mockReturnValueOnce(cartStringfied);
-    //   localStorage.getItem.mockReturnValueOnce(userStringfied);
-    //   renderWithRouter(<App />, { initialEntries: ['/customer/checkout'] });
-    // });
-
     it('Deve remover da tabela o item removido pelo botão Remover ', async () => {
       const cartWithOneItemStringfied = JSON.stringify(cart[0]);
       localStorage.getItem.mockReturnValueOnce(cartWithOneItemStringfied);
@@ -101,15 +86,7 @@ describe('Testando a página de Checkout', () => {
     });
   });
 
-  describe.only('Testando a criação de uma ordem', () => {
-    // beforeEach(() => {
-    //   instance.get.mockImplementationOnce(() => Promise.resolve(sellerResponseData));
-    //   localStorage.getItem.mockRestore();
-    //   localStorage.getItem.mockReturnValueOnce(cartStringfied);
-    //   localStorage.getItem.mockReturnValueOnce(userStringfied);
-    //   renderWithRouter(<App />, { initialEntries: ['/customer/checkout'] });
-    // });
-
+  describe('Testando a criação de uma ordem', () => {
     it('Deve criar uma ordem e ir para a página de detalhe do pedido ao'
       + 'preencher corretamente o formulário e clicar em Finalizar Pedido', async () => {
       instance.post.mockImplementationOnce(() => Promise.resolve(orderResponseData));
