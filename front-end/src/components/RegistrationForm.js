@@ -74,28 +74,30 @@ class RegistrationForm extends React.Component {
       const user = JSON.parse(localStorage.getItem('user'));
       token = user.token;
     }
-    const result = await instance
-      .post('register', body, { headers: { Authorization: token } }).catch((err) => {
+
+    try {
+      const result = await instance
+        .post('register', body, { headers: { Authorization: token } });
+      getUsers();
+
+      if (result && pathName.includes('register')) {
+        const { history } = this.props;
+        localStorage.setItem('user', JSON.stringify(result.data.user));
+        history.push('/customer/products');
+      }
+
+      if (this.isMounted) {
         this.setState({
-          message: err.request.statusText,
+          name: '',
+          email: '',
+          password: '',
+          role: 'customer',
+          disabled: true,
         });
-      });
-
-    getUsers();
-
-    if (result && pathName.includes('register')) {
-      const { history } = this.props;
-      localStorage.setItem('user', JSON.stringify(result.data.user));
-      history.push('/customer/products');
-    }
-
-    if (this.isMounted) {
+      }
+    } catch (error) {
       this.setState({
-        name: '',
-        email: '',
-        password: '',
-        role: 'customer',
-        disabled: true,
+        message: error.request.statusText,
       });
     }
   };
