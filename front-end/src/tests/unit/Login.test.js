@@ -44,13 +44,13 @@ describe('Testando a página de Login', () => {
     it('O botão de login deve permanecer desabilitado ao'
       + ' inserir dados de forma incorreta', () => {
       emailInvalidList.forEach((invalidEmail) => {
-        userEvent.type(getEmailInput(), invalidEmail);
+        userEvent.type(getEmailInput(), invalidEmail || '{tab}');
         userEvent.type(getPasswordInput(), passwordValid);
         expect(getLoginBtn()).toBeDisabled();
       });
 
       passwordInvalidList.forEach((invalidPassword) => {
-        userEvent.type(getPasswordInput(), invalidPassword);
+        userEvent.type(getPasswordInput(), invalidPassword || '{tab}');
         userEvent.type(getEmailInput(), emailValid);
         expect(getLoginBtn()).toBeDisabled();
       });
