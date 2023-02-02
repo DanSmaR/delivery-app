@@ -10,15 +10,20 @@ import {
   role,
   validToken,
   validUseName,
-  usersList } from '../helpers/constants';
+  usersList,
+  userListResponseData } from '../helpers/constants';
 import instance from '../../helpers/instance';
 
 describe('Testando a pagina do administrador', () => {
-  const getNameInput = () => screen.getByTestId('admin_manage__input-name');
-  const getEmailInput = () => screen.getByTestId('admin_manage__input-email');
-  const getPasswordInput = () => screen.getByTestId('admin_manage__input-password');
-  const getTypeSelect = () => screen.getByTestId('admin_manage__select-role');
+  const getNameInput = () => screen.getByRole('textbox', { name: /Nome/i });
+  const getEmailInput = () => screen.getByRole('textbox', { name: /Email/i });
+  const getPasswordInput = () => screen.getByLabelText('Senha');
+  const getSelectInput = () => screen.getByRole('combobox', { name: /Tipo/i });
   const getRegisterBtn = () => screen.getByRole('button', { name: /cadastrar/i });
+  const getSelectOption = (name) => screen.getByRole('option', { name });
+  const getAllTableCells = (name) => screen.getAllByRole('cell', { name });
+  const getTableCell = (name) => screen.getByRole('cell', { name });
+  const getAllRemoveBtns = () => screen.getAllByRole('button', { name: /excluir/i });
 
   const userDataResponse = {
     data: {
@@ -32,7 +37,7 @@ describe('Testando a pagina do administrador', () => {
 
   const userStringfied = JSON.stringify(userDataResponse.data);
 
-  describe('Testando a existência do formulário na página', () => {
+  describe.only('Testando a existência do formulário na página', () => {
     beforeEach(() => {
       renderWithRouter(<App />, { initialEntries: ['/admin/manage'] });
     });
@@ -43,7 +48,7 @@ describe('Testando a pagina do administrador', () => {
       expect(getNameInput()).toBeInTheDocument();
       expect(getEmailInput()).toBeInTheDocument();
       expect(getPasswordInput()).toBeInTheDocument();
-      expect(getTypeSelect()).toBeInTheDocument();
+      expect(getSelectInput()).toBeInTheDocument();
       expect(getRegisterBtn()).toBeInTheDocument();
       expect(getRegisterBtn()).toBeDisabled();
 
@@ -54,84 +59,81 @@ describe('Testando a pagina do administrador', () => {
 
         usersList.forEach((user, index) => {
           expect(screen
-            .findByTestId(`admin_manage__element-user-table-item-number-${index}`))
+            .getByTestId(`admin_manage__element-user-table-item-number-${index}`))
             .toHaveTextContent(user.id);
           expect(screen
-            .findByTestId(`admin_manage__element-user-table-name-${index}`))
+            .getByTestId(`admin_manage__element-user-table-name-${index}`))
             .toHaveTextContent(user.name);
           expect(screen
-            .findByTestId(`admin_manage__element-user-table-email-${index}`))
+            .getByTestId(`admin_manage__element-user-table-email-${index}`))
             .toHaveTextContent(user.email);
           expect(screen
-            .findByTestId(`admin_manage__element-user-table-role-${index}`))
+            .getByTestId(`admin_manage__element-user-table-role-${index}`))
             .toHaveTextContent(user.role);
           expect(screen
-            .findByTestId(`admin_manage__element-user-table-remove-${index}`))
+            .getByTestId(`admin_manage__element-user-table-remove-${index}`))
             .toHaveTextContent(/excluir/i);
         });
       });
     });
   });
 
-  describe('Testando o cadastro de novo usuário com dados corretos'
+  describe.only('Testando o cadastro de novo usuário com dados corretos'
     + ' no formulário', () => {
     beforeEach(() => {
       renderWithRouter(<App />, { initialEntries: ['/admin/manage'] });
-      instance.post.mockImplementation(() => Promise.resolve(userDataResponse));
-      localStorage.getItem.mockRestore();
-      localStorage.getItem.mockReturnValueOnce(userStringfied);
+      instance.post.mockImplementationOnce(() => Promise.resolve(userDataResponse));
     });
 
-    it('deve enviar uma requisição válida com os dados do usuário '
+    it.only('deve enviar uma requisição válida com os dados do usuário '
       + 'e ser adicionado na lista de usuários', async () => {
+      const increasedUsersListResponse = {
+        data: [...userListResponseData.data, {
+          id: 4,
+          name: validUseName,
+          email: emailValid,
+          password: '1c37466c159755ce1fa181bd247cb925',
+          role: role.admin }],
+      };
+
       userEvent.type(getNameInput(), validUseName);
       userEvent.type(getEmailInput(), emailValid);
       userEvent.type(getPasswordInput(), passwordValid);
-      userEvent.selectOptions(getTypeSelect(), [screen.findByText(role.admin)]);
+      userEvent.selectOptions(getSelectInput(), [getSelectOption('Administrador')]);
       expect(getRegisterBtn()).not.toBeDisabled();
 
+      instance.get.mockRestore();
+      instance.get.mockReturnValue(increasedUsersListResponse);
       userEvent.click(getRegisterBtn());
 
       await waitFor(() => {
-        expect(instance.post)
-          .toHaveBeenCalledWith('register', {
-            name: validUseName,
-            email: emailValid,
-            password: passwordValid,
-            role: role.admin }, {
-            headers: { Authorization: validToken },
-          });
+        expect(instance.post).toHaveBeenCalledWith('register', {
+          name: validUseName,
+          email: emailValid,
+          password: passwordValid,
+          role: role.admin }, {
+          headers: { Authorization: validToken },
+        });
         expect(instance.post).toHaveBeenCalledTimes(1);
-
-        expect(screen
-          .findByTestId(`admin_manage__element-user-table-item-number-
-            ${usersList.length}`))
-          .toHaveTextContent(usersList.length + 1);
-        expect(screen
-          .findByTestId(`admin_manage__element-user-table-name-
-            ${usersList.length}`))
+        screen.logTestingPlaygroundURL();
+        expect(getTableCell(`${increasedUsersListResponse.data[3].id}`))
+          .toHaveTextContent(increasedUsersListResponse.data.length);
+        expect(getTableCell(`${increasedUsersListResponse.data[3].name}`))
           .toHaveTextContent(validUseName);
-        expect(screen
-          .findByTestId(`admin_manage__element-user-table-email-
-            ${usersList.length}`))
+        expect(getTableCell(`${increasedUsersListResponse.data[3].email}`))
           .toHaveTextContent(emailValid);
-        expect(screen
-          .findByTestId(`admin_manage__element-user-table-role-
-            ${usersList.length}`))
+        expect(getAllTableCells(`${increasedUsersListResponse.data[3].role}`)[1])
           .toHaveTextContent(role.admin);
-        expect(screen
-          .findByTestId(`admin_manage__element-user-table-remove-
-            ${usersList.length}`))
-          .toHaveTextContent(/excluir/i);
+        expect(getAllRemoveBtns()).toHaveLength(increasedUsersListResponse.data.length);
       });
     });
     it('deve deletar um dos usuários', async () => {
       expect(screen
-        .findByTestId('admin_manage__element-user-table-name-1'))
+        .getByTestId('admin_manage__element-user-table-name-1'))
         .toHaveTextContent('Fulana Pereira');
 
       const deleteButton = () => screen
-        .findByTestId('admin_manage__element-user-table-remove-1');
+        .getByTestId('admin_manage__element-user-table-remove-1');
 
       userEvent.click(deleteButton());
 
@@ -159,7 +161,12 @@ describe('Testando a pagina do administrador', () => {
   });
 
   beforeEach(() => {
-    localStorage.getItem.mockReturnValueOnce(null);
+    instance.get.mockReturnValue(userListResponseData);
+    localStorage.getItem.mockReturnValue(userStringfied);
+  });
+
+  afterEach(() => {
+    localStorage.getItem.mockRestore();
   });
 
   afterAll(() => {
