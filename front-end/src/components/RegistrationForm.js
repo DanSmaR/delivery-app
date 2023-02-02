@@ -36,10 +36,7 @@ class RegistrationForm extends React.Component {
   set isMounted(bool) {
     this.isComponentMounted = bool;
   }
- 
-    this.definePathName();
-  }
-  
+
   definePathName = () => {
     const { history: { location: { pathname } } } = this.props;
 
