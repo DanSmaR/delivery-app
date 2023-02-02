@@ -59,9 +59,9 @@ class Login extends React.Component {
         case 'seller':
           history.push('/seller/orders');
           break;
-          /* case 'administrator':
-            history.push('/admin/manage');
-            break; */
+        case 'administrator':
+          history.push('/admin/manage');
+          break;
         default:
           history.push('/customer/products');
           break;
