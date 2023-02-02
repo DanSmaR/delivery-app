@@ -3,11 +3,8 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../../App';
 import renderWithRouter from '../helpers/renderWithRouter';
-// import Login from '../../pages/login';
 import {
-  emailInvalidList,
   emailValid,
-  passwordInvalidList,
   passwordValid,
   role,
   validToken,
