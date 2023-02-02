@@ -1,6 +1,7 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
 import React from 'react';
+import userEvent from '@testing-library/user-event';
 import App from '../../App';
 import renderWithRouter from '../helpers/renderWithRouter';
 // import Login from '../../pages/login';
@@ -8,8 +9,12 @@ import {
   cart,
   cartStringfied,
   checkoutTableHeadersTitle,
+  order,
+  orderResponseData,
   sellerResponseData,
+  shipAddress,
   userStringfied,
+  validToken,
 } from '../helpers/constants';
 import instance from '../../helpers/instance';
 import getTotalPrice from '../../utils/getTotalPrice';
@@ -28,13 +33,13 @@ describe('Testando a página de Checkout', () => {
 
   describe('Testando a existência do formulário de entrega e tabela de'
     + ' produtos que foram adicionados ao carrinho na página de produtos', () => {
-    beforeEach(() => {
-      instance.get.mockImplementationOnce(() => Promise.resolve(sellerResponseData));
-      localStorage.getItem.mockRestore();
-      localStorage.getItem.mockReturnValueOnce(cartStringfied);
-      localStorage.getItem.mockReturnValueOnce(userStringfied);
-      renderWithRouter(<App />, { initialEntries: ['/customer/checkout'] });
-    });
+    // beforeEach(() => {
+    //   instance.get.mockImplementationOnce(() => Promise.resolve(sellerResponseData));
+    //   localStorage.getItem.mockRestore();
+    //   localStorage.getItem.mockReturnValueOnce(cartStringfied);
+    //   localStorage.getItem.mockReturnValueOnce(userStringfied);
+    //   renderWithRouter(<App />, { initialEntries: ['/customer/checkout'] });
+    // });
     it('Deve existir um formulário de Entrega com input de texto para'
       + ' Endereço, um input de number para Número do Endereço e'
       + ' um botão de Finalizar Pedido desabilitado', async () => {
@@ -69,11 +74,70 @@ describe('Testando a página de Checkout', () => {
       cart.forEach((product) => {
         expect(getTableCell(product.id)).toBeInTheDocument();
         expect(getTableCell(product.description)).toBeInTheDocument();
-        expect(getTableCell(product.description)).toBeInTheDocument();
         expect(getTableCell(product.quantity)).toBeInTheDocument();
         expect(getTableCell(`R$ ${product.price.replace('.', ',')}`)).toBeInTheDocument();
         expect(getTableCell(`R$ ${product.totalPrice.replace('.', ',')}`))
           .toBeInTheDocument();
+      });
+    });
+  });
+
+  describe('Testando a remoção de itens do carrinho', () => {
+    // beforeEach(() => {
+    //   instance.get.mockImplementationOnce(() => Promise.resolve(sellerResponseData));
+    //   localStorage.getItem.mockRestore();
+    //   localStorage.getItem.mockReturnValueOnce(cartStringfied);
+    //   localStorage.getItem.mockReturnValueOnce(userStringfied);
+    //   renderWithRouter(<App />, { initialEntries: ['/customer/checkout'] });
+    // });
+
+    it('Deve remover da tabela o item removido pelo botão Remover ', async () => {
+      const cartWithOneItemStringfied = JSON.stringify(cart[0]);
+      localStorage.getItem.mockReturnValueOnce(cartWithOneItemStringfied);
+      userEvent.click(getRemoveBtns()[1]);
+      const secondItemCart = screen.queryByRole('cell', { name: cart[1].description });
+      expect(secondItemCart).toBeNull();
+      expect(getTableCell(cart[0].description)).toBeInTheDocument();
+    });
+  });
+
+  describe.only('Testando a criação de uma ordem', () => {
+    // beforeEach(() => {
+    //   instance.get.mockImplementationOnce(() => Promise.resolve(sellerResponseData));
+    //   localStorage.getItem.mockRestore();
+    //   localStorage.getItem.mockReturnValueOnce(cartStringfied);
+    //   localStorage.getItem.mockReturnValueOnce(userStringfied);
+    //   renderWithRouter(<App />, { initialEntries: ['/customer/checkout'] });
+    // });
+
+    it('Deve criar uma ordem e ir para a página de detalhe do pedido ao'
+      + 'preencher corretamente o formulário e clicar em Finalizar Pedido', async () => {
+      instance.post.mockImplementationOnce(() => Promise.resolve(orderResponseData));
+      userEvent.selectOptions(
+        getSelectInput(),
+        [getSelectOption(sellerResponseData.data[0].name)],
+      );
+      userEvent.type(getAddressInput(), shipAddress.address);
+      userEvent.type(getNumberInput(), shipAddress.number);
+
+      const orderBtn = getOrderBtn();
+      expect(orderBtn).not.toBeDisabled();
+
+      userEvent.click(orderBtn);
+
+      await waitFor(() => {
+        expect(instance.post).toHaveBeenCalled();
+        expect(instance.post).toHaveBeenCalledTimes(1);
+        expect(instance.post).toHaveBeenCalledWith(
+          '/customer/orders',
+          { ...order, sellerId: String(order.sellerId) },
+          { headers: { Authorization: validToken } },
+        );
+        const orderDetailsHeadingSection = screen
+          .getByRole('heading', { level: 1, name: 'Detalhe do Pedido' });
+        expect(orderDetailsHeadingSection)
+          .toBeInTheDocument();
+        screen.logTestingPlaygroundURL();
       });
     });
   });
@@ -86,7 +150,14 @@ describe('Testando a página de Checkout', () => {
   });
 
   beforeEach(() => {
-    localStorage.getItem.mockReturnValueOnce(null);
+    instance.get.mockImplementationOnce(() => Promise.resolve(sellerResponseData));
+    localStorage.getItem.mockReturnValueOnce(cartStringfied)
+      .mockReturnValue(userStringfied);
+    renderWithRouter(<App />, { initialEntries: ['/customer/checkout'] });
+  });
+
+  afterEach(() => {
+    localStorage.getItem.mockRestore();
   });
 
   afterAll(() => {

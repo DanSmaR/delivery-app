@@ -38,8 +38,8 @@ describe('Testando a pagina do administrador', () => {
     });
 
     it('Deve existir um formulário de cadastro com input de name,'
-    + 'de email, de password, um select do tipo'
-    + ', um botão de cadastro desabilitado e uma tabela com usuários', async () => {
+      + 'de email, de password, um select do tipo'
+      + ', um botão de cadastro desabilitado e uma tabela com usuários', async () => {
       expect(getNameInput()).toBeInTheDocument();
       expect(getEmailInput()).toBeInTheDocument();
       expect(getPasswordInput()).toBeInTheDocument();

@@ -73,6 +73,7 @@ class Checkout extends React.Component {
       const result = await instance
         .post('/customer/orders', order, { headers: { Authorization: token } });
       if (result) {
+        console.log({ result });
         const { history } = this.props;
         history.push(`/customer/orders/${result.data.id}`);
       }
@@ -108,7 +109,7 @@ class Checkout extends React.Component {
             <h2>Detalhes e Endereço para Entrega</h2>
             <DeliveryForm
               sellersList={ sellers }
-              sellerId={ sellerId }
+              sellerId={ +sellerId }
               deliveryAddress={ deliveryAddress }
               deliveryNumber={ deliveryNumber }
               onInputChange={ this.handleInputChange }

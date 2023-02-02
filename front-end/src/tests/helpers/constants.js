@@ -1,3 +1,5 @@
+import getTotalPrice from '../../utils/getTotalPrice';
+
 export const validUseName = 'Cliente da Silva';
 export const invalidUserName = 'nam';
 export const emailValid = 'user@email.com';
@@ -79,3 +81,34 @@ export const usersList = [
     role: 'customer',
   },
 ];
+
+export const userListResponseData = {
+  data: usersList,
+};
+
+export const shipAddress = {
+  address: 'Avenida José',
+  number: '300',
+};
+
+export const order = {
+  sellerId: sellerData.id,
+  deliveryAddress: shipAddress.address,
+  deliveryNumber: shipAddress.number,
+  totalPrice: getTotalPrice(cart).replace(',', '.'),
+  products: cart.map((product) => ({
+    id: product.id, quantity: product.quantity })),
+};
+
+export const orderResponseData = {
+  data: {
+    saleDate: '2023-02-02T20:48:44.622Z',
+    status: 'Pendente',
+    id: 7,
+    userId: 4,
+    sellerId: 2,
+    totalPrice: 44,
+    deliveryAddress: 'Rua 1',
+    deliveryNumber: 100,
+  },
+};
