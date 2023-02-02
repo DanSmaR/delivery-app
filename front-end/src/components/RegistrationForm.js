@@ -121,6 +121,7 @@ class RegistrationForm extends React.Component {
           <label htmlFor="name">
             Nome
             <input
+              id="name"
               type="text"
               name="name"
               data-testid={ `${testIdByPathname}__input-name` }
@@ -132,6 +133,7 @@ class RegistrationForm extends React.Component {
           <label htmlFor="email">
             Email
             <input
+              id="email"
               type="email"
               name="email"
               data-testid={ `${testIdByPathname}__input-email` }
@@ -143,6 +145,7 @@ class RegistrationForm extends React.Component {
           <label htmlFor="password">
             Senha
             <input
+              id="password"
               type="password"
               name="password"
               data-testid={ `${testIdByPathname}__input-password` }
@@ -157,6 +160,7 @@ class RegistrationForm extends React.Component {
                 <label htmlFor="role">
                   Tipo
                   <select
+                    id="role"
                     name="role"
                     data-testid="admin_manage__select-role"
                     defaultValue="customer"
