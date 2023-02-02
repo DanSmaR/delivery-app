@@ -6,7 +6,6 @@ const userValidate = async (name, email) => {
   const userEmail = await User.findOne({
     where: { email },
   });
-
   if (!userEmail) {
     const userName = await User.findOne({
       where: { name },
