@@ -108,7 +108,7 @@ class RegistrationForm extends React.Component {
       ? 'admin_manage' : 'common_register';
     const messageText = (message === '') ? <> </>
       : (
-        <p data-testid={ `${testIdByPathname}__element-invalid_register` }>
+        <p data-testid={ `${testIdByPathname}__element-invalid-register` }>
           { message }
         </p>
       );
