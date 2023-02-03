@@ -106,9 +106,11 @@ class RegistrationForm extends React.Component {
     const { name, email, password, role, message, disabled, pathName } = this.state;
     const testIdByPathname = (pathName.includes('admin'))
       ? 'admin_manage' : 'common_register';
+    const invalidRegisterSuffix = (pathName.includes('admin'))
+      ? '__element-invalid-register' : '__element-invalid_register';
     const messageText = (message === '') ? <> </>
       : (
-        <p data-testid={ `${testIdByPathname}__element-invalid-register` }>
+        <p data-testid={ `${testIdByPathname}${invalidRegisterSuffix}` }>
           { message }
         </p>
       );
