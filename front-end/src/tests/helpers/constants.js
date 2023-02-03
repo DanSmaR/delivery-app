@@ -86,6 +86,20 @@ export const userListResponseData = {
   data: usersList,
 };
 
+export const increasedUsersListResponse = {
+  data: [...userListResponseData.data, {
+    id: 4,
+    name: validUseName,
+    email: emailValid,
+    password: '1c37466c159755ce1fa181bd247cb925',
+    role: role.admin }],
+};
+
+export const decreasedUsersListResponse = {
+  data: [...userListResponseData.data
+    .filter(({ id }, _index, users) => id !== users.length)],
+};
+
 export const shipAddress = {
   address: 'Avenida José',
   number: '300',

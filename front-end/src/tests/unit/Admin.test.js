@@ -3,7 +3,6 @@ import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../../App';
 import renderWithRouter from '../helpers/renderWithRouter';
-// import Login from '../../pages/login';
 import {
   emailValid,
   passwordValid,
@@ -11,7 +10,9 @@ import {
   validToken,
   validUseName,
   usersList,
-  userListResponseData } from '../helpers/constants';
+  userListResponseData,
+  increasedUsersListResponse,
+  decreasedUsersListResponse } from '../helpers/constants';
 import instance from '../../helpers/instance';
 
 describe('Testando a pagina do administrador', () => {
@@ -37,7 +38,7 @@ describe('Testando a pagina do administrador', () => {
 
   const userStringfied = JSON.stringify(userDataResponse.data);
 
-  describe.only('Testando a existência do formulário na página', () => {
+  describe('Testando a existência do formulário na página', () => {
     beforeEach(() => {
       renderWithRouter(<App />, { initialEntries: ['/admin/manage'] });
     });
@@ -53,49 +54,29 @@ describe('Testando a pagina do administrador', () => {
       expect(getRegisterBtn()).toBeDisabled();
 
       await waitFor(() => {
-        expect(instance.get)
-          .toHaveBeenCalledWith('user/admin');
+        expect(instance.get).toHaveBeenCalledWith('user/admin');
         expect(instance.get).toHaveBeenCalledTimes(1);
 
         usersList.forEach((user, index) => {
-          expect(screen
-            .getByTestId(`admin_manage__element-user-table-item-number-${index}`))
-            .toHaveTextContent(user.id);
-          expect(screen
-            .getByTestId(`admin_manage__element-user-table-name-${index}`))
-            .toHaveTextContent(user.name);
-          expect(screen
-            .getByTestId(`admin_manage__element-user-table-email-${index}`))
-            .toHaveTextContent(user.email);
-          expect(screen
-            .getByTestId(`admin_manage__element-user-table-role-${index}`))
-            .toHaveTextContent(user.role);
-          expect(screen
-            .getByTestId(`admin_manage__element-user-table-remove-${index}`))
-            .toHaveTextContent(/excluir/i);
+          expect(getTableCell(user.id)).toBeInTheDocument();
+          expect(getTableCell(user.name)).toBeInTheDocument();
+          expect(getTableCell(user.email)).toBeInTheDocument();
+          expect(getTableCell(user.role)).toBeInTheDocument();
+          expect(getAllRemoveBtns()[index]).toBeInTheDocument();
         });
       });
     });
   });
 
-  describe.only('Testando o cadastro de novo usuário com dados corretos'
+  describe('Testando o cadastro de novo usuário com dados corretos'
     + ' no formulário', () => {
     beforeEach(() => {
       renderWithRouter(<App />, { initialEntries: ['/admin/manage'] });
-      instance.post.mockImplementationOnce(() => Promise.resolve(userDataResponse));
+      instance.post.mockResolvedValueOnce(userDataResponse);
     });
 
-    it.only('deve enviar uma requisição válida com os dados do usuário '
+    it('deve enviar uma requisição válida com os dados do usuário '
       + 'e ser adicionado na lista de usuários', async () => {
-      const increasedUsersListResponse = {
-        data: [...userListResponseData.data, {
-          id: 4,
-          name: validUseName,
-          email: emailValid,
-          password: '1c37466c159755ce1fa181bd247cb925',
-          role: role.admin }],
-      };
-
       userEvent.type(getNameInput(), validUseName);
       userEvent.type(getEmailInput(), emailValid);
       userEvent.type(getPasswordInput(), passwordValid);
@@ -103,7 +84,7 @@ describe('Testando a pagina do administrador', () => {
       expect(getRegisterBtn()).not.toBeDisabled();
 
       instance.get.mockRestore();
-      instance.get.mockReturnValue(increasedUsersListResponse);
+      instance.get.mockResolvedValueOnce(increasedUsersListResponse);
       userEvent.click(getRegisterBtn());
 
       await waitFor(() => {
@@ -115,40 +96,35 @@ describe('Testando a pagina do administrador', () => {
           headers: { Authorization: validToken },
         });
         expect(instance.post).toHaveBeenCalledTimes(1);
-        screen.logTestingPlaygroundURL();
         expect(getTableCell(`${increasedUsersListResponse.data[3].id}`))
-          .toHaveTextContent(increasedUsersListResponse.data.length);
+          .toBeInTheDocument();
         expect(getTableCell(`${increasedUsersListResponse.data[3].name}`))
-          .toHaveTextContent(validUseName);
+          .toBeInTheDocument();
         expect(getTableCell(`${increasedUsersListResponse.data[3].email}`))
-          .toHaveTextContent(emailValid);
+          .toBeInTheDocument();
         expect(getAllTableCells(`${increasedUsersListResponse.data[3].role}`)[1])
-          .toHaveTextContent(role.admin);
+          .toBeInTheDocument();
         expect(getAllRemoveBtns()).toHaveLength(increasedUsersListResponse.data.length);
       });
     });
-    it('deve deletar um dos usuários', async () => {
-      expect(screen
-        .getByTestId('admin_manage__element-user-table-name-1'))
-        .toHaveTextContent('Fulana Pereira');
 
-      const deleteButton = () => screen
-        .getByTestId('admin_manage__element-user-table-remove-1');
-
-      userEvent.click(deleteButton());
+    it('deve ser possível deletar um dos usuários', async () => {
+      instance.delete.mockResolvedValueOnce({ message: 'user deleted' });
+      instance.get.mockRestore();
+      instance.get.mockResolvedValueOnce(decreasedUsersListResponse);
+      expect(getTableCell('Cliente Zé Birita')).toBeInTheDocument();
+      userEvent.click(getAllRemoveBtns()[2]);
 
       await waitFor(() => {
-        expect(instance.post)
-          .toHaveBeenCalledWith(
-            'user/admin/1',
-            {},
-            { headers: { Authorization: validToken } },
-          );
-        expect(instance.post).toHaveBeenCalledTimes(1);
-
-        expect(screen
-          .findByTestId('admin_manage__element-user-table-name-1'))
-          .toHaveTextContent('Cliente Zé Birita');
+        expect(instance.delete).toHaveBeenCalledWith(
+          `user/admin/${usersList.length}`,
+          {},
+          { headers: { Authorization: validToken } },
+        );
+        expect(instance.delete).toHaveBeenCalledTimes(1);
+        expect(screen.queryByRole('cell', { name: /cliente zé birita/i }))
+          .toBeNull();
+        screen.logTestingPlaygroundURL();
       });
     });
   });
@@ -161,7 +137,7 @@ describe('Testando a pagina do administrador', () => {
   });
 
   beforeEach(() => {
-    instance.get.mockReturnValue(userListResponseData);
+    instance.get.mockResolvedValue(userListResponseData);
     localStorage.getItem.mockReturnValue(userStringfied);
   });
 
