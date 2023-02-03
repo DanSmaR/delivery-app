@@ -52,7 +52,7 @@ describe('Testando a página de Produtos', () => {
       const products = productsResponseData.data;
       let totalPrice = 0;
 
-      // add all products by typing
+      // add all products
       for (let index = 0; index < products.length; index += 1) {
         userEvent.click(getAllAddBtns()[index]);
         userEvent.click(getAllAddBtns()[index]);
@@ -89,7 +89,7 @@ describe('Testando a página de Produtos', () => {
       const products = productsResponseData.data;
       let totalPrice = 0;
 
-      // add all products
+      // add all products by typing
       for (let index = 0; index < products.length; index += 1) {
         userEvent.type(getAllQtyInputs()[index], '1');
         expect(localStorage.setItem).toHaveBeenCalledTimes(index + 1);
