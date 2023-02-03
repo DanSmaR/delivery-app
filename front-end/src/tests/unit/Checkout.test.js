@@ -89,7 +89,7 @@ describe('Testando a página de Checkout', () => {
   describe('Testando a criação de uma ordem', () => {
     it('Deve criar uma ordem e ir para a página de detalhe do pedido ao'
       + 'preencher corretamente o formulário e clicar em Finalizar Pedido', async () => {
-      instance.post.mockImplementationOnce(() => Promise.resolve(orderResponseData));
+      instance.post.mockResolvedValueOnce(orderResponseData);
       userEvent.selectOptions(
         getSelectInput(),
         [getSelectOption(sellerResponseData.data[0].name)],
@@ -116,6 +116,7 @@ describe('Testando a página de Checkout', () => {
           .toBeInTheDocument();
         screen.logTestingPlaygroundURL();
       });
+      instance.post.mockRestore();
     });
   });
 
@@ -135,6 +136,7 @@ describe('Testando a página de Checkout', () => {
 
   afterEach(() => {
     localStorage.getItem.mockRestore();
+    instance.get.mockRestore();
   });
 
   afterAll(() => {
