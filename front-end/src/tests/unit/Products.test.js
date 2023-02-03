@@ -123,8 +123,6 @@ describe('Testando a página de Produtos', () => {
       userEvent.type(getAllQtyInputs()[0], '3');
       userEvent.type(getAllQtyInputs()[1], '4');
       expect(getCheckoutBtn()).not.toBeDisabled();
-      instance.get.mockRestore();
-      localStorage.getItem.mockRestore();
       instance.get.mockResolvedValueOnce(sellerResponseData);
       localStorage.getItem.mockReturnValueOnce(cartStringfied)
         .mockReturnValue(userStringfied);
@@ -150,6 +148,7 @@ describe('Testando a página de Produtos', () => {
 
   afterEach(() => {
     localStorage.getItem.mockRestore();
+    instance.get.mockRestore();
   });
 
   afterAll(() => {
