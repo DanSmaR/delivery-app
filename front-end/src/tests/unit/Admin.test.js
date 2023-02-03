@@ -70,20 +70,15 @@ describe('Testando a pagina do administrador', () => {
 
   describe('Testando o cadastro de novo usuário com dados corretos'
     + ' no formulário', () => {
-    beforeEach(() => {
-      renderWithRouter(<App />, { initialEntries: ['/admin/manage'] });
-      instance.post.mockResolvedValueOnce(userDataResponse);
-    });
-
     it('deve enviar uma requisição válida com os dados do usuário '
       + 'e ser adicionado na lista de usuários', async () => {
+      instance.post.mockResolvedValueOnce(userDataResponse);
       userEvent.type(getNameInput(), validUseName);
       userEvent.type(getEmailInput(), emailValid);
       userEvent.type(getPasswordInput(), passwordValid);
       userEvent.selectOptions(getSelectInput(), [getSelectOption('Administrador')]);
       expect(getRegisterBtn()).not.toBeDisabled();
 
-      instance.get.mockRestore();
       instance.get.mockResolvedValueOnce(increasedUsersListResponse);
       userEvent.click(getRegisterBtn());
 
@@ -106,11 +101,11 @@ describe('Testando a pagina do administrador', () => {
           .toBeInTheDocument();
         expect(getAllRemoveBtns()).toHaveLength(increasedUsersListResponse.data.length);
       });
+      instance.post.mockRestore();
     });
 
     it('deve ser possível deletar um dos usuários', async () => {
       instance.delete.mockResolvedValueOnce({ message: 'user deleted' });
-      instance.get.mockRestore();
       instance.get.mockResolvedValueOnce(decreasedUsersListResponse);
       expect(getTableCell('Cliente Zé Birita')).toBeInTheDocument();
       userEvent.click(getAllRemoveBtns()[2]);
@@ -126,6 +121,11 @@ describe('Testando a pagina do administrador', () => {
           .toBeNull();
         screen.logTestingPlaygroundURL();
       });
+      instance.delete.mockRestore();
+    });
+
+    beforeEach(() => {
+      renderWithRouter(<App />, { initialEntries: ['/admin/manage'] });
     });
   });
 
@@ -143,6 +143,7 @@ describe('Testando a pagina do administrador', () => {
 
   afterEach(() => {
     localStorage.getItem.mockRestore();
+    instance.get.mockRestore();
   });
 
   afterAll(() => {
