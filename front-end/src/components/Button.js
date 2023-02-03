@@ -14,9 +14,10 @@ class Button extends React.Component {
   };
 
   render() {
-    const { children, submit, dataTestId, className } = this.props;
+    const { children, submit, dataTestId, className, ariaLabel } = this.props;
     return (
       <button
+        aria-label={ ariaLabel || null }
         type={ submit ? 'submit' : 'button' }
         data-testid={ dataTestId }
         onClick={ !submit ? this.handleClick : () => {} }
@@ -36,6 +37,7 @@ Button.propTypes = {
   onAction: PropTypes.func,
   onCheckIsDisabled: PropTypes.func,
   className: PropTypes.string,
+  ariaLabel: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -43,6 +45,7 @@ Button.defaultProps = {
   onCheckIsDisabled: () => false,
   className: '',
   onAction: () => {},
+  ariaLabel: '',
 };
 
 export default Button;

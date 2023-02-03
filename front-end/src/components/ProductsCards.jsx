@@ -123,6 +123,7 @@ class ProductsCards extends React.Component {
     const total = this.totalPriceCart();
     return (
       <Button
+        ariaLabel="Preço Total do Carrinho"
         dataTestId="customer_products__button-cart"
         onAction={ this.handleRedirectToCheckout }
         onCheckIsDisabled={ this.handleButtonDisable }
@@ -162,6 +163,7 @@ class ProductsCards extends React.Component {
                 </p>
                 <div>
                   <button
+                    aria-label="Aumentar quantidade do produto"
                     type="button"
                     id={ `add-${id}` }
                     onClick={ () => this.addQuantity(id) }
@@ -170,6 +172,7 @@ class ProductsCards extends React.Component {
                     +
                   </button>
                   <input
+                    aria-label="quantidade do produto"
                     type="number"
                     name="qtd"
                     className="inputQtd"
@@ -181,6 +184,7 @@ class ProductsCards extends React.Component {
                     onChange={ (e) => this.handleManualInputChange(id, e) }
                   />
                   <button
+                    aria-label="Diminuir quantidade do produto"
                     type="button"
                     id={ `rm-${id}` }
                     data-testid={ `customer_products__button-card-rm-item-${id}` }
