@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import '../App.css';
 import instance from '../helpers/instance';
 import rockGlass from '../images/rockGlass.svg';
+import '../styles/login.css';
 import emailValidate from '../utils/email.validate';
 import passwordValidate from '../utils/password.validate';
 
@@ -79,15 +79,17 @@ class Login extends React.Component {
     const { history } = this.props;
     return (
       <div className="App">
-        <span className="logo">TRYBE</span>
+        <span className="logo">Boteco Delivery</span>
         <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
           Glass
         </object>
         <form className="login-forms">
           <label htmlFor="email">
             Login
+            {' '}
             <input
               id="email"
+              className="login-mail"
               type="email"
               name="email"
               data-testid="common_login__input-email"
@@ -98,6 +100,7 @@ class Login extends React.Component {
           </label>
           <label htmlFor="password">
             Senha
+            {' '}
             <input
               id="password"
               type="password"

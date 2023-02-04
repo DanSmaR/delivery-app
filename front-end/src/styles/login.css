@@ -1,0 +1,92 @@
+/* #f5c8b4 */
+
+/* #a68477 */
+
+/* #7e5e52 */
+.App {
+  align-items: center;
+  background: #f5c8b4;
+  color: #7e5e52;
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+}
+
+.App > .logo {
+  animation: shake 1.5s infinite ease;
+  color: #a68477;
+  font-family: Montserrat , sans-serif;
+  font-size: 3em;
+  font-weight: 900;
+}
+
+.rocksGlass {
+  animation: shake 1s infinite ease;
+  max-height: 80vh;
+}
+
+@keyframes shake {
+
+  0% {
+    transform: rotate(5deg);
+  }
+
+  50% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes clink {
+
+  0% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(20deg);
+  }
+
+  100% {
+    transform: rotate(-10deg);
+  }
+}
+
+.login-forms {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+input {
+  border: #7e5e52;
+  border-radius: 10px;
+  color: #a68477;
+  padding: 7px;
+}
+
+.login-mail {
+  margin-left: 6px;
+}
+
+button {
+  background-color: #7e5e52;
+  border: #a68477;
+  border-radius: 10px;
+  color: #f5c8b4;
+  padding: 7px;
+}
+
+button:disabled {
+  background-color: #564038;
+  border: #a68477;
+  border-radius: 10px;
+  color: #f5c8b4;
+  padding: 7px;
+}
