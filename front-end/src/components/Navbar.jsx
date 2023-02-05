@@ -1,7 +1,6 @@
 import PropTypes, { object } from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../App.css';
 
 class Navbar extends React.Component {
   constructor() {
@@ -29,37 +28,62 @@ class Navbar extends React.Component {
     this.setState({ user: userJSON });
   };
 
+  pedidos = (className) => (
+    <span
+      className={ `${className}` }
+      data-testid="customer_products__element-navbar-link-orders"
+    >
+      Meus Pedidos
+    </span>
+  );
+
+  produtos = (className) => (
+    <span
+      className={ `${className}` }
+      data-testid="customer_products__element-navbar-link-products"
+    >
+      Produtos
+    </span>
+  );
+
+  nameExit = (user) => (
+    <>
+      <span
+        className="nav-name"
+        data-testid="customer_products__element-navbar-user-full-name"
+      >
+        { user }
+      </span>
+      <Link
+        className="clear-decoration nav-exit"
+        to="/login"
+        data-testid="customer_products__element-navbar-link-logout"
+        onClick={ () => {
+          localStorage.clear();
+        } }
+      >
+        Sair
+      </Link>
+    </>
+  );
+
   productsNavbar = () => {
     const { user } = this.state;
 
     return (
       <>
-        <span
-          data-testid="customer_products__element-navbar-link-products"
-        >
-          Produtos
-
-        </span>
-        <Link
-          to={ `/${user.role}/orders` }
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          Meus Pedidos
-        </Link>
-        <span
-          data-testid="customer_products__element-navbar-user-full-name"
-        >
-          { user.name }
-        </span>
-        <Link
-          to="/login"
-          data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => {
-            localStorage.clear();
-          } }
-        >
-          Sair
-        </Link>
+        <div className="nav-child">
+          { this.produtos('expose') }
+          <Link
+            className="clear-decoration"
+            to={ `/${user.role}/orders` }
+          >
+            { this.pedidos('nav-div') }
+          </Link>
+        </div>
+        <div className="nav-child">
+          { this.nameExit(user.name)}
+        </div>
       </>
     );
   };
@@ -69,31 +93,18 @@ class Navbar extends React.Component {
 
     return (
       <>
-        <Link
-          to="/customer/products"
-          data-testid="customer_products__element-navbar-link-products"
-        >
-          Produtos
-        </Link>
-        <span
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          Meus Pedidos
-        </span>
-        <span
-          data-testid="customer_products__element-navbar-user-full-name"
-        >
-          { user.name }
-        </span>
-        <Link
-          to="/login"
-          data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => {
-            localStorage.clear();
-          } }
-        >
-          Sair
-        </Link>
+        <div className="nav-child">
+          <Link
+            className="clear-decoration"
+            to="/customer/products"
+          >
+            { this.produtos('nav-div') }
+          </Link>
+          { this.pedidos('expose') }
+        </div>
+        <div className="nav-child">
+          { this.nameExit(user.name)}
+        </div>
       </>
     );
   };
@@ -104,30 +115,24 @@ class Navbar extends React.Component {
     return (
 
       <>
-        <Link
-          to="/customer/products"
-          data-testid="customer_products__element-navbar-link-products"
-        >
-          Produtos
-        </Link>
-        <Link
-          to={ `/${user.role}/orders` }
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          Meus Pedidos
-        </Link>
-        <span
-          data-testid="customer_products__element-navbar-user-full-name"
-        >
-          { user.name }
-        </span>
-        <Link
-          to="/login"
-          data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => localStorage.removeItem('user') }
-        >
-          Sair
-        </Link>
+        <div className="nav-child">
+          <Link
+            className="clear-decoration"
+            to="/customer/products"
+          >
+            { this.produtos('nav-div') }
+
+          </Link>
+          <Link
+            className="clear-decoration"
+            to={ `/${user.role}/orders` }
+          >
+            { this.pedidos('nav-div') }
+          </Link>
+        </div>
+        <div className="nav-child">
+          { this.nameExit(user.name)}
+        </div>
       </>
     );
   };
@@ -136,23 +141,17 @@ class Navbar extends React.Component {
     const { user } = this.state;
     return (
       <>
-        <span
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          Gerenciar Usuários
-        </span>
-        <span
-          data-testid="customer_products__element-navbar-user-full-name"
-        >
-          { user.name }
-        </span>
-        <Link
-          to="/login"
-          data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => localStorage.removeItem('user') }
-        >
-          Sair
-        </Link>
+        <div className="nav-child">
+          <span
+            className="expose"
+            data-testid="customer_products__element-navbar-link-orders"
+          >
+            Gerenciar Usuários
+          </span>
+        </div>
+        <div className="nav-child">
+          { this.nameExit(user.name)}
+        </div>
       </>
     );
   };

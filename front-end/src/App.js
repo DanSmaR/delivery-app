@@ -1,13 +1,11 @@
-import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import './App.css';
-import Login from './pages/login';
-import Register from './pages/register';
-import Products from './pages/products';
-import Checkout from './pages/Checkout';
-import Orders from './pages/Orders';
-import OrderDetails from './pages/OrderDetails';
 import Admin from './pages/Admin';
+import Checkout from './pages/Checkout';
+import Login from './pages/login';
+import OrderDetails from './pages/OrderDetails';
+import Orders from './pages/Orders';
+import Products from './pages/products';
+import Register from './pages/register';
 
 function App() {
   return (

@@ -1,0 +1,107 @@
+.input {
+  border: $secondary-color;
+  border-radius: 10px;
+  color: $text-color;
+  padding: 7px;
+  text-align: center;
+}
+
+.btn {
+  background-color: $text-color;
+  border: $main-color-bg;
+  border-radius: 10px;
+  color: $main-color;
+  padding: 7px;
+}
+
+.btn:disabled {
+  background-color: $secondary-color;
+}
+
+.cards-section {
+  @include flex-row-center($wrap: wrap);
+  flex-wrap: wrap;
+  width: 95%;
+}
+
+.cards {
+  @include flex-column-center;
+  margin: 1em;
+  padding: 1em;
+  width: 15em;
+}
+
+%nav-child {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav {
+  align-items: center;
+  background-color: $main-color;
+  color: $text-color;
+  display: flex;
+  flex-direction: row;
+  height: 03em;
+  justify-content: space-between;
+  width: 100%;
+
+  .clear-decoration {
+    color: $text-color;
+    text-decoration: none;
+  }
+
+  .expose {
+    background-color: $text-color;
+    color: $main-color;
+    @extend %nav-child;
+    padding: 0 8px;
+  }
+
+  .nav-div {
+    @extend %nav-child;
+    padding: 0 8px;
+  }
+
+  .nav-child {
+    @extend %nav-child;
+  }
+
+  .nav-name {
+    @extend %nav-child;
+    background-color: $main-color-support;
+    flex-grow: 1;
+    padding: 0 8px;
+  }
+
+  .nav-exit {
+    @extend %nav-child;
+    padding: 0 8px;
+    background-color: $secondary-color;
+    color: $main-color;
+    flex-grow: 0;
+  }
+}
+
+.inputQtd {
+  width: 44px;
+}
+
+.display-cart {
+  bottom: 10px;
+  position: fixed;
+  right: 10px;
+  z-index: 100;
+}
+
+.display-cart-button {
+  background-color: #036b52;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+}

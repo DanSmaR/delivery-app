@@ -1,0 +1,128 @@
+body {
+  margin: 0;
+  background-color: $main-color-bg;
+  font-family: $fonts-basic;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: $fonts-adicionais;
+}
+
+@mixin flex-column-center($wrap: nowrap) {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: $wrap;
+}
+
+@mixin flex-row-center($wrap: nowrap) {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: $wrap;
+}
+
+@mixin card-details() {
+  border-radius: 5%;
+  box-shadow: 5px 5px 10px 1px $text-color;
+}
+
+%logo-animation {
+  animation: shake 1.5s infinite ease;
+  color: $text-color;
+  font-family: Montserrat, sans-serif;
+  font-size: 3em;
+  font-weight: 900;
+}
+
+main {
+  @include flex-column-center;
+  background: $main-color-bg;
+  color: $text-color;
+  font-family: $fonts-basic;
+  height: 100vh;
+  width: 100%;
+}
+
+.login {
+  @include flex-column-center;
+  @include card-details;
+  background: $main-color;
+  height: 90%;
+  width: 90%;
+  max-width: 500px;
+}
+
+.register {
+  @include card-details;
+  @include flex-column-center;
+  background-color: $main-color;
+  min-height: 50%;
+  max-height: 90%;
+  max-width: 500px;
+  width: 90%;
+}
+
+.forms {
+  @include flex-row-center($wrap: wrap);
+  gap: 7px;
+  width: 400px;
+  max-width: 80%;
+
+  .forms-child {
+    @include flex-row-center;
+    gap: 5px;
+    flex-basis: 195px;
+    flex-grow: 1;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+.login > .logo {
+  @extend %logo-animation;
+}
+
+.animation {
+  @extend %logo-animation;
+  margin-bottom: 30px;
+}
+
+.rocksGlass {
+  animation: shake 1s infinite ease;
+  max-height: 80vh;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(5deg);
+  }
+
+  50% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(5deg);
+  }
+}
+
+@keyframes clink {
+  0% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(20deg);
+  }
+
+  100% {
+    transform: rotate(-10deg);
+  }
+}

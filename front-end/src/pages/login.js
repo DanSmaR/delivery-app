@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import instance from '../helpers/instance';
 import rockGlass from '../images/rockGlass.svg';
-import '../styles/login.css';
+// import '../styles/login.css';
 import emailValidate from '../utils/email.validate';
 import passwordValidate from '../utils/password.validate';
 
@@ -78,66 +78,67 @@ class Login extends React.Component {
     const { email, password, message, disabled } = this.state;
     const { history } = this.props;
     return (
-      <div className="App">
-        <span className="logo">Boteco Delivery</span>
-        <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
-          Glass
-        </object>
-        <form className="login-forms">
-          <label htmlFor="email">
-            Login
-            {' '}
-            <input
-              id="email"
-              className="login-mail"
-              type="email"
-              name="email"
-              data-testid="common_login__input-email"
-              placeholder="email@email.com"
-              value={ email }
-              onChange={ (e) => this.handleInputChange(e) }
-            />
-          </label>
-          <label htmlFor="password">
-            Senha
-            {' '}
-            <input
-              id="password"
-              type="password"
-              name="password"
-              data-testid="common_login__input-password"
-              placeholder="******"
-              value={ password }
-              onChange={ (e) => this.handleInputChange(e) }
-            />
-          </label>
-          <button
-            type="button"
-            data-testid="common_login__button-login"
-            className="btn-login"
-            disabled={ disabled }
-            onClick={ () => this.insertLogin({ email, password }) }
-          >
-            LOGIN
-          </button>
-          <button
-            type="button"
-            data-testid="common_login__button-register"
-            className="btn-without-login"
-            onClick={ () => history.push('register') }
-          >
-            Ainda não tenho conta
-          </button>
-        </form>
-        {
-          (message === '') ? <> </>
-            : (
-              <p data-testid="common_login__element-invalid-email">
-                { message }
-              </p>
-            )
-        }
-      </div>
+      <main>
+        <div className="login">
+          <span className="logo">Boteco Delivery</span>
+          <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
+            Glass
+          </object>
+          <form className="forms">
+            <label htmlFor="email" className="forms-child">
+              Login
+              <input
+                id="email"
+                className="input"
+                type="email"
+                name="email"
+                data-testid="common_login__input-email"
+                placeholder="email@email.com"
+                value={ email }
+                onChange={ (e) => this.handleInputChange(e) }
+              />
+            </label>
+            <label htmlFor="password" className="forms-child">
+              Senha
+              <input
+                id="password"
+                type="password"
+                className="input"
+                name="password"
+                data-testid="common_login__input-password"
+                placeholder="******"
+                value={ password }
+                onChange={ (e) => this.handleInputChange(e) }
+              />
+            </label>
+            <button
+              type="button"
+              data-testid="common_login__button-login"
+              className="forms-child btn"
+              disabled={ disabled }
+              onClick={ () => this.insertLogin({ email, password }) }
+            >
+              LOGIN
+            </button>
+            <button
+              type="button"
+              data-testid="common_login__button-register"
+              className="forms-child btn"
+              onClick={ () => history.push('register') }
+            >
+              Ainda não tenho conta
+            </button>
+          </form>
+          {
+            (message === '') ? <> </>
+              : (
+                <p data-testid="common_login__element-invalid-email">
+                  { message }
+                </p>
+              )
+          }
+        </div>
+      </main>
     );
   }
 }

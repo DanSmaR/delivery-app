@@ -1,6 +1,5 @@
-import React from 'react';
-import '../App.css';
 import PropTypes from 'prop-types';
+import React from 'react';
 import instance from '../helpers/instance';
 import emailValidate from '../utils/email.validate';
 import passwordValidate from '../utils/password.validate';
@@ -115,15 +114,18 @@ class RegistrationForm extends React.Component {
         </p>
       );
     return (
-      <div>
-        {
-          messageText
-        }
-        <form className="register-forms">
-          <label htmlFor="name">
+      <>
+        <div>
+          {
+            messageText
+          }
+        </div>
+        <form className="forms">
+          <label htmlFor="name" className="forms-child">
             Nome
             <input
               id="name"
+              className="input"
               type="text"
               name="name"
               data-testid={ `${testIdByPathname}__input-name` }
@@ -132,11 +134,12 @@ class RegistrationForm extends React.Component {
               onChange={ (e) => this.handleInputChange(e) }
             />
           </label>
-          <label htmlFor="email">
+          <label htmlFor="email" className="forms-child">
             Email
             <input
               id="email"
               type="email"
+              className="input"
               name="email"
               data-testid={ `${testIdByPathname}__input-email` }
               placeholder="email@email.com"
@@ -144,10 +147,11 @@ class RegistrationForm extends React.Component {
               onChange={ (e) => this.handleInputChange(e) }
             />
           </label>
-          <label htmlFor="password">
+          <label htmlFor="password" className="forms-child">
             Senha
             <input
               id="password"
+              className="input"
               type="password"
               name="password"
               data-testid={ `${testIdByPathname}__input-password` }
@@ -159,7 +163,7 @@ class RegistrationForm extends React.Component {
           {
             (pathName.includes('admin'))
               ? (
-                <label htmlFor="role">
+                <label htmlFor="role" className="forms-child">
                   Tipo
                   <select
                     id="role"
@@ -185,14 +189,14 @@ class RegistrationForm extends React.Component {
           <button
             type="button"
             data-testid={ `${testIdByPathname}__button-register` }
-            className="btn-register"
+            className="btn forms-child"
             disabled={ disabled }
             onClick={ () => this.insertRegister({ name, email, password, role }) }
           >
             CADASTRAR
           </button>
         </form>
-      </div>
+      </>
     );
   }
 }

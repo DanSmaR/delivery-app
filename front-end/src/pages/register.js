@@ -1,16 +1,17 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import '../App.css';
+import React from 'react';
 import RegistrationForm from '../components/RegistrationForm';
 
 class Register extends React.Component {
   render() {
     const { history } = this.props;
     return (
-      <div className="App">
-        <span className="logo">Cadastro</span>
-        <RegistrationForm history={ history } />
-      </div>
+      <main>
+        <div className="register">
+          <span className="animation">Cadastro</span>
+          <RegistrationForm history={ history } />
+        </div>
+      </main>
     );
   }
 }

@@ -1,9 +1,8 @@
-import React from 'react';
-import '../App.css';
 import PropTypes from 'prop-types';
+import React from 'react';
 import Navbar from '../components/Navbar';
-import instance from '../helpers/instance';
 import Order from '../components/Order';
+import instance from '../helpers/instance';
 
 export default class Orders extends React.Component {
   constructor() {

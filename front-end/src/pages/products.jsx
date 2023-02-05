@@ -1,6 +1,5 @@
 import PropTypes, { object } from 'prop-types';
 import React from 'react';
-import '../App.css';
 import Navbar from '../components/Navbar';
 import ProductsCards from '../components/ProductsCards';
 

@@ -1,6 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import '../App.css';
+import React from 'react';
 
 export default class Order extends React.Component {
   constructor() {
