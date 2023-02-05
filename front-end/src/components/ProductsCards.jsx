@@ -127,9 +127,9 @@ class ProductsCards extends React.Component {
         dataTestId="customer_products__button-cart"
         onAction={ this.handleRedirectToCheckout }
         onCheckIsDisabled={ this.handleButtonDisable }
-        // className="display-cart-button"
+        className="display-cart-button"
       >
-        R$
+        Ver Carrinho: R$
         {' '}
         <span data-testid="customer_products__checkout-bottom-value">
           {total}
@@ -143,60 +143,72 @@ class ProductsCards extends React.Component {
 
     return (
       <>
-        <div className="cards">
+        <section className="cards-section">
           { products.map((product) => {
             const { id, name, price, urlImage } = product;
             const priceReplaced = price.replace('.', ',');
             return (
-              <div key={ id } className="individual-cards">
-                <p data-testid={ `customer_products__element-card-price-${id}` }>
-                  { `R$ ${priceReplaced}` }
-                </p>
-                <img
-                  src={ urlImage }
-                  alt={ name }
-                  data-testid={ `customer_products__img-card-bg-image-${id}` }
-                  width="50px"
-                />
-                <p data-testid={ `customer_products__element-card-title-${id}` }>
-                  { name }
-                </p>
-                <div>
-                  <button
-                    aria-label="Aumentar quantidade do produto"
-                    type="button"
-                    id={ `add-${id}` }
-                    onClick={ () => this.addQuantity(id) }
-                    data-testid={ `customer_products__button-card-add-item-${id}` }
+              <div key={ id } className="cards">
+                <span className="card-first-section">
+                  <p
+                    className="product-price"
+                    data-testid={ `customer_products__element-card-price-${id}` }
                   >
-                    +
-                  </button>
-                  <input
-                    aria-label="quantidade do produto"
-                    type="number"
-                    name="qtd"
-                    className="inputQtd"
-                    defaultValue={ 0 }
-                    min={ 0 }
-                    id={ `input-${id}` }
-                    value={ qtd[id] && qtd[id].quantity }
-                    data-testid={ `customer_products__input-card-quantity-${id}` }
-                    onChange={ (e) => this.handleManualInputChange(id, e) }
+                    { `R$ ${priceReplaced}` }
+                  </p>
+                  <img
+                    id={ `img-${id}` }
+                    src={ urlImage }
+                    alt={ name }
+                    data-testid={ `customer_products__img-card-bg-image-${id}` }
                   />
-                  <button
-                    aria-label="Diminuir quantidade do produto"
-                    type="button"
-                    id={ `rm-${id}` }
-                    data-testid={ `customer_products__button-card-rm-item-${id}` }
-                    onClick={ () => this.subQuantity(id) }
+                </span>
+                <span className="card-second-section">
+                  <p
+                    className="product-name"
+                    data-testid={ `customer_products__element-card-title-${id}` }
                   >
-                    -
-                  </button>
-                </div>
+                    { name }
+                  </p>
+                  <div className="qtd-section">
+                    <button
+                      className="btn-qtd"
+                      aria-label="Aumentar quantidade do produto"
+                      type="button"
+                      id={ `add-${id}` }
+                      onClick={ () => this.addQuantity(id) }
+                      data-testid={ `customer_products__button-card-add-item-${id}` }
+                    >
+                      +
+                    </button>
+                    <input
+                      aria-label="quantidade do produto"
+                      type="number"
+                      name="qtd"
+                      className="input-qtd"
+                      defaultValue={ 0 }
+                      min={ 0 }
+                      id={ `input-${id}` }
+                      value={ qtd[id] && qtd[id].quantity }
+                      data-testid={ `customer_products__input-card-quantity-${id}` }
+                      onChange={ (e) => this.handleManualInputChange(id, e) }
+                    />
+                    <button
+                      className="btn-qtd"
+                      aria-label="Diminuir quantidade do produto"
+                      type="button"
+                      id={ `rm-${id}` }
+                      data-testid={ `customer_products__button-card-rm-item-${id}` }
+                      onClick={ () => this.subQuantity(id) }
+                    >
+                      -
+                    </button>
+                  </div>
+                </span>
               </div>
             );
           }) }
-        </div>
+        </section>
         <div className="display-cart">
           { this.displayCart() }
         </div>

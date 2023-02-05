@@ -1,0 +1,55 @@
+.login {
+  @include flex-column-center;
+  @include card-details;
+  background: $main-color;
+  height: 90%;
+  width: 90%;
+  max-width: 500px;
+}
+
+.register {
+  @include card-details;
+  @include flex-column-center;
+  background-color: $main-color;
+  min-height: 50%;
+  max-height: 90%;
+  max-width: 500px;
+  width: 90%;
+}
+
+.forms {
+  @include flex-row-center($wrap: wrap);
+  gap: 7px;
+  width: 400px;
+  max-width: 80%;
+
+  .forms-child {
+    @include flex-row-center;
+    gap: 5px;
+    flex-basis: 195px;
+    flex-grow: 1;
+  }
+
+  input {
+    width: 100%;
+  }
+}
+
+.cards-section {
+  @include flex-row-center($wrap: wrap);
+  width: 95%;
+  gap: 1em;
+  padding: 7px;
+  color: $text-color;
+  font-weight: 500;
+
+  .cards {
+    @include card-details;
+    @include flex-column-center;
+    gap: 4px;
+    padding: 1em;
+    width: 15em;
+    height: 13em;
+    background-color: white;
+  }
+}

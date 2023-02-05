@@ -48,43 +48,6 @@ main {
   width: 100%;
 }
 
-.login {
-  @include flex-column-center;
-  @include card-details;
-  background: $main-color;
-  height: 90%;
-  width: 90%;
-  max-width: 500px;
-}
-
-.register {
-  @include card-details;
-  @include flex-column-center;
-  background-color: $main-color;
-  min-height: 50%;
-  max-height: 90%;
-  max-width: 500px;
-  width: 90%;
-}
-
-.forms {
-  @include flex-row-center($wrap: wrap);
-  gap: 7px;
-  width: 400px;
-  max-width: 80%;
-
-  .forms-child {
-    @include flex-row-center;
-    gap: 5px;
-    flex-basis: 195px;
-    flex-grow: 1;
-  }
-
-  input {
-    width: 100%;
-  }
-}
-
 .login > .logo {
   @extend %logo-animation;
 }
