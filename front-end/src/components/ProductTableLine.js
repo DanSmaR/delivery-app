@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import Button from './Button';
 
 class ProductTableLine extends React.Component {
@@ -39,7 +39,7 @@ class ProductTableLine extends React.Component {
           { item.quantity }
         </td>
         <td
-          className="product-price"
+          className="product-price-unit"
           data-testid={
             `customer_checkout__element-order-table-unit-price-${index}`
           }
@@ -73,6 +73,7 @@ class ProductTableLine extends React.Component {
           checkout && (
             <td>
               <Button
+                className="btn-rm"
                 dataTestId={ `customer_checkout__element-order-table-remove-${index}` }
                 onAction={ () => this.handleDeleteItem(item.id, listItems) }
               >

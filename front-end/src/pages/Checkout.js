@@ -92,7 +92,7 @@ class Checkout extends React.Component {
           <Navbar history={ this.props } />
         </header>
         <main>
-          <section>
+          <section className="checkout">
             <h1>Finalizar Pedido</h1>
             <ProductsTable
               selectedProductsList={ selectedProductsList }

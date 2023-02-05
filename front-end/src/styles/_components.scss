@@ -12,6 +12,7 @@
   border-radius: 10px;
   color: $main-color;
   padding: 7px;
+  cursor: pointer;
 }
 
 .btn:disabled {
@@ -26,11 +27,13 @@
   padding: 3px;
   width: 30px;
   height: 30px;
+  cursor: pointer;
 }
 
 .btn-qtd:active {
   background-color: $support-color;
   margin-left: 3px;
+  cursor: pointer;
 }
 
 .input-qtd {
@@ -151,8 +154,51 @@ img {
   padding: 15px;
   text-align: center;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .display-cart-button:disabled {
   opacity: 0.3;
+}
+
+.checkout {
+  border: red 1px solid;
+  width: 90%;
+}
+
+.table-body {
+  text-align: center;
+}
+
+.table-item {
+  background-color: $text-color;
+}
+
+.product-counter {
+  background-color: $text-color;
+  color: $main-color-bg;
+}
+
+.product-description {
+  background-color: $main-color-bg-support;
+}
+
+.product-quantity {
+  background-color: $main-color;
+}
+
+.product-price-unit {
+  background-color: $main-color-support;
+}
+
+.product-price-total {
+  background-color: $secondary-color;
+  color: $main-color-bg;
+}
+
+.btn-rm {
+  background-color: $text-color;
+  color: $main-color;
+  border: $secondary-color;
+  width: 100%;
 }

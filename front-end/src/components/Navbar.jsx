@@ -117,10 +117,10 @@ class Navbar extends React.Component {
       <>
         <div className="nav-child">
           <Link
-            className="clear-decoration"
+            className="clear-decoration nav-child"
             to="/customer/products"
           >
-            { this.produtos('nav-div') }
+            { this.produtos('expose') }
 
           </Link>
           <Link
