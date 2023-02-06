@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 class OrderDetailsHeader extends React.Component {
   render() {
@@ -7,8 +7,8 @@ class OrderDetailsHeader extends React.Component {
     const formattedSaleDate = new Date(saleDate).toLocaleDateString('pt-BR');
 
     return (
-      <>
-        <span>
+      <div className="forms-full order-details">
+        <span className="forms-child-non-basis">
           Pedido
           {' '}
           <span
@@ -22,7 +22,7 @@ class OrderDetailsHeader extends React.Component {
         </span>
         {
           !isSeller && (
-            <span>
+            <span className="forms-child-non-basis">
               P. Vend:
               {' '}
               <span
@@ -36,6 +36,7 @@ class OrderDetailsHeader extends React.Component {
           )
         }
         <span
+          className="forms-child-non-basis"
           data-testid={
             `${pathname}_order_details__element-order-details-label-order-date`
           }
@@ -43,13 +44,14 @@ class OrderDetailsHeader extends React.Component {
           { formattedSaleDate }
         </span>
         <span
+          className="forms-child-non-basis delivery-status"
           data-testid={
             `${pathname}_order_details__element-order-details-label-delivery-status${id}`
           }
         >
           { status }
         </span>
-      </>
+      </div>
     );
   }
 }

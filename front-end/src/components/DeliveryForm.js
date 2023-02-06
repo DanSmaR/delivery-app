@@ -1,5 +1,5 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import Button from './Button';
 
 class DeliveryForm extends React.Component {
@@ -18,71 +18,71 @@ class DeliveryForm extends React.Component {
       sellersList, sellerId, deliveryAddress, deliveryNumber, onCheckButtonIsDisabled,
     } = this.props;
     return (
-      <form onSubmit={ this.handleOrderSubmit }>
-        <p>
-          <label htmlFor="seller-options">
-            P. Vendedora Responsável:
-            {' '}
-            <select
-              value={ sellerId }
-              name="sellerId"
-              id="seller-options"
-              onChange={ this.handleInputChange }
-              data-testid="customer_checkout__select-seller"
-              required
-            >
-              {
-                sellersList.length !== 0 && sellersList.map((seller) => (
-                  <option
-                    key={ seller.id }
-                    value={ seller.id }
-                  >
-                    { seller.name }
-                  </option>
-                ))
-              }
-            </select>
-          </label>
-        </p>
-        <p>
-          <label htmlFor="address">
-            Endereço
-            <input
-              value={ deliveryAddress }
-              name="deliveryAddress"
-              id="address"
-              type="text"
-              data-testid="customer_checkout__input-address"
-              onChange={ this.handleInputChange }
-              required
-            />
-          </label>
-        </p>
-        <p>
-          <label htmlFor="address-number">
-            Número
-            {' '}
-            <input
-              value={ deliveryNumber }
-              name="deliveryNumber"
-              id="address-number"
-              type="number"
-              data-testid="customer_checkout__input-address-number"
-              onChange={ this.handleInputChange }
-              required
-              min="1"
-            />
-          </label>
-        </p>
-        <p>
-          <Button
-            submit
-            dataTestId="customer_checkout__button-submit-order"
-            onCheckIsDisabled={ onCheckButtonIsDisabled }
+      <form
+        className="forms-full"
+        onSubmit={ this.handleOrderSubmit }
+      >
+        <label className="forms-child label-vend" htmlFor="seller-options">
+          P. Vendedora Responsável:
+          {' '}
+          <select
+            className="select"
+            value={ sellerId }
+            name="sellerId"
+            id="seller-options"
+            onChange={ this.handleInputChange }
+            data-testid="customer_checkout__select-seller"
+            required
           >
-            Finalizar Pedido
-          </Button>
-        </p>
+            {
+              sellersList.length !== 0 && sellersList.map((seller) => (
+                <option
+                  className="option"
+                  key={ seller.id }
+                  value={ seller.id }
+                >
+                  { seller.name }
+                </option>
+              ))
+            }
+          </select>
+        </label>
+        <label className="forms-child label-add" htmlFor="address">
+          Endereço
+          <input
+            className="input"
+            value={ deliveryAddress }
+            name="deliveryAddress"
+            id="address"
+            type="text"
+            data-testid="customer_checkout__input-address"
+            onChange={ this.handleInputChange }
+            required
+          />
+        </label>
+        <label htmlFor="address-number" className="forms-child label-add-num">
+          Número
+          {' '}
+          <input
+            className="input"
+            value={ deliveryNumber }
+            name="deliveryNumber"
+            id="address-number"
+            type="number"
+            data-testid="customer_checkout__input-address-number"
+            onChange={ this.handleInputChange }
+            required
+            min="1"
+          />
+        </label>
+        <Button
+          className="btn forms-child btn-finish"
+          submit
+          dataTestId="customer_checkout__button-submit-order"
+          onCheckIsDisabled={ onCheckButtonIsDisabled }
+        >
+          Finalizar Pedido
+        </Button>
       </form>
     );
   }

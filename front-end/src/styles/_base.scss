@@ -39,13 +39,22 @@ code {
   font-weight: 900;
 }
 
-main {
+%main {
   @include flex-column-center;
   background: $main-color-bg;
   color: $text-color;
   font-family: $fonts-basic;
-  height: 100vh;
   width: 100%;
+}
+
+.main-full {
+  @extend %main;
+  height: 100vh;
+}
+
+.main {
+  @extend %main;
+  height: 80vh;
 }
 
 .login > .logo {
@@ -59,7 +68,7 @@ main {
 
 .rocksGlass {
   animation: shake 1s infinite ease;
-  max-height: 80vh;
+  padding: 10px;
 }
 
 @keyframes shake {

@@ -80,8 +80,8 @@ class OrderDetails extends React.Component {
         <header>
           <Navbar history={ this.props } />
         </header>
-        <main>
-          <section>
+        <main className="main">
+          <section className="checkout">
             <h1>Detalhe do Pedido</h1>
             <p>
               <OrderDetailsHeader

@@ -1,38 +1,60 @@
+@mixin layout($max-width: 500px) {
+  background: $main-color;
+  width: 90%;
+  max-width: $max-width;
+}
+
+@mixin forms($max: 80%) {
+  gap: 7px;
+  max-width: $max;
+  input {
+    width: 100%;
+  }
+}
+
 .login {
   @include flex-column-center;
   @include card-details;
-  background: $main-color;
+  @include layout;
   height: 90%;
-  width: 90%;
-  max-width: 500px;
 }
 
 .register {
   @include card-details;
   @include flex-column-center;
-  background-color: $main-color;
+  @include layout;
   min-height: 50%;
   max-height: 90%;
-  max-width: 500px;
-  width: 90%;
+}
+
+.delivery {
+  @include card-details;
+  @include flex-column-center;
+  @include layout($max-width: 800px);
+  height: 200px;
 }
 
 .forms {
   @include flex-row-center($wrap: wrap);
-  gap: 7px;
+  @include forms;
   width: 400px;
-  max-width: 80%;
+}
 
-  .forms-child {
-    @include flex-row-center;
-    gap: 5px;
-    flex-basis: 195px;
-    flex-grow: 1;
-  }
+.forms-child {
+  @include flex-row-center;
+  gap: 5px;
+  flex-basis: 195px;
+}
 
-  input {
-    width: 100%;
-  }
+.forms-child-non-basis {
+  @include flex-row-center;
+  gap: 5px;
+  flex-grow: 1;
+}
+
+.forms-full {
+  @include flex-row-center($wrap: wrap);
+  @include forms(95%);
 }
 
 .cards-section {

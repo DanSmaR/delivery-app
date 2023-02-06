@@ -91,7 +91,7 @@ class Checkout extends React.Component {
         <header>
           <Navbar history={ this.props } />
         </header>
-        <main>
+        <main className="main">
           <section className="checkout">
             <h1>Finalizar Pedido</h1>
             <ProductsTable
@@ -105,17 +105,19 @@ class Checkout extends React.Component {
               { getTotalPrice(selectedProductsList) }
             </TotalPriceInfo>
           </section>
-          <section>
-            <h2>Detalhes e Endereço para Entrega</h2>
-            <DeliveryForm
-              sellersList={ sellers }
-              sellerId={ +sellerId }
-              deliveryAddress={ deliveryAddress }
-              deliveryNumber={ deliveryNumber }
-              onInputChange={ this.handleInputChange }
-              onOrderSubmit={ this.handleOrderSubmit }
-              onCheckButtonIsDisabled={ this.handleCheckButtonIsDisabled }
-            />
+          <section className="delivery">
+            <span className="delivery-details">
+              <h2 className="delivery-header">Detalhes e Endereço para Entrega</h2>
+              <DeliveryForm
+                sellersList={ sellers }
+                sellerId={ +sellerId }
+                deliveryAddress={ deliveryAddress }
+                deliveryNumber={ deliveryNumber }
+                onInputChange={ this.handleInputChange }
+                onOrderSubmit={ this.handleOrderSubmit }
+                onCheckButtonIsDisabled={ this.handleCheckButtonIsDisabled }
+              />
+            </span>
           </section>
         </main>
       </>

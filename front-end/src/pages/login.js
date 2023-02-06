@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import instance from '../helpers/instance';
-import rockGlass from '../images/rockGlass.svg';
-// import '../styles/login.css';
+import deliveryLogo from '../images/logo-delivery.png';
 import emailValidate from '../utils/email.validate';
 import passwordValidate from '../utils/password.validate';
 
@@ -78,12 +77,10 @@ class Login extends React.Component {
     const { email, password, message, disabled } = this.state;
     const { history } = this.props;
     return (
-      <main>
+      <main className="main-full">
         <div className="login">
           <span className="logo">Boteco Delivery</span>
-          <object className="rocksGlass" type="image/svg+xml" data={ rockGlass }>
-            Glass
-          </object>
+          <img className="rocksGlass" src={ deliveryLogo } alt="delivery-moto" />
           <form className="forms">
             <label htmlFor="email" className="forms-child">
               Login

@@ -17,6 +17,7 @@
 
 .btn:disabled {
   background-color: $secondary-color;
+  cursor: auto;
 }
 
 .btn-qtd {
@@ -162,8 +163,17 @@ img {
 }
 
 .checkout {
-  border: red 1px solid;
-  width: 90%;
+  width: 95%;
+}
+
+.table {
+  width: 100%;
+  font-size: 2vw;
+}
+
+td {
+  text-align: center;
+  vertical-align: middle;
 }
 
 .table-body {
@@ -197,8 +207,51 @@ img {
 }
 
 .btn-rm {
+  vertical-align: middle;
   background-color: $text-color;
   color: $main-color;
   border: $secondary-color;
   width: 100%;
+  cursor: pointer;
+}
+
+.total-price-info {
+  margin-left: 70%;
+  font-size: 3vw;
+}
+
+.delivery-details {
+  @include flex-column-center;
+  gap: 20px;
+}
+
+.delivery-header {
+  margin: 0;
+}
+
+.label-vend {
+  flex-grow: 1;
+}
+.label-add {
+  flex-grow: 4;
+}
+.label-add-num {
+  flex-grow: 0;
+}
+
+.select {
+  border: $secondary-color;
+  border-radius: 5px;
+  color: $main-color-bg-support;
+  background: $text-color;
+}
+
+.order-details {
+  background-color: $main-color-bg-support;
+  padding-left: 7px;
+}
+
+.delivery-status {
+  background-color: $main-color;
+  padding: 7px;
 }

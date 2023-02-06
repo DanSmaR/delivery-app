@@ -7,7 +7,7 @@ class TotalPriceInfo extends React.Component {
     return (
       <article className="total-price-info">
         <p>
-          R$
+          Total: R$
           {' '}
           <span
             data-testid={ dataTestId }
