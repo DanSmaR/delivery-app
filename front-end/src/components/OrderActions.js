@@ -24,6 +24,7 @@ class OrderActions extends React.Component {
         </span>
         <span>
           <Button
+            className="btn"
             dataTestId="seller_order_details__button-dispatch-check"
             onAction={ () => this.handleChangeStatusById('Em Trânsito') }
             onCheckIsDisabled={ () => status !== 'Preparando' }

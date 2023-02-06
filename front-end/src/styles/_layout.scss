@@ -12,6 +12,15 @@
   }
 }
 
+%card {
+  @include card-details;
+  @include flex-column-center;
+  gap: 4px;
+  padding: 1em;
+  width: 15em;
+  height: 13em;
+}
+
 .login {
   @include flex-column-center;
   @include card-details;
@@ -66,12 +75,13 @@
   font-weight: 500;
 
   .cards {
-    @include card-details;
-    @include flex-column-center;
-    gap: 4px;
-    padding: 1em;
-    width: 15em;
-    height: 13em;
+    @extend %card;
     background-color: white;
+  }
+
+  .cards-main-color {
+    @extend %card;
+    background-color: $main-color;
+    border: $secondary-color;
   }
 }

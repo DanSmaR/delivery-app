@@ -1,7 +1,7 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import Button from './Button';
+import React from 'react';
 import instance from '../helpers/instance';
+import Button from './Button';
 
 class UserTableLine extends React.Component {
   handleDeleteItem = async (id) => {
@@ -51,6 +51,7 @@ class UserTableLine extends React.Component {
         </td>
         <td>
           <Button
+            className="btn-rm"
             dataTestId={ `admin_manage__element-user-table-remove-${index}` }
             onAction={ () => this.handleDeleteItem(user.id) }
           >
